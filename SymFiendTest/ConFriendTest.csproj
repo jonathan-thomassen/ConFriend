@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SymFiend.csproj" />
+    <ProjectReference Include="..\ConFriend.csproj" />
   </ItemGroup>
 
 </Project>
