@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="SymFiendTest\**" />
+    <Content Remove="SymFiendTest\**" />
+    <EmbeddedResource Remove="SymFiendTest\**" />
+    <None Remove="SymFiendTest\**" />
+  </ItemGroup>
+
 </Project>
