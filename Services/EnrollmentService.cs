@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SymFiend.Interfaces;
-using SymFiend.Models;
+using ConFriend.Interfaces;
+using ConFriend.Models;
 
-namespace SymFiend.Services
+namespace ConFriend.Services
 {
     public class EnrollmentService : SQLService<Enrollment>, ICrudService<Enrollment>
     {

@@ -1,4 +1,4 @@
-﻿namespace SymFiend.Models
+﻿namespace ConFriend.Models
 {
     public class Floor
     {

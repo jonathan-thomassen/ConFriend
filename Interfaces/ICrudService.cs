@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SymFiend.Interfaces
+namespace ConFriend.Interfaces
 {
     public interface ICrudService<T>
     {

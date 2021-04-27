@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="ConFriendTest\**" />
     <Content Remove="ConFriendTest\**" />
+    <EmbeddedResource Remove="ConFriendTest\**" />
     <EmbeddedResource Remove="CoonFriendTest\**" />
     <None Remove="ConFriendTest\**" />
   </ItemGroup>

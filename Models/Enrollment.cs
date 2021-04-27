@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SymFiend.Models
+namespace ConFriend.Models
 {
     public class Enrollment
     {

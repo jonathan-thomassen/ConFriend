@@ -1,4 +1,4 @@
-﻿namespace SymFiend.Interfaces
+﻿namespace ConFriend.Interfaces
 {
     public interface ISQLService<T>
     {

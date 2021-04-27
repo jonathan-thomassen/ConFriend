@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SymFiend.Interfaces;
+using ConFriend.Interfaces;
 
-namespace SymFiend.Services
+namespace ConFriend.Services
 {
     public class SQLService<T> : ISQLService<T>
     {

@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SymFiend.Pages
+namespace ConFriend.Pages
 {
     public class IndexModel : PageModel
     {
@@ -19,7 +14,6 @@ namespace SymFiend.Pages
 
         public void OnGet()
         {
-
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SymFiend.Models
+namespace ConFriend.Models
 {
     public class Event
     {
