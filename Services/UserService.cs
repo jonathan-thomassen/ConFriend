@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public class UserService : SQLService<User>, ICrudService<User>
     {
-        public UserService()
+        public UserService(IConfiguration configuration, string name) : base(configuration, name)
+        {
+            Items = new List<User>();
+        }
+
+        public UserService(string connectionString, string name) : base(connectionString, name)
         {
             Items = new List<User>();
         }
@@ -40,6 +47,14 @@ namespace ConFriend.Services
         public List<User> GetFiltered(string filter, ICrudService<User>.FilterType filterType)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnRead()
+        {
+            while (Reader.Read())
+            {
+                
+            }
         }
     }
 }

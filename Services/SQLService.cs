@@ -1,35 +1,77 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ConFriend.Interfaces;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public class SQLService<T> : ISQLService<T>
+    public abstract class SQLService<T> : Connection, ISQLService<T>
     {
+        private SqlConnection _connection;
+        private SqlCommand _command;
+        private SqlDataReader _reader;
+        private string _name;
         internal List<T> Items;
+        public SqlDataReader Reader
+        {
+            get { return _reader;}
+            private set { _reader = value; }
+        }   
+
+        public SQLService(IConfiguration configuration, string name) : base(configuration)
+        {
+            _name = name;
+        }
+
+        public SQLService(string connectionString, string name) : base(connectionString)
+        {
+            _name = name;
+        }
 
         public string QueryBuilder()
         {
-            throw new System.NotImplementedException();
+            return "SELECT * FROM User";
         }
 
         public bool SqlCommand()
         {
-            throw new System.NotImplementedException();
+            OpenDB(QueryBuilder());
+            try
+            {
+                _command.Connection.Open();
+                _reader = _command.ExecuteReader();
+                onRead();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            CloseDB();
+            return true;
         }
 
-        public void OpenDB()
+        public void OpenDB(string queryString)
         {
-            throw new System.NotImplementedException();
+            _connection = new SqlConnection(connectionString);
+            _command = new SqlCommand(queryString, _connection);
         }
 
         public void CloseDB()
         {
-            throw new System.NotImplementedException();
+            _connection.Dispose();
+            _command.Dispose(); 
         }
 
-        public void OnRead()
+        public abstract void OnRead();
+
+        private void onRead()
         {
-            throw new System.NotImplementedException();
+            while (Reader.Read())
+            {
+                OnRead();
+            }
         }
     }
 }
