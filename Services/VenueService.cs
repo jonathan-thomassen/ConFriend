@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public class VenueService : SQLService<Venue>, ICrudService<Venue>
     {
-        public VenueService()
+
+        public VenueService(IConfiguration configuration) : base(configuration, "Venue")
         {
-            Items = new List<Venue>();
+
         }
 
         public bool Create(Venue item)
@@ -38,6 +40,11 @@ namespace ConFriend.Services
         }
 
         public List<Venue> GetFiltered(string filter, ICrudService<Venue>.FilterType filterType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Venue OnRead()
         {
             throw new NotImplementedException();
         }

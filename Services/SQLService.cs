@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public abstract class SQLService<T> : Connection, ISQLService<T>
+    public enum SQLType { 
+        GetAll,
+    }
+    public abstract class SQLService<T> : Connection
     {
         private SqlConnection _connection;
         private SqlCommand _command;
@@ -29,18 +32,21 @@ namespace ConFriend.Services
             _name = name;
         }
 
-        public string QueryBuilder()
+        public string QueryBuilder(SQLType command)
         {
-            return "SELECT * FROM User";
+            if(command == 0)return "SELECT * FROM "+ _name);
+
+            return "SELECT * FROM " + _name);
         }
 
-        public bool SqlCommand()
+        public bool SQLCommand(SQLType command)
         {
-            OpenDB(QueryBuilder());
+            OpenDB(QueryBuilder(command));
             try
             {
                 _command.Connection.Open();
                 _reader = _command.ExecuteReader();
+               
                 onRead();
             }
             catch (Exception e)
@@ -63,14 +69,14 @@ namespace ConFriend.Services
             _connection.Dispose();
             _command.Dispose(); 
         }
-
-        public abstract void OnRead();
+        public abstract T OnRead();
 
         private void onRead()
         {
+            Items = new List<T>();
             while (Reader.Read())
             {
-                OnRead();
+                Items.Add(OnRead());
             }
         }
     }

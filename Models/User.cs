@@ -4,7 +4,9 @@ namespace ConFriend.Models
 {
     public enum UserType
     {
-        
+        Normal,
+        Admin,
+        SpecialNeeds
     }
 
     public class User

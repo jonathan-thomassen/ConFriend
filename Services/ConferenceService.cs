@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public class ConferenceService : SQLService<Conference>, ICrudService<Conference>
     {
-        public ConferenceService()
+      
+        public ConferenceService(IConfiguration configuration) : base(configuration, "Conference")
         {
-            Items = new List<Conference>();
+
         }
 
         public bool Create(Conference item)
@@ -40,6 +42,11 @@ namespace ConFriend.Services
         public List<Conference> GetFiltered(string filter, ICrudService<Conference>.FilterType filterType)
         {
             throw new NotImplementedException();
+        }
+
+        public override Conference OnRead()
+        {
+            return new Conference();
         }
     }
 }

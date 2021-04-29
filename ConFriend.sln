@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConFriend", "ConFriend.csproj", "{FFA445C0-C34A-4D98-AB35-7D2D05EAEB1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConFriendTest", "ConFriendTest\ConFriendTest.csproj", "{014682ED-C69C-4253-93BC-08F5304136ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConFriendTest", "ConFriendTest\ConFriendTest.csproj", "{014682ED-C69C-4253-93BC-08F5304136ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

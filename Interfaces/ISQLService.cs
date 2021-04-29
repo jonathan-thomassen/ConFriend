@@ -9,6 +9,8 @@ namespace ConFriend.Interfaces
         bool SqlCommand();
         void OpenDB(String queryString);
         void CloseDB();
-        void OnRead();
+        T OnRead();
+
+       // private abstract void onRead();
     }
 }

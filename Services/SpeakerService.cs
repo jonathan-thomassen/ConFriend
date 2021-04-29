@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public class SpeakerService : SQLService<Speaker>, ICrudService<Speaker>
     {
-        public SpeakerService()
+
+        public SpeakerService(IConfiguration configuration) : base(configuration, "Speaker")
         {
-            Items = new List<Speaker>();
+
         }
 
         public bool Create(Speaker item)
@@ -40,6 +42,12 @@ namespace ConFriend.Services
         public List<Speaker> GetFiltered(string filter, ICrudService<Speaker>.FilterType filterType)
         {
             throw new NotImplementedException();
+        }
+
+        public override Speaker OnRead()
+        {
+            Speaker speaker = new Speaker();
+            return speaker;
         }
     }
 }

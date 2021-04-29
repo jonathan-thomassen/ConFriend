@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public class EnrollmentService : SQLService<Enrollment>, ICrudService<Enrollment>
+    public class EnrollmentService : SQLService<Enrollment>
     {
-        public EnrollmentService()
+
+        public EnrollmentService(IConfiguration configuration) : base(configuration, "Enrollment")
         {
-            Items = new List<Enrollment>();
+
         }
 
         public bool Create(Enrollment item)
@@ -38,6 +40,11 @@ namespace ConFriend.Services
         }
 
         public List<Enrollment> GetFiltered(string filter, ICrudService<Enrollment>.FilterType filterType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Enrollment OnRead()
         {
             throw new NotImplementedException();
         }

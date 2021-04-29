@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public class EventService : SQLService<Event>, ICrudService<Event>
+    public class EventService : SQLService<Event>
     {
-        public EventService()
+
+        public EventService(IConfiguration configuration) : base(configuration, "Event")
         {
-            Items = new List<Event>();
+
         }
+ 
 
         public bool Create(Event item)
         {
@@ -40,6 +43,11 @@ namespace ConFriend.Services
         public List<Event> GetFiltered(string filter, ICrudService<Event>.FilterType filterType)
         {
             throw new NotImplementedException();
+        }
+        public override Event OnRead()
+        {
+            Event _event = new Event();
+            return _event;
         }
     }
 }

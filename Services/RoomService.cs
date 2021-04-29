@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public class RoomService : SQLService<Room>, ICrudService<Room>
     {
-        public RoomService()
+        public RoomService(IConfiguration configuration) : base(configuration, "Room")
         {
-            Items = new List<Room>();
+
         }
         public bool Create(Room item)
         {
@@ -39,6 +40,11 @@ namespace ConFriend.Services
         public List<Room> GetFiltered(string filter, ICrudService<Room>.FilterType filterType)
         {
             throw new NotImplementedException();
+        }
+        public override Room OnRead()
+        {
+            Room room = new Room();
+            return room;
         }
     }
 }

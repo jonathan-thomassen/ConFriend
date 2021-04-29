@@ -4,19 +4,20 @@ using ConFriend.Interfaces;
 using ConFriend.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace ConFriend.Services
 {
     public class UserService : SQLService<User>, ICrudService<User>
     {
-        public UserService(IConfiguration configuration, string name) : base(configuration, name)
+        public UserService(IConfiguration configuration) : base(configuration, "User")
         {
-            Items = new List<User>();
+
         }
 
-        public UserService(string connectionString, string name) : base(connectionString, name)
+        public UserService(string connectionString) : base(connectionString, "User")
         {
-            Items = new List<User>();
+        
         }
 
         public bool Create(User item)
@@ -26,7 +27,8 @@ namespace ConFriend.Services
 
         public List<User> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public User GetFromId(int id)
@@ -49,12 +51,18 @@ namespace ConFriend.Services
             throw new NotImplementedException();
         }
 
-        public override void OnRead()
+        public override User OnRead()
         {
-            while (Reader.Read())
-            {
-                
-            }
+            User user = new User();
+            user.UserId = Reader.GetInt32(0);
+            user.FirstName = Reader.GetString(1);
+            user.LastName = Reader.GetString(2);
+            user.Email = Reader.GetString(3);
+            user.Password = Reader.GetString(4); 
+            user.Preference = Reader.GetString(5).Split(';').ToList();
+            user.Type = (UserType)Reader.GetInt32(6);
+          
+            return user;
         }
     }
 }
