@@ -43,7 +43,7 @@ namespace ConFriend.Services
 
         public bool Update(User item)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.Update, item.ToSQL());
         }
 
         public List<User> GetFiltered(string filter, ICrudService<User>.FilterType filterType)
