@@ -34,9 +34,9 @@ namespace ConFriend.Services
 
         public string QueryBuilder(SQLType command)
         {
-            if(command == 0)return "SELECT * FROM "+ _name);
+            if(command == 0)return "SELECT * FROM "+ _name;
 
-            return "SELECT * FROM " + _name);
+            return "SELECT * FROM " + _name;
         }
 
         public bool SQLCommand(SQLType command)
