@@ -14,7 +14,7 @@ namespace ConFriend.Services
         public Connection(IConfiguration configuration)
         {
             Configuration = configuration;
-            connectionString = Configuration["ConnectionStrings:MadsConnection"];
+            connectionString = Configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public Connection(string connectionString)
