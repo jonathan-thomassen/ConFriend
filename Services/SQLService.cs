@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Markup;
 using ConFriend.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -40,23 +41,23 @@ namespace ConFriend.Services
             _name = name;
         }
 
-        public string QueryBuilder(SQLType command,string condition)
+        public string QueryBuilder(SQLType command,string condition, string values)
         {
 
             switch (command)
             {
                 case SQLType.GetAll:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    return $"SELECT * FROM {_name}";
                 case SQLType.GetAllWhere:
                     return $"SELECT * FROM {_name} WHERE {condition}";
                 case SQLType.Custom:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    return condition;
                 case SQLType.GetSingle:
                     return $"SELECT * FROM {_name} WHERE {condition}";
                 case SQLType.Create:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    return $"INSERT INTO {_name}";
                 case SQLType.Update:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    return $"UPDATE {_name} SET {values} WHERE {condition} ";
                 case SQLType.Delete:
                     return $"SELECT * FROM {_name} WHERE {condition}";
                 default:
@@ -64,9 +65,9 @@ namespace ConFriend.Services
             }
         }
 
-        public bool SQLCommand(SQLType command,string condition = "n")
+        public bool SQLCommand(SQLType command,string condition = "n", string values = "n")
         {
-            OpenDB(QueryBuilder(command, condition));
+            OpenDB(QueryBuilder(command, condition, values));
             try
             {
                 _command.Connection.Open();

@@ -18,5 +18,10 @@ namespace ConFriend.Models
         public string Password { get; set; }
         public UserType Type { get; set; }
         public List<string> Preference { get; set; }
+
+        public string ToSQL()
+        {
+            return $"UserId = {UserId}, FirstName = {FirstName}, LastName = {LastName}, E-Mail = {Email}, Password = {Password}, Preference = Golf, UserType = {Type}";
+        }
     }
 }
