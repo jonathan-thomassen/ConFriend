@@ -9,7 +9,6 @@ namespace ConFriend.Services
 {
     public enum SQLType { 
         GetAll,
-        GetAllWhere,
         GetSingle,
         Update,
         Delete,
@@ -40,34 +39,47 @@ namespace ConFriend.Services
         {
             _name = name;
         }
-
+        private string GetValues(string values)
+        {
+            string[] output = values.Split("=");
+            string str = "";
+            for (int i = 1; i < output.Length; i+=2)
+            {
+                str += output[i];
+            }
+            return str;
+        }
         public string QueryBuilder(SQLType command,string condition, string values)
         {
-
+            
             switch (command)
             {
-                case SQLType.GetAll:
-                    return $"SELECT * FROM {_name}";
-                case SQLType.GetAllWhere:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
                 case SQLType.Custom:
                     return condition;
                 case SQLType.GetSingle:
+                    if (condition == "n") return "Error";
                     return $"SELECT * FROM {_name} WHERE {condition}";
                 case SQLType.Create:
-                    return $"INSERT INTO {_name}";
+                    if (values == "n") return "Error";
+                    //extrapulatst the values from the SQL Model data  "RowName = value," => value,
+                    return $"INSERT INTO {_name} VALUES ({GetValues(values)})";
                 case SQLType.Update:
+                    if (condition == "n") return "Error";
+                    if (values == "n") return "Error";
                     return $"UPDATE {_name} SET {values} WHERE {condition} ";
                 case SQLType.Delete:
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    if (condition == "n") return "Error";
+                    return $"DELETE FROM {_name} WHERE {condition}";
                 default:
-                    return "SELECT * FROM " + _name;
+                    return $"SELECT * FROM {_name}";
             }
         }
 
         public bool SQLCommand(SQLType command,string condition = "n", string values = "n")
         {
-            OpenDB(QueryBuilder(command, condition, values));
+            string test = QueryBuilder(command, condition, values);
+            if (test == "Error") return false;
+            OpenDB(test);
             try
             {
                 _command.Connection.Open();
@@ -75,7 +87,6 @@ namespace ConFriend.Services
                 switch (command)
                 {
                     case SQLType.GetAll:
-                    case SQLType.GetAllWhere:
                     case SQLType.Custom:
                         _reader = _command.ExecuteReader();
                         onRead();

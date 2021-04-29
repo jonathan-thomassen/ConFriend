@@ -43,7 +43,7 @@ namespace ConFriend.Services
 
         public bool Update(User item)
         {
-            return SQLCommand(SQLType.Update, item.GetIdentity(), item.ToSQL());
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<User> GetFiltered(string filter, ICrudService<User>.FilterType filterType)

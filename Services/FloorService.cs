@@ -9,7 +9,7 @@ namespace ConFriend.Services
     public class FloorService : SQLService<Floor>, ICrudService<Floor>
     {
 
-        public FloorService(IConfiguration configuration) : base(configuration, "User")
+        public FloorService(IConfiguration configuration) : base(configuration, "Floor")
         {
 
         }
