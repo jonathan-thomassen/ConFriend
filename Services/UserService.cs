@@ -10,12 +10,12 @@ namespace ConFriend.Services
 {
     public class UserService : SQLService<User>, ICrudService<User>
     {
-        public UserService(IConfiguration configuration) : base(configuration, "User")
+        public UserService(IConfiguration configuration) : base(configuration, "[User]")
         {
 
         }
 
-        public UserService(string connectionString) : base(connectionString, "User")
+        public UserService(string connectionString) : base(connectionString, "[User]")
         {
         
         }
@@ -60,7 +60,7 @@ namespace ConFriend.Services
             user.Email = Reader.GetString(3);
             user.Password = Reader.GetString(4); 
             user.Preference = Reader.GetString(5).Split(';').ToList();
-            user.Type = (UserType)Reader.GetInt32(6);
+            user.Type = (UserType)Reader.GetByte(6);
           
             return user;
         }
