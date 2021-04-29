@@ -27,7 +27,7 @@ namespace ConFriend.Services
 
         public List<User> GetAll()
         {
-            SQLCommand(SQLType.GetAll);
+            SQLCommand(SQLType.GetAllWhere,"FirstName LIKE Mads");
             return Items;
         }
 

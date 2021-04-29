@@ -8,6 +8,12 @@ namespace ConFriend.Services
 {
     public enum SQLType { 
         GetAll,
+        GetAllWhere,
+        GetSingle,
+        Update,
+        Delete,
+        Create,
+        Custom
     }
     public abstract class SQLService<T> : Connection
     {
@@ -15,7 +21,9 @@ namespace ConFriend.Services
         private SqlCommand _command;
         private SqlDataReader _reader;
         private string _name;
+        internal int RowsAltered;
         internal List<T> Items;
+        internal object ObjItem;
         public SqlDataReader Reader
         {
             get { return _reader;}
@@ -32,22 +40,56 @@ namespace ConFriend.Services
             _name = name;
         }
 
-        public string QueryBuilder(SQLType command)
+        public string QueryBuilder(SQLType command,string condition)
         {
-            if(command == 0)return "SELECT * FROM "+ _name;
 
-            return "SELECT * FROM " + _name;
+            switch (command)
+            {
+                case SQLType.GetAll:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.GetAllWhere:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.Custom:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.GetSingle:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.Create:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.Update:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                case SQLType.Delete:
+                    return $"SELECT * FROM {_name} WHERE {condition}";
+                default:
+                    return "SELECT * FROM " + _name;
+            }
         }
 
-        public bool SQLCommand(SQLType command)
+        public bool SQLCommand(SQLType command,string condition = "n")
         {
-            OpenDB(QueryBuilder(command));
+            OpenDB(QueryBuilder(command, condition));
             try
             {
                 _command.Connection.Open();
-                _reader = _command.ExecuteReader();
-               
-                onRead();
+
+                switch (command)
+                {
+                    case SQLType.GetAll:
+                    case SQLType.GetAllWhere:
+                    case SQLType.Custom:
+                        _reader = _command.ExecuteReader();
+                        onRead();
+                        break;
+                    case SQLType.GetSingle:
+                        ObjItem = _command.ExecuteScalar();
+                        break;
+                    case SQLType.Create:
+                    case SQLType.Update:
+                    case SQLType.Delete:
+                        RowsAltered = _command.ExecuteNonQuery();
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception e)
             {
@@ -79,5 +121,6 @@ namespace ConFriend.Services
                 Items.Add(OnRead());
             }
         }
+      
     }
 }
