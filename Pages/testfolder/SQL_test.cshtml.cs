@@ -12,17 +12,23 @@ namespace ConFriend.Pages.debug
   
     public class SQL_testModel : PageModel
     {
-        private readonly ICrudService<User> userServis;
+        private readonly ICrudService<User> userService;
 
         public List<User> UserList { get; private set; }
         public SQL_testModel(ICrudService<User> uService)
         {
-            this.userServis = uService;
+            this.userService = uService;
         }
         public void OnGet()
         {
-            UserList = userServis.GetAll();
-   
+            User user = new User();
+            user.UserId = 2;
+            user.FirstName = "Kasper";
+            user.LastName = "Jensen";
+            user.Email = "asdf";
+            user.Password = "qwertyu";
+            userService.Update(user);
+            UserList = userService.GetAll();
         }
     }
 }
