@@ -27,7 +27,7 @@ namespace ConFriend.Services
 
         public List<User> GetAll()
         {
-            SQLCommand(SQLType.GetAllWhere,"FirstName LIKE Mads");
+            SQLCommand(SQLType.GetAll);
             return Items;
         }
 
@@ -43,7 +43,7 @@ namespace ConFriend.Services
 
         public bool Update(User item)
         {
-            return SQLCommand(SQLType.Update, $"UserId = {item.UserId}", item.ToSQL());
+            return SQLCommand(SQLType.Update, item.GetIdentity(), item.ToSQL());
         }
 
         public List<User> GetFiltered(string filter, ICrudService<User>.FilterType filterType)

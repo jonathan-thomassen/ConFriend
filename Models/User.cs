@@ -21,7 +21,13 @@ namespace ConFriend.Models
 
         public string ToSQL()
         {
-            return $"UserId = {UserId}, FirstName = {FirstName}, LastName = {LastName}, E-Mail = {Email}, Password = {Password}, Preference = Golf, UserType = {Type}";
+            //UserId = {UserId},
+            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{Password ?? "none"}', UserType = {(int)Type}";
+        }
+        public string GetIdentity()
+        {
+            //UserId = {UserId},
+            return $"UserId = {UserId}";
         }
     }
 }
