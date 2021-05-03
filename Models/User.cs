@@ -33,7 +33,6 @@ namespace ConFriend.Models
         }
         public string Identity()
         {
-            //UserId = {UserId},
             return $"UserId = {UserId}";
         }
     }

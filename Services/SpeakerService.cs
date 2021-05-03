@@ -20,17 +20,19 @@ namespace ConFriend.Services
 
         public List<Speaker> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Speaker GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, id.ToString());
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+           return SQLCommand(SQLType.Delete, id.ToString());
         }
 
         public bool Update(Speaker item)
@@ -46,6 +48,15 @@ namespace ConFriend.Services
         public override Speaker OnRead()
         {
             Speaker speaker = new Speaker();
+
+            speaker.SpeakerId = Reader.GetInt32(0);
+            speaker.FirstName = Reader.GetString(1);
+            speaker.LastName = Reader.GetString(2);
+            speaker.Email = Reader.GetString(3);
+            speaker.Image = Reader.GetString(4);
+            speaker.Description = Reader.GetString(5);
+            speaker.Title = Reader.GetString(6);
+
             return speaker;
         }
     }

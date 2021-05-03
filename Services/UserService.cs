@@ -33,7 +33,7 @@ namespace ConFriend.Services
 
         public User GetFromId(int id)
         {
-            SQLCommand(SQLType.GetSingle, id.ToString());
+            SQLCommand(SQLType.GetSingle, $"UserId = {id}");
             return Item;
         }
 
