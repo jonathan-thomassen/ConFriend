@@ -18,5 +18,6 @@
         {
             return $"SpeakerId = {SpeakerId}";
         }
+        public static string IdentitySQL = "SpeakerId =";
     }
 }
