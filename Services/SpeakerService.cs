@@ -15,7 +15,7 @@ namespace ConFriend.Services
         }
         public bool Create(Speaker item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Speaker> GetAll()
@@ -26,18 +26,18 @@ namespace ConFriend.Services
 
         public Speaker GetFromId(int id)
         {
-            SQLCommand(SQLType.GetSingle, id.ToString());
+            SQLCommand(SQLType.GetSingle, $"SpeakerId = {id}");
             return Item;
         }
 
         public bool Delete(int id)
         {
-           return SQLCommand(SQLType.Delete, id.ToString());
+           return SQLCommand(SQLType.Delete, $"SpeakerId = {id}");
         }
 
         public bool Update(Speaker item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Speaker> GetFiltered(string filter, ICrudService<Speaker>.FilterType filterType)

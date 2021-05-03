@@ -15,27 +15,29 @@ namespace ConFriend.Services
         }
         public bool Create(Floor item)
         {
-            
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Floor> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Floor GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, $"FloorId = {id}");
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"FloorId = {id}");
         }
 
         public bool Update(Floor item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Floor> GetFiltered(string filter, ICrudService<Floor>.FilterType filterType)
@@ -44,8 +46,13 @@ namespace ConFriend.Services
         }
         public override Floor OnRead()
         {
-            Floor rloor = new Floor();
-            return rloor;
+            Floor floor = new Floor();
+
+            floor.FloorId= Reader.GetInt32(0);
+            floor.Name = Reader.GetString(1);
+            floor.Image = Reader.GetString(2);
+
+            return floor;
         }
     }
 }
