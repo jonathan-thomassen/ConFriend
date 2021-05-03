@@ -13,11 +13,9 @@ namespace ConFriend.Services
         {
 
         }
-  
-
         public bool Create(Floor item)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.
         }
 
         public List<Floor> GetAll()

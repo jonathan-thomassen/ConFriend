@@ -17,12 +17,19 @@ namespace ConFriend.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public UserType Type { get; set; }
-        public List<string> Preference { get; set; }
+
+        private List<string> Preference;
+       
+        
 
         public string ToSQL()
         {
+            foreach (var item in Preference)
+            {
+
+            }
             //UserId = {UserId},
-            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{Password ?? "none"}', UserType = {(int)Type}";
+            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{Preference}', UserType = {(int)Type}";
         }
         public string Identity()
         {

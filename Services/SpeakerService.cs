@@ -13,7 +13,6 @@ namespace ConFriend.Services
         {
 
         }
-
         public bool Create(Speaker item)
         {
             throw new NotImplementedException();

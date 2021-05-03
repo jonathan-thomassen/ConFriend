@@ -60,7 +60,7 @@ namespace ConFriend.Services
             user.LastName = Reader.GetString(2);
             user.Email = Reader.GetString(3);
             user.Password = Reader.GetString(4);
-            user.Preference = Reader.IsDBNull(5) ? new List<string>() : Reader.GetString(5).Split(';').ToList();
+            user.Preference = Reader.IsDBNull(5) ? null : Reader.GetString(5).Split(';').ToList();
             user.Type = (UserType)Reader.GetByte(6);
           
             return user;
