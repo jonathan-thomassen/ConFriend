@@ -14,5 +14,6 @@
         {
             return $"FloorId = {FloorId}";
         }
+        public static string IdentitySQL = "FloorId =";
     }
 }

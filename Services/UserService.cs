@@ -22,7 +22,7 @@ namespace ConFriend.Services
 
         public bool Create(User item)
         {
-            SQLCommand(SQLType.Create, );
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<User> GetAll()
@@ -39,7 +39,7 @@ namespace ConFriend.Services
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"{Floor.IdentitySQL} {id}");
         }
 
         public bool Update(User item)
@@ -49,7 +49,7 @@ namespace ConFriend.Services
 
         public List<User> GetFiltered(string filter, ICrudService<User>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override User OnRead()

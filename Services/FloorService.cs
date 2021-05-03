@@ -26,13 +26,13 @@ namespace ConFriend.Services
 
         public Floor GetFromId(int id)
         {
-            SQLCommand(SQLType.GetSingle, $"FloorId = {id}");
+            SQLCommand(SQLType.GetSingle, $"{Floor.IdentitySQL} {id}");
             return Item;
         }
 
         public bool Delete(int id)
         {
-            return SQLCommand(SQLType.Delete, $"FloorId = {id}");
+            return SQLCommand(SQLType.Delete, $"{Floor.IdentitySQL} {id}");
         }
 
         public bool Update(Floor item)
@@ -42,7 +42,7 @@ namespace ConFriend.Services
 
         public List<Floor> GetFiltered(string filter, ICrudService<Floor>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null; 
         }
         public override Floor OnRead()
         {
