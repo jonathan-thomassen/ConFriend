@@ -39,7 +39,7 @@ namespace ConFriend.Services
 
         public bool Delete(int id)
         {
-            return SQLCommand(SQLType.Delete, $"{Floor.IdentitySQL} {id}");
+            return SQLCommand(SQLType.Delete, $"{User.IdentitySQL} {id}");
         }
 
         public bool Update(User item)
