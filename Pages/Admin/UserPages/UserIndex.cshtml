@@ -1,0 +1,80 @@
+﻿@page
+@model ConFriend.Pages.Admin.UserPages.UserIndexModel
+@{
+}
+
+<h2>List of users</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Password
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Preferences
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.User != null)
+    {
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    @item.UserId
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Password
+                </td>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @foreach (var pref in item.Preference)
+                    {
+                        @pref
+                    }
+                </td>
+                <td>
+                    <a>Edit</a>
+                </td>
+                <td>
+                    <a>Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<a asp-page="Create">Create new user</a>
