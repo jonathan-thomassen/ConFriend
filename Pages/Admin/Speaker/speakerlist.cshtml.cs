@@ -34,7 +34,10 @@ namespace ConFriend.Pages
             }
         }
 
-
+        public IActionResult OnPost()
+        {
+            return Page();
+        }
         public void OnGet()
         {
             if (String.IsNullOrEmpty(FilterCriteria))
