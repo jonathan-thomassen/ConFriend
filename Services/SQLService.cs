@@ -58,7 +58,7 @@ namespace ConFriend.Services
                     return condition;
                 case SQLType.GetSingle:
                     if (condition == "n") return "Error";
-                    return $"SELECT * FROM [{_name}] WHERE {_name}Id = {condition}";
+                    return $"SELECT * FROM [{_name}] WHERE {condition}";
                 case SQLType.Create:
                     if (values == "n") return "Error";
                     //extrapulatst the values from the SQL Model data  "RowName = value," => value,
