@@ -26,9 +26,9 @@ namespace ConFriend.Models
         public string ToSQL()
         {
             return
-                $"SpeakerId = '{Host.SpeakerId}', RoomId = '{Room.RoomId}', ConferenceId = '{Conference.ConferenceId}', Name = '{Name}', StartTime = '{StartTime}'," +
-                $" Duration = '{Duration}', Type = '{Type}', Description = '{Description}',Capacity = '{Capacity}', ImageUrl = '{Image}'," +
-                $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
+                $"SpeakerId = {Host.SpeakerId}, RoomId = {Room.RoomId}, ConferenceId = {Conference.ConferenceId}, Name = '{Name}', StartTime = {StartTime}," +
+                $" Duration = {Duration}, Type = '{Type}', Description = '{Description}',Capacity = {Capacity}, ImageUrl = '{Image}'," +
+                $" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
         }
 
         public string Identity()

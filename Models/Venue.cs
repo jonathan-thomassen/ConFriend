@@ -17,7 +17,7 @@ namespace ConFriend.Models
 
         public string Identity()
         {
-            return $"VenueId = '{VenueId}'";
+            return $"VenueId = {VenueId}";
         }
         public static string IdentitySQL = "VenueId =";
     }

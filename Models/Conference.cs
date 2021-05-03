@@ -14,11 +14,11 @@ namespace ConFriend.Models
 
         public string ToSQL()
         {
-            return $"VenueId = '{VenueId}', Name = '{Name}'";
+            return $"VenueId = {VenueId}, Name = '{Name}'";
         }
         public string Identity()
         {
-            return $"ConferenceId = '{ConferenceId}'";
+            return $"ConferenceId = {ConferenceId}";
         }
         public static string IdentitySQL = "ConferenceId =";
     }

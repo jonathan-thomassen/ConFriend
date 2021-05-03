@@ -19,7 +19,7 @@ namespace ConFriend.Models
         public Dictionary<string, bool> Features { get; set; }
         public string ToSQL()
         {
-            return $"FloorId = '{FloorId}', VenueId = '{VenueId}', Name = '{Name}', Size = '{Size}', Capacity = '{Capacity}', DoorAmount = '{DoorAmount}', ImageUrl = '{Image}', Coordinates = '{Coordinates}'";
+            return $"FloorId = {FloorId}, VenueId = {VenueId}, Name = '{Name}', Size = {Size}, Capacity = {Capacity}, DoorAmount = {DoorAmount}, ImageUrl = '{Image}', Coordinates = '{Coordinates}'";
         }
 
         public string Identity()

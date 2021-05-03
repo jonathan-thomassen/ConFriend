@@ -10,12 +10,12 @@ namespace ConFriend.Models
         public Event Event { get; set; }
         public string ToSQL()
         {
-            return $"EventId = '{Event.EventId}', UserId = '{User.UserId}', SignUpTime = '{SignUpTime}'";
+            return $"EventId = {Event.EventId}, UserId = {User.UserId}, SignUpTime = {SignUpTime}";
         }
 
         public string Identity()
         {
-            return $"EnrollmentId = '{EnrollmentId}'";
+            return $"EnrollmentId = {EnrollmentId}";
         }
         public static string IdentitySQL = "EnrollmentId =";
     }
