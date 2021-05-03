@@ -10,12 +10,12 @@ namespace ConFriend.Services
 {
     public class UserService : SQLService<User>, ICrudService<User>
     {
-        public UserService(IConfiguration configuration) : base(configuration, "[User]")
+        public UserService(IConfiguration configuration) : base(configuration, "User")
         {
 
         }
 
-        public UserService(string connectionString) : base(connectionString, "[User]")
+        public UserService(string connectionString) : base(connectionString, "User")
         {
         
         }
@@ -33,7 +33,8 @@ namespace ConFriend.Services
 
         public User GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, id.ToString());
+            return Item;
         }
 
         public bool Delete(int id)
@@ -58,8 +59,8 @@ namespace ConFriend.Services
             user.FirstName = Reader.GetString(1);
             user.LastName = Reader.GetString(2);
             user.Email = Reader.GetString(3);
-            user.Password = Reader.GetString(4); 
-            user.Preference = Reader.GetString(5).Split(';').ToList();
+            user.Password = Reader.GetString(4);
+            user.Preference = Reader.IsDBNull(5) ? new List<string>() : Reader.GetString(5).Split(';').ToList();
             user.Type = (UserType)Reader.GetByte(6);
           
             return user;

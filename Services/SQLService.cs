@@ -23,7 +23,7 @@ namespace ConFriend.Services
         private string _name;
         internal int RowsAltered;
         internal List<T> Items;
-        internal object ObjItem;
+        internal T Item;
         public SqlDataReader Reader
         {
             get { return _reader;}
@@ -49,7 +49,7 @@ namespace ConFriend.Services
             }
             return str;
         }
-        public string QueryBuilder(SQLType command,string condition, string values)
+        public string QueryBuilder(SQLType command, string condition, string values)
         {
             
             switch (command)
@@ -58,20 +58,20 @@ namespace ConFriend.Services
                     return condition;
                 case SQLType.GetSingle:
                     if (condition == "n") return "Error";
-                    return $"SELECT * FROM {_name} WHERE {condition}";
+                    return $"SELECT * FROM [{_name}] WHERE {_name}Id = {condition}";
                 case SQLType.Create:
                     if (values == "n") return "Error";
                     //extrapulatst the values from the SQL Model data  "RowName = value," => value,
-                    return $"INSERT INTO {_name} VALUES ({GetValues(values)})";
+                    return $"INSERT INTO [{_name}] VALUES ({GetValues(values)})";
                 case SQLType.Update:
                     if (condition == "n") return "Error";
                     if (values == "n") return "Error";
-                    return $"UPDATE {_name} SET {values} WHERE {condition} ";
+                    return $"UPDATE [{_name}] SET {values} WHERE {condition} ";
                 case SQLType.Delete:
                     if (condition == "n") return "Error";
-                    return $"DELETE FROM {_name} WHERE {condition}";
+                    return $"DELETE FROM [{_name}] WHERE {condition}";
                 default:
-                    return $"SELECT * FROM {_name}";
+                    return $"SELECT * FROM [{_name}]";
             }
         }
 
@@ -92,7 +92,9 @@ namespace ConFriend.Services
                         onRead();
                         break;
                     case SQLType.GetSingle:
-                        ObjItem = _command.ExecuteScalar();
+                        _reader = _command.ExecuteReader();
+                        onRead();
+                        Item = Items[0];
                         break;
                     case SQLType.Create:
                     case SQLType.Update:
@@ -123,6 +125,7 @@ namespace ConFriend.Services
             _connection.Dispose();
             _command.Dispose(); 
         }
+
         public abstract T OnRead();
 
         private void onRead()

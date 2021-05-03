@@ -13,3 +13,16 @@
     <p>User: @item.Preference</p>
     <p>User: @item.Type</p>
 }
+
+<form method="post">
+    <input type="text" asp-for="UserId"/>
+    <input type="submit" asp-page-handler="GetUser" value="Get User" />
+</form>
+
+<p>User: @Model.TestUser.UserId</p>
+<p>User: @Model.TestUser.FirstName</p>
+<p>User: @Model.TestUser.LastName</p>
+<p>User: @Model.TestUser.Email</p>
+<p>User: @Model.TestUser.Password</p>
+<p>User: @Model.TestUser.Preference</p>
+<p>User: @Model.TestUser.Type</p>
