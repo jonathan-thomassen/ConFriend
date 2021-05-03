@@ -48,9 +48,10 @@ namespace ConFriend.Services
         {
             Floor floor = new Floor();
 
-            floor.FloorId= Reader.GetInt32(0);
-            floor.Name = Reader.GetString(1);
-            floor.Image = Reader.GetString(2);
+            floor.FloorId = Reader.GetInt32(0);
+            floor.VenueId = Reader.GetInt32(1);
+            floor.Name = Reader.GetString(2);
+            floor.Image = Reader.IsDBNull(3) ? "" : Reader.GetString(3);
 
             return floor;
         }
