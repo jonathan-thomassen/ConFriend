@@ -55,8 +55,8 @@ namespace ConFriend.Services
             speaker.FirstName = Reader.GetString(1);
             speaker.LastName = Reader.GetString(2);
             speaker.Email = Reader.GetString(3);
-            speaker.Image = Reader.GetString(4);
-            speaker.Description = Reader.GetString(5);
+            speaker.Image = Reader.IsDBNull(4) ? "" : Reader.GetString(4);
+            speaker.Description = Reader.IsDBNull(5) ? "" : Reader.GetString(5);
             speaker.Title = Reader.GetString(6);
 
             return speaker;

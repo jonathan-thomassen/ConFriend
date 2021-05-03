@@ -40,13 +40,12 @@ namespace ConFriend.Pages
         }
         public void OnGet()
         {
-            if (String.IsNullOrEmpty(FilterCriteria))
-            {
-                // speaker = speakerService.GetAll();
-                // speaker = speakerService.GetFiltered(FilterCriteria);
-            }
-
-
+            //if (String.IsNullOrEmpty(FilterCriteria))
+            //{
+            //    // speaker = speakerService.GetAll();
+            //    // speaker = speakerService.GetFiltered(FilterCriteria);
+            //}
+            Speakers = speakerService.GetAll();
         }
     }
 }
