@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConFriend.Models
 {
-    public class Event
+    public class Event : IModel
     {
         public int EventId { get; set; }
         public string Name { get; set; }

@@ -2,7 +2,7 @@
 
 namespace ConFriend.Models
 {
-    public class Venue
+    public class Venue : IModel
     {
         public int VenueId { get; set; }
         public string Name { get; set; }

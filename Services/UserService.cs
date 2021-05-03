@@ -22,7 +22,7 @@ namespace ConFriend.Services
 
         public bool Create(User item)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.Create, );
         }
 
         public List<User> GetAll()
@@ -33,7 +33,7 @@ namespace ConFriend.Services
 
         public User GetFromId(int id)
         {
-            SQLCommand(SQLType.GetSingle, $"UserId = {id}");
+            SQLCommand(SQLType.GetSingle, $"{User.IdentitySQL} {id}");
             return Item;
         }
 
@@ -60,7 +60,7 @@ namespace ConFriend.Services
             user.LastName = Reader.GetString(2);
             user.Email = Reader.GetString(3);
             user.Password = Reader.GetString(4);
-            user.Preference = Reader.IsDBNull(5) ? null : Reader.GetString(5).Split(';').ToList();
+            user.Preference = Reader.IsDBNull(5) ? new List<string>() : Reader.GetString(5).Split(';').ToList();
             user.Type = (UserType)Reader.GetByte(6);
           
             return user;

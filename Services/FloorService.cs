@@ -15,7 +15,7 @@ namespace ConFriend.Services
         }
         public bool Create(Floor item)
         {
-            SQLCommand(SQLType.
+            
         }
 
         public List<Floor> GetAll()

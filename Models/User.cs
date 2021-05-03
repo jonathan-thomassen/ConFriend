@@ -9,7 +9,7 @@ namespace ConFriend.Models
         SpecialNeeds
     }
 
-    public class User
+    public class User : IModel
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -18,22 +18,29 @@ namespace ConFriend.Models
         public string Password { get; set; }
         public UserType Type { get; set; }
 
-        private List<string> Preference;
-       
-        
-
+        public List<string> Preference { get; set; }
+     
         public string ToSQL()
         {
-            foreach (var item in Preference)
-            {
-
+            string str = "";
+            if (Preference != null) {
+                foreach (string item in Preference)
+                {
+                    str += item + ",";
+                }
+                str = str.Substring(0, str.Length - 1);
+            }
+            else{
+                str = "none";
             }
             //UserId = {UserId},
-            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{Preference}', UserType = {(int)Type}";
+            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}', UserType = {(int)Type}";
         }
         public string Identity()
         {
             return $"UserId = {UserId}";
         }
+
+        public static string IdentitySQL = "UserId =";
     }
 }

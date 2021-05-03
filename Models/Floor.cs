@@ -1,6 +1,6 @@
 ﻿namespace ConFriend.Models
 {
-    public class Floor
+    public class Floor : IModel
     {
         public int FloorId { get; set; }
         public string Name { get; set; }

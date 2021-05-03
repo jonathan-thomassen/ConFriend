@@ -1,6 +1,6 @@
 ﻿namespace ConFriend.Models
 {
-    public class Speaker
+    public class Speaker : IModel
     {
         public int SpeakerId { get; set; }
         public string FirstName { get; set; }
