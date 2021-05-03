@@ -25,7 +25,7 @@ namespace ConFriend.Pages.debug
             user.UserId = 2;
             user.FirstName = "Kasper";
             user.LastName = "Jensen";
-            user.Email = "asdf";
+            user.Email = "NewMail";
             user.Password = "qwertyu";
             userService.Update(user);
             UserList = userService.GetAll();
