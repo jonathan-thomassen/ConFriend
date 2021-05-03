@@ -15,7 +15,7 @@ namespace ConFriend.Services
         }
         public bool Create(Speaker item)
         {
-            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
+            return SQLCommand(SQLType.Create, "n", item.ToSQL());
         }
 
         public List<Speaker> GetAll()
