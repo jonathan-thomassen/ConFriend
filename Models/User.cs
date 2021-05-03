@@ -36,6 +36,7 @@ namespace ConFriend.Models
             //UserId = {UserId},
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}', UserType = {(int)Type}";
         }
+
         public string Identity()
         {
             return $"UserId = {UserId}";

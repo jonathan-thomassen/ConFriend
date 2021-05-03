@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\User\" />
+  </ItemGroup>
+
 </Project>

@@ -15,6 +15,7 @@ namespace ConFriend.Services
         Create,
         Custom
     }
+
     public abstract class SQLService<T> : Connection
     {
         private SqlConnection _connection;
@@ -24,6 +25,7 @@ namespace ConFriend.Services
         internal int RowsAltered;
         internal List<T> Items;
         internal T Item;
+
         public SqlDataReader Reader
         {
             get { return _reader;}
@@ -39,6 +41,7 @@ namespace ConFriend.Services
         {
             _name = name;
         }
+
         private string GetValues(string values)
         {
             string[] output = values.Split("=");
@@ -49,6 +52,7 @@ namespace ConFriend.Services
             }
             return str;
         }
+
         public string QueryBuilder(SQLType command, string condition, string values)
         {
             
@@ -61,7 +65,7 @@ namespace ConFriend.Services
                     return $"SELECT * FROM [{_name}] WHERE {condition}";
                 case SQLType.Create:
                     if (values == "n") return "Error";
-                    //extrapulatst the values from the SQL Model data  "RowName = value," => value,
+                    //extrapolates the values from the SQL Model data  "RowName = value," => value,
                     return $"INSERT INTO [{_name}] VALUES ({GetValues(values)})";
                 case SQLType.Update:
                     if (condition == "n") return "Error";
@@ -70,6 +74,7 @@ namespace ConFriend.Services
                 case SQLType.Delete:
                     if (condition == "n") return "Error";
                     return $"DELETE FROM [{_name}] WHERE {condition}";
+                case SQLType.GetAll:
                 default:
                     return $"SELECT * FROM [{_name}]";
             }

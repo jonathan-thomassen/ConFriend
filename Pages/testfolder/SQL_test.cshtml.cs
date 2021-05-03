@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ConFriend.Interfaces;
 using ConFriend.Models;
 
-namespace ConFriend.Pages.debug
+namespace ConFriend.Pages.testfolder
 {
   
     public class SQL_testModel : PageModel
     {
-        private readonly ICrudService<User> userService;
+        private readonly ICrudService<User> _userService;
 
         public List<User> UserList { get; private set; }
 
@@ -22,34 +22,19 @@ namespace ConFriend.Pages.debug
 
         public SQL_testModel(ICrudService<User> uService)
         {
-            this.userService = uService;
+            _userService = uService;
             TestUser = new User();
+            UserList = _userService.GetAll();
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            User user = new User();
-            user.UserId = 2;
-            user.FirstName = "Kasper";
-            user.LastName = "Jensen";
-            user.Email = "asdf";
-            user.Password = "qwertyu";
-            userService.Update(user);
-            UserList = userService.GetAll();
+            return Page();
         }
 
         public IActionResult OnPostGetUser()
         {
-            User user = new User();
-            user.UserId = 2;
-            user.FirstName = "Kasper";
-            user.LastName = "Jensen";
-            user.Email = "asdf";
-            user.Password = "qwertyu";
-            userService.Update(user);
-            UserList = userService.GetAll();
-
-            TestUser = userService.GetFromId(UserId);
+            TestUser = _userService.GetFromId(UserId);
 
             return Page();
         }
