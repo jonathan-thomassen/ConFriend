@@ -42,7 +42,7 @@ namespace ConFriend.Services
 
         public List<Floor> GetFiltered(string filter, ICrudService<Floor>.FilterType filterType)
         {
-            return null; 
+            return null;
         }
         public override Floor OnRead()
         {

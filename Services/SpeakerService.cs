@@ -26,13 +26,15 @@ namespace ConFriend.Services
 
         public Speaker GetFromId(int id)
         {
-            SQLCommand(SQLType.GetSingle, $"SpeakerId = {id}");
+            SQLCommand(SQLType.GetSingle, $"{Speaker.IdentitySQL} {id}");
             return Item;
+
+           
         }
 
         public bool Delete(int id)
         {
-           return SQLCommand(SQLType.Delete, $"SpeakerId = {id}");
+           return SQLCommand(SQLType.Delete, $"{Speaker.IdentitySQL} {id}");
         }
 
         public bool Update(Speaker item)
@@ -42,7 +44,7 @@ namespace ConFriend.Services
 
         public List<Speaker> GetFiltered(string filter, ICrudService<Speaker>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override Speaker OnRead()

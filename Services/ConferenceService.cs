@@ -16,37 +16,48 @@ namespace ConFriend.Services
 
         public bool Create(Conference item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Conference> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Conference GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, $"{Conference.IdentitySQL} {id}");
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"{Conference.IdentitySQL} {id}");
         }
 
         public bool Update(Conference item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Conference> GetFiltered(string filter, ICrudService<Conference>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override Conference OnRead()
         {
-            return new Conference();
+
+            Conference conference = new Conference();
+
+            conference.ConferenceId = Reader.GetInt32(0);
+            conference.Name = Reader.GetString(1);
+            conference.EventThemes = new List<string>();
+            conference.Speakers = null;
+            conference.Events = null;
+
+            return conference;
         }
     }
 }

@@ -14,36 +14,51 @@ namespace ConFriend.Services
         }
         public bool Create(Room item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Room> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Room GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, $"{Room.IdentitySQL} {id}");
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"{Room.IdentitySQL} {id}");
         }
 
         public bool Update(Room item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Room> GetFiltered(string filter, ICrudService<Room>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
         public override Room OnRead()
         {
             Room room = new Room();
+
+            room.RoomId = Reader.GetInt32(0);
+            room.Name = Reader.GetString(1);
+            room.Floor = Reader.GetString(2);
+            room.Events = null;
+            room.Size = Reader.GetInt32(4);
+            room.Capacity = Reader.GetInt32(5);
+            room.DoorAmount = Reader.GetInt32(6);
+            room.Image = Reader.GetString(7);
+            room.Coordinates = null;
+            room.SeatCategories = null;
+            room.Features = null;
+
             return room;
         }
     }

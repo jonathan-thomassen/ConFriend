@@ -16,37 +16,46 @@ namespace ConFriend.Services
 
         public bool Create(Enrollment item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Enrollment> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Enrollment GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, $"{Enrollment.IdentitySQL} {id}");
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"{Enrollment.IdentitySQL} {id}");
         }
 
         public bool Update(Enrollment item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Enrollment> GetFiltered(string filter, ICrudService<Enrollment>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override Enrollment OnRead()
         {
-            throw new NotImplementedException();
+            Enrollment enrollment = new Enrollment();
+
+            enrollment.EnrollmentId = Reader.GetInt32(0);
+            enrollment.SignUpTime = Reader.GetDateTime(1);
+            enrollment.User = null;
+            enrollment.Event = null;
+       
+            return enrollment;
         }
     }
 }

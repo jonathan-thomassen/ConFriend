@@ -16,37 +16,47 @@ namespace ConFriend.Services
 
         public bool Create(Venue item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
         }
 
         public List<Venue> GetAll()
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetAll);
+            return Items;
         }
 
         public Venue GetFromId(int id)
         {
-            throw new NotImplementedException();
+            SQLCommand(SQLType.GetSingle, $"{Venue.IdentitySQL} {id}");
+            return Item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Delete, $"{Venue.IdentitySQL} {id}");
         }
 
         public bool Update(Venue item)
         {
-            throw new NotImplementedException();
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public List<Venue> GetFiltered(string filter, ICrudService<Venue>.FilterType filterType)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override Venue OnRead()
         {
-            throw new NotImplementedException();
+            Venue venue = new Venue();
+            venue.VenueId = Reader.GetInt32(0);
+            venue.Name = Reader.GetString(1);
+            venue.Floors = null;
+            venue.Rooms = null;
+            venue.SeatCategories = null;
+            venue.RoomFeatures = null;
+
+            return venue;
         }
     }
 }
