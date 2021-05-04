@@ -1,30 +1,35 @@
 ﻿@page
-@model ConFriend.Pages.Admin.FloorTest.CreateFloorModel
+@model ConFriend.Pages.Admin.FloorTest.EditFloorModel
 @{
 }
-<h4>Create Floor</h4>
+<h4>Edit Floor</h4>
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.VenueId" class="control-label">VenueId</label>
+        <label asp-for="@Model.NewFloor.FloorId" class="control-label">HotelNr</label>
+        <input asp-for="@Model.NewFloor.FloorId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.NewFloor.FloorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewFloor.VenueId" class="control-label">Name</label>
         <input asp-for="@Model.NewFloor.VenueId" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.VenueId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.Name" class="control-label">Name</label>
+        <label asp-for="@Model.NewFloor.Name" class="control-label">Address</label>
         <input asp-for="@Model.NewFloor.Name" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.Image" class="control-label">ImageURL</label>
+        <label asp-for="@Model.NewFloor.Image" class="control-label">Address</label>
         <input asp-for="@Model.NewFloor.Image" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.Image" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="button btn btn-dark" />
+        <input type="submit" value="Save" class="button btn btn-dark" />
     </div>
 </form>
 @if (Model.done)
 {
-    <h4 style="color:green">The Floor has been created</h4>
+    <h4 style="color:green">The Hotel has been updated</h4>
     <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
 }
