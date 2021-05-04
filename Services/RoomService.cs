@@ -48,16 +48,14 @@ namespace ConFriend.Services
             Room room = new Room();
 
             room.RoomId = Reader.GetInt32(0);
-            room.Name = Reader.GetString(1);
-            room.Floor = Reader.GetString(2);
-            room.Events = null;
+            room.FloorId = Reader.GetInt32(1);
+            room.VenueId = Reader.GetInt32(2);
+            room.Name = Reader.GetString(3);
             room.Size = Reader.GetInt32(4);
             room.Capacity = Reader.GetInt32(5);
             room.DoorAmount = Reader.GetInt32(6);
-            room.Image = Reader.GetString(7);
-            room.Coordinates = null;
-            room.SeatCategories = null;
-            room.Features = null;
+            room.Image = Reader.IsDBNull(7) ? "":Reader.GetString(7);
+            room.Coordinates = Reader.IsDBNull(8) ? "":Reader.GetString(8);
 
             return room;
         }
