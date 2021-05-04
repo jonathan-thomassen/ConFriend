@@ -28,8 +28,6 @@ namespace ConFriend.Services
         {
             SQLCommand(SQLType.GetSingle, $"{Speaker.IdentitySQL} {id}");
             return Item;
-
-           
         }
 
         public bool Delete(int id)

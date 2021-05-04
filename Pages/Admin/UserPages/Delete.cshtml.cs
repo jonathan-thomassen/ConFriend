@@ -16,9 +16,9 @@ namespace ConFriend.Pages.Admin.UserPages
         [BindProperty]
         public new User User { get; set; }
 
-        public DeleteModel(ICrudService<User> uService)
+        public DeleteModel(ICrudService<User> userService)
         {
-            _userService = uService;
+            _userService = userService;
         }
 
         public IActionResult OnGet(int? id)

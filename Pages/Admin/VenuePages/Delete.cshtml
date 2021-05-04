@@ -1,0 +1,23 @@
+﻿@page
+@model ConFriend.Pages.Admin.VenuePages.DeleteModel
+@{
+    ViewData["Title"] = "Delete venue";
+}
+
+<h1>Delete venue</h1>
+
+<form method="post">
+    <h4>Are you sure you want to delete this venue?</h4>
+
+    <div class="form-group">
+        <label asp-for="@Model.Venue.VenueId" class="control-label"></label>
+        @Model.Venue.VenueId
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Venue.Name" class="control-label"></label>
+        @Model.Venue.VenueId
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+</form>
