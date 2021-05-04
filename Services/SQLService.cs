@@ -46,15 +46,15 @@ namespace ConFriend.Services
         {
             string[] output = values.Split("=");
             string str = "";
-            for (int i = 1; i < output.Length; i+=2)
+            for (int i = 1; i < output.Length; i++)
             {
                 int v = output[i].IndexOf(',');
                 if (v == -1)
                 {
-                    str += output[i]; 
+                    str += "," + output[i]; 
                 }
                 else{
-                    str += output[i].Substring(0, v);
+                    str += "," + output[i].Substring(0, v);
                 }
                
             }
