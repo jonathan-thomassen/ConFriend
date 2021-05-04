@@ -1,0 +1,29 @@
+﻿@page
+@model ConFriend.Pages.Admin.FloorTest.DeleteFloorModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <input asp-for="@Model.Floor.FloorId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Floor.FloorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Floor.VenueId" class="control-label">Name</label>
+        <input asp-for="@Model.Floor.VenueId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Floor.VenueId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Floor.Name" class="control-label">Address</label>
+        <input asp-for="@Model.Floor.Name" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Floor.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Floor.Image" class="control-label">Address</label>
+        <input asp-for="@Model.Floor.Image" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Floor.Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-page-handler="Confirm" type="submit" value="Delete" class="button btn btn-danger" asp-route-fId="@Model.Floor.FloorId" />
+        <a class="button btn btn-dark" asp-page="GetAllHotels">Return to all hotels</a>
+    </div>
+</form>
