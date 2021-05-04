@@ -11,7 +11,7 @@ namespace ConFriend.Models
         public string Name { get; set; }
         public string ToSQL()
         {
-            return $"Name = {Name}";
+            return $"Name = '{Name}'";
         }
 
         public string Identity()
