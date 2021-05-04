@@ -1,4 +1,5 @@
 ﻿@page
+@using ConFriend.Models
 @model ConFriend.Pages.Admin.UserPages.EditModel
 @{
 }
@@ -8,7 +9,7 @@
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.User.UserId" class="control-label"></label>
-        <p>@Model.User.UserId</p>
+        @Model.User.UserId
     </div>
     <div class="form-group">
         <label asp-for="@Model.User.FirstName" class="control-label"></label>
@@ -21,6 +22,34 @@
         <span asp-validation-for="User.LastName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="OK" />
+        <label asp-for="@Model.User.Email" class="control-label"></label>
+        <input asp-for="@Model.User.Email" class="form-control" />
+        <span asp-validation-for="User.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.Password" class="control-label"></label>
+        <input asp-for="@Model.User.Password" class="form-control" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.PasswordRepeat" class="control-label"></label>
+        <input asp-for="@Model.User.PasswordRepeat" class="form-control" />
+        <span asp-validation-for="User.PasswordRepeat" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.Type" class="control-label"></label>
+        <select asp-for="@Model.User.Type">
+            <option value="@UserType.Admin">Admin</option>
+            <option value="@UserType.Normal">Normal</option>
+            <option value="@UserType.SpecialNeeds">Special Needs</option>
+        </select>
+        <span asp-validation-for="User.Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Edit" />
     </div>
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

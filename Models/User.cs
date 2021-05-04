@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConFriend.Models
 {
@@ -12,6 +14,7 @@ namespace ConFriend.Models
 
     public class User : IModel
     {
+        [Editable(false)]
         public int UserId { get; set; }
 
         [Required]

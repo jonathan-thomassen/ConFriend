@@ -66,10 +66,10 @@
                     }
                 </td>
                 <td>
-                    <a>Edit</a>
+                    <a asp-page="Edit" asp-route-id="@item.UserId">Edit</a>
                 </td>
                 <td>
-                    <a>Delete</a>
+                    <a asp-page="Delete" asp-route-id="@item.UserId">Delete</a>
                 </td>
             </tr>
         }

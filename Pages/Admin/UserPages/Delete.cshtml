@@ -2,3 +2,33 @@
 @model ConFriend.Pages.Admin.UserPages.DeleteModel
 @{
 }
+
+<h1>Delete user</h1>
+
+<form method="post">
+    <h4>Are you sure you want to delete this user?</h4>
+
+    <div class="form-group">
+        <label asp-for="@Model.User.UserId" class="control-label"></label>
+        @Model.User.UserId
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.FirstName" class="control-label"></label>
+        @Model.User.FirstName
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.LastName" class="control-label"></label>
+        @Model.User.LastName
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.Email" class="control-label"></label>
+        @Model.User.Email
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.Type" class="control-label"></label>
+        @Model.User.Type
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-danger"/>
+    </div>
+</form>

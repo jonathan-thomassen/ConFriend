@@ -14,21 +14,33 @@ namespace ConFriend.Pages.Admin.UserPages
         private readonly ICrudService<User> _userService;
 
         [BindProperty]
-        public User User { get; set; }
+        public new User User { get; set; }
 
         public EditModel(ICrudService<User> uService)
         {
             _userService = uService;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
+            if (id == null)
+                return NotFound();
+
+            User = _userService.GetFromId((int)id);
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int? id)
         {
+            if (!ModelState.IsValid)
+                return Page();
+            if (id == null)
+                return NotFound();
 
+            User.PasswordRepeat = null;
+            User.UserId = (int)id;
+            _userService.Update(User);
             return RedirectToPage("UserIndex");
         }
     }
