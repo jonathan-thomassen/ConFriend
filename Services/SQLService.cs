@@ -48,7 +48,15 @@ namespace ConFriend.Services
             string str = "";
             for (int i = 1; i < output.Length; i+=2)
             {
-                str += output[i];
+                int v = output[i].IndexOf(',');
+                if (v == -1)
+                {
+                    str += output[i]; 
+                }
+                else{
+                    str += output[i].Substring(0, v);
+                }
+               
             }
             return str;
         }

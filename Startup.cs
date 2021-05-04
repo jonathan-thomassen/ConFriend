@@ -28,6 +28,8 @@ namespace ConFriend
         {
             services.AddRazorPages();
             services.AddTransient<ICrudService<User>, UserService>();
+            services.AddTransient<ICrudService<Speaker>, SpeakerService>();
+            services.AddTransient<ICrudService<Floor>, FloorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

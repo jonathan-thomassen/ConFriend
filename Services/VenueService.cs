@@ -16,7 +16,7 @@ namespace ConFriend.Services
 
         public bool Create(Venue item)
         {
-            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
+            return SQLCommand(SQLType.Create, "n", item.ToSQL());
         }
 
         public List<Venue> GetAll()

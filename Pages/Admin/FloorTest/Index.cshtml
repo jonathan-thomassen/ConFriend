@@ -1,0 +1,50 @@
+﻿@page
+@model ConFriend.Pages.Admin.FloorTest.IndexModel
+@{
+}
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/FloorTest/CreateFloor">Create New Floor</a>
+</p>
+
+<h4> List of Floors</h4>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            FloorId
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Image
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Floors.Count() != 0)
+    {
+        @foreach (var item in Model.Floors)
+        {
+            <tr>
+                <td>
+                    @item.FloorId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Image
+                </td>
+                <td>
+                    <p>
+                        <a class="button btn btn-primary" asp-page="/Admin/FloorTest/EditFloor" asp-route-hNr="@item.FloorId">Edit Floor</a>
+                        <a class="button btn btn-danger" asp-page="/Admin/FloorTest/DeleteFloor" asp-route-hNr="@item.FloorId">Delete</a>
+                    </p>
+                </td>
+            </tr>
+        }
+    }
+</table>
