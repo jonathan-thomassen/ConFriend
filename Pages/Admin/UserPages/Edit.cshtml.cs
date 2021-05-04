@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConFriend.Pages.Admin.UserPages
 {
-    public class CreateModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly ICrudService<User> _userService;
 
         [BindProperty]
-        public new User User { get; set; }
+        public User User { get; set; }
 
-        public CreateModel(ICrudService<User> uService)
+        public EditModel(ICrudService<User> uService)
         {
             _userService = uService;
         }
@@ -28,11 +28,7 @@ namespace ConFriend.Pages.Admin.UserPages
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-                return Page();
 
-            User.PasswordRepeat = null;
-            _userService.Create(User);
             return RedirectToPage("UserIndex");
         }
     }

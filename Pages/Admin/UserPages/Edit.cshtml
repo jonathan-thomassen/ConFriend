@@ -1,0 +1,26 @@
+﻿@page
+@model ConFriend.Pages.Admin.UserPages.EditModel
+@{
+}
+
+<h2>Edit user</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.User.UserId" class="control-label"></label>
+        <p>@Model.User.UserId</p>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.FirstName" class="control-label"></label>
+        <input asp-for="@Model.User.FirstName" class="form-control" />
+        <span asp-validation-for="User.FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.User.LastName" class="control-label"></label>
+        <input asp-for="@Model.User.LastName" class="form-control" />
+        <span asp-validation-for="User.LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="OK" />
+    </div>
+</form>
