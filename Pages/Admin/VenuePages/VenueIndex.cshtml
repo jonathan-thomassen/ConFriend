@@ -1,0 +1,48 @@
+﻿@page
+@model ConFriend.Pages.Admin.VenuePages.VenueIndexModel
+@{
+    ViewData["Title"] = "Venue index";
+}
+
+<h2>List of venues</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.User != null)
+        {
+            @foreach (var item in Model.Venues)
+            {
+                <tr>
+                    <td>
+                        @item.VenueId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.VenueId">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-page="Delete" asp-route-id="@item.VenueId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a asp-page="Create">Create new venue</a>

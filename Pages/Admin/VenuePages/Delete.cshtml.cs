@@ -7,18 +7,18 @@ using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConFriend.Pages.Admin.UserPages
+namespace ConFriend.Pages.Admin.VenuePages
 {
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
-        private readonly ICrudService<User> _userService;
+        private readonly ICrudService<Venue> _venueService;
 
         [BindProperty]
-        public new User User { get; set; }
+        public Venue Venue { get; set; }
 
-        public EditModel(ICrudService<User> userService)
+        public DeleteModel(ICrudService<Venue> venueService)
         {
-            _userService = userService;
+            _venueService = venueService;
         }
 
         public IActionResult OnGet(int? id)
@@ -26,22 +26,18 @@ namespace ConFriend.Pages.Admin.UserPages
             if (id == null)
                 return NotFound();
 
-            User = _userService.GetFromId((int)id);
+            Venue = _venueService.GetFromId((int)id);
 
             return Page();
         }
 
         public IActionResult OnPost(int? id)
         {
-            if (!ModelState.IsValid)
-                return Page();
             if (id == null)
                 return NotFound();
 
-            User.PasswordRepeat = null;
-            User.UserId = (int)id;
-            _userService.Update(User);
-            return RedirectToPage("UserIndex");
+            _venueService.Delete((int)id);
+            return RedirectToPage("VenueIndex");
         }
     }
 }

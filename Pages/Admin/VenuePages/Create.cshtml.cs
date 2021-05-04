@@ -7,18 +7,18 @@ using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConFriend.Pages.Admin.UserPages
+namespace ConFriend.Pages.Admin.VenuePages
 {
     public class CreateModel : PageModel
     {
-        private readonly ICrudService<User> _userService;
+        private readonly ICrudService<Venue> _venueService;
 
         [BindProperty]
-        public new User User { get; set; }
+        public Venue Venue { get; set; }
 
-        public CreateModel(ICrudService<User> userService)
+        public CreateModel(ICrudService<Venue> venueService)
         {
-            _userService = userService;
+            _venueService = venueService;
         }
 
         public IActionResult OnGet()
@@ -31,9 +31,8 @@ namespace ConFriend.Pages.Admin.UserPages
             if (!ModelState.IsValid)
                 return Page();
 
-            User.PasswordRepeat = null;
-            _userService.Create(User);
-            return RedirectToPage("UserIndex");
+            _venueService.Create(Venue);
+            return RedirectToPage("VenueIndex");
         }
     }
 }

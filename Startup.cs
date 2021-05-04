@@ -30,6 +30,7 @@ namespace ConFriend
             services.AddTransient<ICrudService<User>, UserService>();
             services.AddTransient<ICrudService<Speaker>, SpeakerService>();
             services.AddTransient<ICrudService<Floor>, FloorService>();
+            services.AddTransient<ICrudService<Venue>, VenueService>();
             services.AddTransient<ICrudService<Room>, RoomService>();
         }
 

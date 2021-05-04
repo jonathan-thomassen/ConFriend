@@ -1,6 +1,7 @@
 ﻿@page
 @model ConFriend.Pages.Admin.UserPages.DeleteModel
 @{
+    ViewData["Title"] = "Delete user";
 }
 
 <h1>Delete user</h1>
@@ -29,6 +30,6 @@
         @Model.User.Type
     </div>
     <div class="form-group">
-        <input type="submit" value="Delete" class="btn btn-danger"/>
+        <input type="submit" value="Delete" class="btn btn-danger" />
     </div>
 </form>
