@@ -22,25 +22,22 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.User != null)
+        @foreach (var item in Model.Venues)
         {
-            @foreach (var item in Model.Venues)
-            {
-                <tr>
-                    <td>
-                        @item.VenueId
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        <a asp-page="Edit" asp-route-id="@item.VenueId">Edit</a>
-                    </td>
-                    <td>
-                        <a asp-page="Delete" asp-route-id="@item.VenueId">Delete</a>
-                    </td>
-                </tr>
-            }
+            <tr>
+                <td>
+                    @item.VenueId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.VenueId">Edit</a>
+                </td>
+                <td>
+                    <a asp-page="Delete" asp-route-id="@item.VenueId">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

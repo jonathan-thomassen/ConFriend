@@ -16,7 +16,7 @@ namespace ConFriend.Services
 
         public bool Create(Conference item)
         {
-            return SQLCommand(SQLType.Create, "n", $"{item.Identity()} {item.ToSQL()}");
+            return SQLCommand(SQLType.Create, "n", item.ToSQL());
         }
 
         public List<Conference> GetAll()
@@ -52,11 +52,8 @@ namespace ConFriend.Services
             Conference conference = new Conference();
 
             conference.ConferenceId = Reader.GetInt32(0);
-            conference.Name = Reader.GetString(1);
-            conference.EventThemes = new List<string>();
-            conference.Speakers = null;
-            conference.Events = null;
-
+            conference.VenueId = Reader.GetInt32(1);
+            conference.Name = Reader.GetString(2);
             return conference;
         }
     }

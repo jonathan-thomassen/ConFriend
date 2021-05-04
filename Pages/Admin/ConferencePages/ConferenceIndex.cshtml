@@ -1,0 +1,49 @@
+﻿@page
+@model ConFriend.Pages.Admin.ConferencePages.ConferenceIndexModel
+@{
+    ViewData["Title"] = "Conference index";
+}
+
+<h2>List of conferences</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Venue
+            </th>
+                Name
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Conferences)
+        {
+            <tr>
+                <td>
+                    @item.ConferenceId
+                </td>
+                <td>
+                    @Model.Venues.Find(venue => venue.VenueId.Equals(item.VenueId))?.Name
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.ConferenceId">Edit</a>
+                </td>
+                <td>
+                    <a asp-page="Delete" asp-route-id="@item.ConferenceId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Create">Create new conference</a>
