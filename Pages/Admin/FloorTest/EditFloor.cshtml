@@ -5,22 +5,22 @@
 <h4>Edit Floor</h4>
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.FloorId" class="control-label">HotelNr</label>
+        <label asp-for="@Model.NewFloor.FloorId" class="control-label">FloorId</label>
         <input asp-for="@Model.NewFloor.FloorId" readonly="readonly" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.FloorId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.VenueId" class="control-label">Name</label>
+        <label asp-for="@Model.NewFloor.VenueId" class="control-label">VenueId</label>
         <input asp-for="@Model.NewFloor.VenueId" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.VenueId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.Name" class="control-label">Address</label>
+        <label asp-for="@Model.NewFloor.Name" class="control-label">Name</label>
         <input asp-for="@Model.NewFloor.Name" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewFloor.Image" class="control-label">Address</label>
+        <label asp-for="@Model.NewFloor.Image" class="control-label">Image</label>
         <input asp-for="@Model.NewFloor.Image" class="form-control" />
         <span asp-validation-for="@Model.NewFloor.Image" class="text-danger"></span>
     </div>
