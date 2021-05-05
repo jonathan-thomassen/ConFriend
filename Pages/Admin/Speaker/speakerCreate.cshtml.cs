@@ -28,7 +28,7 @@ namespace ConFriend.Pages
         public speakerCreateModel(ICrudService<Speaker> speaks)
         {
             SpeakerServis = speaks;
-      
+            this.SpeakerServis.Init(ModelTypes.Speaker);
         }
 
         public IActionResult OnGet()
