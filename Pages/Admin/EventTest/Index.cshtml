@@ -1,0 +1,118 @@
+﻿@page
+@model ConFriend.Pages.Admin.EventTest.IndexModel
+@{
+}
+<h4> List of Rooms</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EventId
+            </th>
+            <th>
+                SpeakerId
+            </th>
+            <th>
+                RoomId
+            </th>
+            <th>
+                ConferenceId
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                StartTime
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Hidden
+            </th>
+            <th>
+                Cancelled
+            </th>
+            <th>
+                RoomHidden
+            </th>
+            <th>
+                RoomCancelled
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.Events.Count() != 0)
+    {
+        @foreach (var item in Model.Events)
+        {
+        <tr>
+            <td>
+                @item.EventId
+            </td>
+            <td>
+                @item.SpeakerId
+            </td>
+            <td>
+                @item.RoomId
+            </td>
+            <td>
+                @item.ConferenceId
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.StartTime
+            </td>
+            <td>
+                @item.DurationInMinutes
+            </td>
+            <td>
+                @item.Type
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Capacity
+            </td>
+            <td>
+                @item.Image
+            </td>
+            <td>
+                @item.Hidden
+            </td>
+            <td>
+                @item.Cancelled
+            </td>
+            <td>
+                @item.RoomHidden
+            </td>
+            <td>
+                @item.RoomCancelled
+            </td>
+            <td>
+                <p>
+                    <a class="button btn btn-primary" asp-page="/Admin/RoomTest/EditEvent" asp-route-rId="@item.EventId">Edit Room</a>
+                    <a class="button btn btn-danger" asp-page="/Admin/RoomTest/DeleteEvent" asp-route-rId="@item.EventId">Delete</a>
+                </p>
+            </td>
+        </tr>
+        }
+    }
+</table>
