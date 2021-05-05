@@ -1,0 +1,85 @@
+﻿@page
+@model ConFriend.Pages.Admin.EventTest.CreateEventModel
+@{
+}
+<h4>Create Room</h4>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.SpeakerId" class="control-label">SpeakerID</label>
+        <input asp-for="@Model.NewEvent.SpeakerId" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.SpeakerId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.RoomId" class="control-label">RoomId</label>
+        <input asp-for="@Model.NewEvent.RoomId" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.ConferenceId" class="control-label">ConferenceId</label>
+        <input asp-for="@Model.NewEvent.ConferenceId" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.ConferenceId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Name" class="control-label">Name</label>
+        <input asp-for="@Model.NewEvent.Name" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.StartTime" class="control-label">StartTime</label>
+        <input asp-for="@Model.NewEvent.StartTime" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.DurationInMinutes" class="control-label">Duration</label>
+        <input asp-for="@Model.NewEvent.DurationInMinutes" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.DurationInMinutes" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Type" class="control-label">Type</label>
+        <input asp-for="@Model.NewEvent.Type" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Description" class="control-label">Description</label>
+        <input asp-for="@Model.NewEvent.Description" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Capacity" class="control-label">Capacity</label>
+        <input asp-for="@Model.NewEvent.Capacity" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Image" class="control-label">Image</label>
+        <input asp-for="@Model.NewEvent.Image" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Hidden" class="control-label">Hidden</label>
+        <input asp-for="@Model.NewEvent.Hidden" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Hidden" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Cancelled" class="control-label">Cancelled</label>
+        <input asp-for="@Model.NewEvent.Cancelled" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.Cancelled" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.RoomHidden" class="control-label">RoomHidden</label>
+        <input asp-for="@Model.NewEvent.RoomHidden" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.RoomHidden" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.RoomCancelled" class="control-label">RoomCancelled</label>
+        <input asp-for="@Model.NewEvent.RoomCancelled" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.RoomCancelled" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="button btn btn-dark" />
+    </div>
+</form>
+@if (Model.done)
+{
+    <h4 style="color:green">The Room has been created</h4>
+    <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
+}
