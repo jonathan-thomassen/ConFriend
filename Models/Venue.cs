@@ -4,6 +4,8 @@ namespace ConFriend.Models
 {
     public class Venue : IModel
     {
+        private ModelTypes DataType = ModelTypes.Venue;
+
         public int VenueId { get; set; }
         public string Name { get; set; }
         public List<Floor> Floors { get; set; }
@@ -11,24 +13,15 @@ namespace ConFriend.Models
         public List<string> SeatCategories { get; set; }
         public List<string> RoomFeatures { get; set; }
 
-        ModelTypes IModel.DataType
-        {
-            get
-            {
-                return ModelTypes.Venue;
-            }
-
-        }
-
-
+    
         public string ToSQL()
         {
             return $"Name = '{Name}'";
         }
 
-        public int Identity()
+        public string Identity()
         {
-            return VenueId;
+            return $"VenueId = {VenueId}";
         }
        
     }

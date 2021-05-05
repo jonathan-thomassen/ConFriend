@@ -9,9 +9,9 @@ namespace ConFriend.Models
     {
         string ToSQL();
 
-        int Identity();
+        string Identity();
 
-        ModelTypes DataType { get; }
+        // ModelTypes DataType { get; }
 
         //please also implement:
         //  string IdentitySQL { get; }

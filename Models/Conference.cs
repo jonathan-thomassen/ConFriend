@@ -16,12 +16,9 @@ namespace ConFriend.Models
         {
             return $"VenueId = {VenueId}, Name = '{Name}'";
         }
-        public int Identity()
+        public string Identity()
         {
-            return ConferenceId;
+            return $"ConferenceId = {ConferenceId}";
         }
-   
-
-        ModelTypes IModel.DataType => ModelTypes.Conference;
     }
 }

@@ -10,7 +10,7 @@
         public string Description { get; set; }
         public string Title { get; set; }
 
-        ModelTypes IModel.DataType
+        ModelTypes DataType
         {
             get
             {
@@ -25,9 +25,9 @@
         {
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', ImageUrl = '{Image}', Description = '{Description}', Title = '{Title}'";
         }
-        public int Identity()
+        public string Identity()
         {
-            return SpeakerId;
+            return $"SpeakerId = {SpeakerId}";
         }
 
 

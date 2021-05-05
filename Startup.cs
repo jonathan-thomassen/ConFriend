@@ -27,16 +27,16 @@ namespace ConFriend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<ICrudService<User>, UserService>();
-            services.AddTransient<ICrudService<Speaker>, SpeakerService>();
-            services.AddTransient<ICrudService<Floor>, FloorService>();
-            services.AddTransient<ICrudService<Venue>, VenueService>();
-            services.AddTransient<ICrudService<Room>, RoomService>();
-            services.AddTransient<ICrudService<Conference>, ConferenceService>();
-            services.AddTransient<ICrudService<Event>, EventService>();
-            //services.AddTransient<ICrudService<User>, CRUD_Service<User>>();
             services.AddTransient<ICrudService<Speaker>, CRUD_Service<Speaker>>();
-            //services.AddTransient<ICrudService<Floor>, CRUD_Service<Floor>>();
+            services.AddTransient<ICrudService<User>, CRUD_Service<User>>();
+            services.AddTransient<ICrudService<Floor>, CRUD_Service<Floor>>();
+            services.AddTransient<ICrudService<Venue>,CRUD_Service<Venue>>();
+            services.AddTransient<ICrudService<Room>,CRUD_Service<Room>>();
+            services.AddTransient<ICrudService<Conference>, CRUD_Service<Conference>>();
+            services.AddTransient<ICrudService<Event>, CRUD_Service<Event>>();
+     
+         
+           
            
 
         }

@@ -36,14 +36,6 @@ namespace ConFriend.Models
 
         public List<string> Preference { get; set; }
 
-        ModelTypes IModel.DataType
-        {
-            get {
-            return ModelTypes.User;
-            }
-
-        }
-
   
         public string ToSQL()
         {
@@ -62,9 +54,9 @@ namespace ConFriend.Models
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}', UserType = {(int)Type}";
         }
 
-        public int Identity()
+        public string Identity()
         {
-            return UserId;
+            return $"UserId = {UserId}";
         }
 
     }

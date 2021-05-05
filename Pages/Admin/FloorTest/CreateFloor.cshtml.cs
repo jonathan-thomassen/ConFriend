@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.FloorTest
         public CreateFloorModel(ICrudService<Floor> fService)
         {
             floorService = fService;
+            floorService.Init(ModelTypes.Floor);
             NewFloor = new Floor();
             done = false;
         }

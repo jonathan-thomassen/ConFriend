@@ -19,8 +19,8 @@ namespace ConFriend.Interfaces
     
         bool Create(T item);
         List<T> GetAll();
-        T GetFromId(int id);
-        bool Delete(int id);
+        T GetFromId(int id, int id2 = 0);
+        bool Delete(int id, int id2 = 0);
         bool Update(T item);
         List<T> GetFiltered(string filter, FilterType filterType);
        

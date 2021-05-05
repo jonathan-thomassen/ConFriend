@@ -9,11 +9,15 @@ namespace ConFriend.Models
     {
         public int ThemeId { get; set; }
         public int EventId { get; set; }
+
+        public ModelTypes DataType => ModelTypes.Event;
+
         public string ToSQL()
         {
-            throw new NotImplementedException();
+            return $"ThemeId = {ThemeId} AND EventId = {EventId}";
         }
 
+ 
         public string Identity()
         {
             return $"ThemeId = {ThemeId} AND EventId = {EventId}";

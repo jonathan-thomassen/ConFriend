@@ -12,19 +12,27 @@ namespace ConFriend.Services
     {
         //    <T> 
         string ItemIdentitySQL;
+        string ItemIdentitySQLExtra;
+        bool IsComposit;
         public CRUD_Service(IConfiguration configuration) : base(configuration)
         {
-         
+            IsComposit = false;
         }
         public void Init(ModelTypes DataType)
         {
             ItemIdentitySQL = $"{DataType}Id =";
             init(DataType);
         }
+        public void Init_Composit(ModelTypes DataTypeA, ModelTypes DataTypeB)
+        {
+            IsComposit = true;
+            ItemIdentitySQL = $"{DataTypeA}Id =";
+            ItemIdentitySQLExtra = $"{DataTypeB}Id =";
+            init(DataTypeA);
+        }
         public bool Create(T item)
         {
             return SQLCommand(SQLType.Create, "n", item.ToSQL());
-
         }
         public List<T> GetAll() 
         {
@@ -32,27 +40,31 @@ namespace ConFriend.Services
             return Items;
         }
 
-        public T GetFromId(int id)
+        public T GetFromId(int id, int id2 = 0)
         {
             //current.IdentitySQL
-            SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id}");
+            if (IsComposit)
+                SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQL} {id2}"); 
+            else
+                SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
+
             return Item;
 
         }
         public bool Update(T item)
         {
-            return SQLCommand(SQLType.Update, $"{ItemIdentitySQL} + {item.Identity()}", item.ToSQL());
-
-
+            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id,int id2 = 0)
         {
-            //current.IdentitySQL
-            return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} + {id}");
-
-
+            if(IsComposit)
+                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQL} {id2}"); 
+            else
+                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
         }
+        //current.IdentitySQL
+
 
         public List<T> GetFiltered(string filter, ICrudService<T>.FilterType filterType)
         {

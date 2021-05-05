@@ -35,12 +35,12 @@ namespace ConFriend.Models
                 $" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
         }
 
-        public int Identity()
+        public string Identity()
         {
-            return EventId;
+            return $"EventId = {EventId}";
         }
 
-        ModelTypes IModel.DataType
+        ModelTypes DataType
         {
             get
             {

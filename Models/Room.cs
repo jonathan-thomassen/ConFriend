@@ -22,12 +22,12 @@ namespace ConFriend.Models
             return $"FloorId = {FloorId}, VenueId = {VenueId}, Name = '{Name}', Size = {Size}, Capacity = {Capacity}, DoorAmount = {DoorAmount}, ImageUrl = '{Image}', Coordinates = '{Coordinates}'";
         }
 
-        public int Identity()
+        public string Identity()
         {
-            return RoomId;
+            return $"RoomId = {RoomId}";
         }
   
-        ModelTypes IModel.DataType
+        ModelTypes DataType
         {
             get
             {

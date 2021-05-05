@@ -9,11 +9,15 @@ namespace ConFriend.Models
     {
         public int ThemeId { get; set; }
         public string Name { get; set; }
+
+    
+
+        public ModelTypes DataType = ModelTypes.Theme;
+
         public string ToSQL()
         {
             return $"Name = '{Name}'";
         }
-
         public string Identity()
         {
             return $"ThemeId = {ThemeId}";

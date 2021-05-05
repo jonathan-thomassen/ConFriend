@@ -14,7 +14,10 @@ namespace ConFriend
         Room,
         Speaker,
         User,
-        Venue
+        Venue,
+        SeatCategory,
+        Theme,
+        Feature
     }
 }
 namespace ConFriend.Models
@@ -93,13 +96,13 @@ namespace ConFriend.Models
 
             _event.EventId = reader.GetInt32(0);
             _event.Name = reader.GetString(1);
-            _event.Host = null;
+            //_event.Host = null;
             //_event.Host = Reader.GetInt32(2);
             _event.StartTime = reader.GetDateTime(3);
             //_event.Duration = Reader.GetInt32(0);
             _event.Type = reader.GetString(4);
             _event.Description = reader.GetString(4);
-            _event.Room = null;
+            //_event.Room = null;
             _event.Capacity = reader.GetInt32(0);
             _event.Users = null;
             _event.Image = reader.GetString(4);

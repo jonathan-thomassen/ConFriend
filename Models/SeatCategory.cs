@@ -9,6 +9,9 @@ namespace ConFriend.Models
     {
         public int SeatCategoryId { get; set; }
         public string NameKey { get; set; }
+
+        public ModelTypes DataType => ModelTypes.SeatCategory;
+
         public string ToSQL()
         {
             return $"NameKey = '{NameKey}'";
@@ -18,5 +21,7 @@ namespace ConFriend.Models
         {
             return $"SeatCategoryId = {SeatCategoryId}";
         }
+
+  
     }
 }

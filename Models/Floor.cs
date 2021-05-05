@@ -13,11 +13,11 @@
         {
             return $"VenueId = {VenueId}, Name = '{Name}', ImageUrl = '{Image}'";
         }
-        public int Identity()
+        public string Identity()
         {
-            return FloorId;
+            return $"FloorId = {FloorId}";
         }
-        ModelTypes IModel.DataType
+        ModelTypes DataType
         {
             get
             {
