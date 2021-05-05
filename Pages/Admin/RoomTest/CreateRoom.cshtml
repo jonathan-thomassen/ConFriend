@@ -1,19 +1,41 @@
 ﻿@page
 @model ConFriend.Pages.Admin.RoomTest.CreateRoomModel
 @{
+    ViewData["Title"] = "Create room";
 }
+
+<script type="text/javascript">
+    function ClearTextBox() {
+        document.getElementById("filterCriteria").value = "";
+    }
+</script>
+
 <h4>Create Room</h4>
 <form method="post">
-    <div class="form-group">
-        <label asp-for="@Model.NewRoom.FloorId" class="control-label">FloorId</label>
-        <input asp-for="@Model.NewRoom.FloorId" class="form-control" />
-        <span asp-validation-for="@Model.NewRoom.FloorId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewRoom.VenueId" class="control-label">VenueId</label>
-        <input asp-for="@Model.NewRoom.VenueId" class="form-control" />
-        <span asp-validation-for="@Model.NewRoom.VenueId" class="text-danger"></span>
-    </div>
+    @if (!Model.VenueSet)
+    {
+        <div class="form-group">
+            <label class="control-label">Venue:</label>
+            <select asp-for="@Model.NewRoom.VenueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
+            <span asp-validation-for="NewRoom.VenueId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Floor:</label>
+            -
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label class="control-label">Venue:</label>
+            @Model.Venues.Find(venue => venue.VenueId.Equals(@Model.NewRoom.VenueId))?.Name
+        </div>
+        <div class="form-group">
+            <label class="control-label">Floor:</label>
+            <select asp-for="@Model.NewRoom.FloorId" asp-items="@Model.SelectListFloors"></select>
+            <span asp-validation-for="NewRoom.FloorId" class="text-danger"></span>
+        </div>
+    }
     <div class="form-group">
         <label asp-for="@Model.NewRoom.Name" class="control-label">Name</label>
         <input asp-for="@Model.NewRoom.Name" class="form-control" />
@@ -48,8 +70,3 @@
         <input type="submit" value="Create" class="button btn btn-dark" />
     </div>
 </form>
-@if (Model.done)
-{
-    <h4 style="color:green">The Room has been created</h4>
-    <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
-}
