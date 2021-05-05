@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public class EventService : SQLService<Event>
+    public class EventService : SQLService<Event>, ICrudService<Event>
     {
 
         public EventService(IConfiguration configuration) : base(configuration, "Event")
@@ -51,21 +51,24 @@ namespace ConFriend.Services
             Event _event = new Event();
 
             _event.EventId = Reader.GetInt32(0);
-            _event.Name = Reader.GetString(1);
-            _event.Host = null;
+            _event.SpeakerId = Reader.GetInt32(1);
+            _event.RoomId = Reader.GetInt32(2);
+            _event.ConferenceId = Reader.GetInt32(3);
+            _event.Name = Reader.GetString(4);
+            //_event.Host = null;
             //_event.Host = Reader.GetInt32(2);
-            _event.StartTime = Reader.GetDateTime(3);
-            //_event.Duration = Reader.GetInt32(0);
-            _event.Type = Reader.GetString(4);
-            _event.Description = Reader.GetString(4);
-            _event.Room = null;
-            _event.Capacity = Reader.GetInt32(0);
+            _event.StartTime = Reader.GetDateTime(5);
+            _event.DurationInMinutes = Reader.GetInt32(6);
+            _event.Type = Reader.GetString(7);
+            _event.Description = Reader.GetString(8);
+            //_event.Room = null;
+            _event.Capacity = Reader.GetInt32(9);
             _event.Users = null;
-            _event.Image = Reader.GetString(4);
-            _event.Hidden = Reader.GetBoolean(4);
-            _event.Cancelled = Reader.GetBoolean(4);
-            _event.RoomHidden = Reader.GetBoolean(4);
-            _event.RoomCancelled = Reader.GetBoolean(4);
+            _event.Image = Reader.IsDBNull(10) ?  "":Reader.GetString(10);
+            _event.Hidden = Reader.GetBoolean(11);
+            _event.Cancelled = Reader.GetBoolean(12);
+            _event.RoomHidden = Reader.GetBoolean(13);
+            _event.RoomCancelled = Reader.GetBoolean(14);
             _event.SeatCategoriesTaken = null;
             _event.Themes = null;
 

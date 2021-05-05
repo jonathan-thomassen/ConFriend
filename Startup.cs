@@ -33,6 +33,7 @@ namespace ConFriend
             services.AddTransient<ICrudService<Venue>, VenueService>();
             services.AddTransient<ICrudService<Room>, RoomService>();
             services.AddTransient<ICrudService<Conference>, ConferenceService>();
+            services.AddTransient<ICrudService<Event>, EventService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
