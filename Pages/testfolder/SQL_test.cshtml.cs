@@ -24,7 +24,7 @@ namespace ConFriend.Pages.testfolder
         {
             _userService = uService;
             TestUser = new User();
-            UserList = _userService.GetAll();
+            //UserList = _userService.GetAll();
         }
 
         public IActionResult OnGet()
@@ -34,7 +34,7 @@ namespace ConFriend.Pages.testfolder
 
         public IActionResult OnPostGetUser()
         {
-            TestUser = _userService.GetFromId(UserId);
+            // TestUser = _userService.GetFromId(UserId);
 
             return Page();
         }

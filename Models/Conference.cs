@@ -16,10 +16,12 @@ namespace ConFriend.Models
         {
             return $"VenueId = {VenueId}, Name = '{Name}'";
         }
-        public string Identity()
+        public int Identity()
         {
-            return $"ConferenceId = {ConferenceId}";
+            return ConferenceId;
         }
-        public static string IdentitySQL = "ConferenceId =";
+   
+
+        ModelTypes IModel.DataType => ModelTypes.Conference;
     }
 }

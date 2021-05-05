@@ -19,7 +19,16 @@ namespace ConFriend.Models
         public UserType Type { get; set; }
 
         public List<string> Preference { get; set; }
-     
+
+        ModelTypes IModel.DataType
+        {
+            get {
+            return ModelTypes.User;
+            }
+
+        }
+
+  
         public string ToSQL()
         {
             string str = "";
@@ -37,11 +46,10 @@ namespace ConFriend.Models
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}', UserType = {(int)Type}";
         }
 
-        public string Identity()
+        public int Identity()
         {
-            return $"UserId = {UserId}";
+            return UserId;
         }
 
-        public static string IdentitySQL = "UserId =";
     }
 }

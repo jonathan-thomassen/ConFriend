@@ -21,7 +21,7 @@ namespace ConFriend.Pages.Admin.UserPages
         public UserIndexModel(ICrudService<User> uService)
         {
             _userService = uService;
-            Users = _userService.GetAll();
+            //Users = _userService.GetAll();
         }
 
         public IActionResult OnGet()

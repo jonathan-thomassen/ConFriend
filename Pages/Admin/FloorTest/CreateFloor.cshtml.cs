@@ -30,7 +30,7 @@ namespace ConFriend.Pages.Admin.FloorTest
             {
                 return Page();
             }
-            floorService.Create(NewFloor);
+            // floorService.Create(NewFloor);
             done = true;
             return Page();
         }

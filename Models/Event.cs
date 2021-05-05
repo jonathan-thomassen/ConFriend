@@ -31,10 +31,19 @@ namespace ConFriend.Models
                 $" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
         }
 
-        public string Identity()
+        public int Identity()
         {
-            return $"EventId = {EventId}";
+            return EventId;
         }
-        public static string IdentitySQL = "EventId =";
+
+        ModelTypes IModel.DataType
+        {
+            get
+            {
+                return ModelTypes.Event;
+            }
+
+        }
+
     }
 }

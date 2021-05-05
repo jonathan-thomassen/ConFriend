@@ -14,7 +14,7 @@ namespace ConFriend.Pages.Admin.UserPages
         private readonly ICrudService<User> _userService;
 
         [BindProperty]
-        public User User { get; set; }
+        public User _User { get; set; }
 
         public CreateModel(ICrudService<User> uService)
         {
@@ -28,7 +28,7 @@ namespace ConFriend.Pages.Admin.UserPages
 
         public IActionResult OnPost()
         {
-            _userService.Create(User);
+            //_userService.Create(_User);
 
             return RedirectToPage("UserIndex");
         }

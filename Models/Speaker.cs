@@ -10,14 +10,26 @@
         public string Description { get; set; }
         public string Title { get; set; }
 
+        ModelTypes IModel.DataType
+        {
+            get
+            {
+                return ModelTypes.Speaker;
+            }
+
+        }
+
+
+   
         public string ToSQL()
         {
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', ImageUrl = '{Image}', Description = '{Description}', Title = '{Title}'";
         }
-        public string Identity()
+        public int Identity()
         {
-            return $"SpeakerId = {SpeakerId}";
+            return SpeakerId;
         }
-        public static string IdentitySQL = "SpeakerId =";
+
+
     }
 }

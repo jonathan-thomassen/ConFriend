@@ -22,7 +22,7 @@ namespace ConFriend.Pages.Admin.FloorTest
         }
         public void OnGet()
         {
-            Floors = floorService.GetAll();
+            //Floors = floorService.GetAll();
         }
     }
 }

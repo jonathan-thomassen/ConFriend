@@ -13,10 +13,18 @@ namespace ConFriend.Models
             return $"EventId = {Event.EventId}, UserId = {User.UserId}, SignUpTime = {SignUpTime}";
         }
 
-        public string Identity()
+        public int Identity()
         {
-            return $"EnrollmentId = {EnrollmentId}";
+            return EnrollmentId;
         }
-        public static string IdentitySQL = "EnrollmentId =";
+    
+        ModelTypes IModel.DataType
+        {
+            get
+            {
+                return ModelTypes.Enrollment;
+            }
+
+        }
     }
 }

@@ -7,14 +7,23 @@
         public string Name { get; set; }
         public string Image { get; set; }
 
+   
+
         public string ToSQL()
         {
             return $"VenueId = {VenueId}, Name = '{Name}', ImageUrl = '{Image}'";
         }
-        public string Identity()
+        public int Identity()
         {
-            return $"FloorId = {FloorId}";
+            return FloorId;
         }
-        public static string IdentitySQL = "FloorId =";
+        ModelTypes IModel.DataType
+        {
+            get
+            {
+                return ModelTypes.Floor;
+            }
+
+        }
     }
 }

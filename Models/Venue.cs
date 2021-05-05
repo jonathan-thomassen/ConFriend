@@ -10,15 +10,26 @@ namespace ConFriend.Models
         public List<Room> Rooms { get; set; }
         public List<string> SeatCategories { get; set; }
         public List<string> RoomFeatures { get; set; }
+
+        ModelTypes IModel.DataType
+        {
+            get
+            {
+                return ModelTypes.Venue;
+            }
+
+        }
+
+
         public string ToSQL()
         {
             return $"Name = '{Name}'";
         }
 
-        public string Identity()
+        public int Identity()
         {
-            return $"VenueId = {VenueId}";
+            return VenueId;
         }
-        public static string IdentitySQL = "VenueId =";
+       
     }
 }

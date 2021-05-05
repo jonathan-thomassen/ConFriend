@@ -34,8 +34,8 @@ namespace ConFriend.Pages
         public IActionResult OnGet()
         {
             if (Id == null) return Page();
-            speak = SpeakerServis.GetFromId(Id.GetValueOrDefault())
-                ?? new Speaker();
+            //speak = SpeakerServis.GetFromId(Id.GetValueOrDefault())
+            //     ?? new Speaker();
             return Page();
         }
         //public async Task<IActionResult> OnGetAsync()
@@ -52,7 +52,6 @@ namespace ConFriend.Pages
 
             Speaker newSpeaker = new Speaker();
 
-            newSpeaker.SpeakerId = speak.SpeakerId;
             newSpeaker.FirstName = speak.FirstName;
             newSpeaker.LastName = speak.LastName;
             newSpeaker.Email = speak.Email;
@@ -62,14 +61,15 @@ namespace ConFriend.Pages
 
             if (IsNewEntry)
             {
-                SpeakerServis.Create(newSpeaker);
+                //SpeakerServis.Create(newSpeaker);
             }
             else {
-                
-                SpeakerServis.Update(speak);
+
+                //SpeakerServis.Update(speak);
             }
 
             return RedirectToPage("/Admin/Speaker/speakerCreate");
         }
+      
     }
 }

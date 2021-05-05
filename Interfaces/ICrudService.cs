@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
 namespace ConFriend.Interfaces
 {
@@ -14,12 +15,14 @@ namespace ConFriend.Interfaces
             Room,
             Theme
         }
-
+        void Init(ModelTypes DataType);
+    
         bool Create(T item);
         List<T> GetAll();
         T GetFromId(int id);
         bool Delete(int id);
         bool Update(T item);
         List<T> GetFiltered(string filter, FilterType filterType);
+       
     }
 }

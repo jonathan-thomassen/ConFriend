@@ -8,33 +8,33 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.User.FirstName" class="control-label"></label>
-        <input asp-for="@Model.User.FirstName" class="form-control" />
-        <span asp-validation-for="User.FirstName" class="text-danger"></span>
+        <label asp-for="@Model._User.FirstName" class="control-label"></label>
+        <input asp-for="@Model._User.FirstName" class="form-control" />
+        <span asp-validation-for="_User.FirstName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.User.LastName" class="control-label"></label>
-        <input asp-for="@Model.User.LastName" class="form-control" />
-        <span asp-validation-for="User.LastName" class="text-danger"></span>
+        <label asp-for="@Model._User.LastName" class="control-label"></label>
+        <input asp-for="@Model._User.LastName" class="form-control" />
+        <span asp-validation-for="_User.LastName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.User.Email" class="control-label"></label>
-        <input asp-for="@Model.User.Email" class="form-control" />
-        <span asp-validation-for="User.Email" class="text-danger"></span>
+        <label asp-for="@Model._User.Email" class="control-label"></label>
+        <input asp-for="@Model._User.Email" class="form-control" />
+        <span asp-validation-for="_User.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.User.Password" class="control-label"></label>
-        <input asp-for="@Model.User.Password" class="form-control" />
-        <span asp-validation-for="User.Password" class="text-danger"></span>
+        <label asp-for="@Model._User.Password" class="control-label"></label>
+        <input asp-for="@Model._User.Password" class="form-control" />
+        <span asp-validation-for="_User.Password" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.User.Type" class="control-label"></label>
-        <select asp-for="@Model.User.Type">
+        <label asp-for="@Model._User.Type" class="control-label"></label>
+        <select asp-for="@Model._User.Type">
             <option value="@UserType.Admin">Admin</option>
             <option value="@UserType.Normal">Normal</option>
             <option value="@UserType.SpecialNeeds">Special Needs</option>
         </select>
-        <span asp-validation-for="User.Type" class="text-danger"></span>
+        <span asp-validation-for="_User.Type" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Add"/>

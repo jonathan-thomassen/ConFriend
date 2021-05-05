@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Windows.Markup;
 using ConFriend.Interfaces;
+using ConFriend.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
-    public enum SQLType { 
+    public enum SQLType
+    {
         GetAll,
         GetSingle,
         Update,
@@ -15,16 +17,17 @@ namespace ConFriend.Services
         Create,
         Custom
     }
-
-    public abstract class SQLService<T> : Connection
+    public abstract class SQLService2<T> : Connection where T : IModel
     {
         private SqlConnection _connection;
         private SqlCommand _command;
         private SqlDataReader _reader;
+        private ModelMaker MyModelMaker;
         private string _name;
         internal int RowsAltered;
         internal List<T> Items;
         internal T Item;
+        internal ModelTypes currentType;
 
         public SqlDataReader Reader
         {
@@ -32,15 +35,23 @@ namespace ConFriend.Services
             private set { _reader = value; }
         }   
 
-        public SQLService(IConfiguration configuration, string name) : base(configuration)
+        public SQLService2(IConfiguration configuration) : base(configuration)
         {
-            _name = name;
+               MyModelMaker = new ModelMaker();
+                
         }
 
-        public SQLService(string connectionString, string name) : base(connectionString)
+        public SQLService2(string connectionString) : base(connectionString)
         {
-            _name = name;
+  
+            MyModelMaker = new ModelMaker();
         }
+        public void init(ModelTypes type)
+        {
+           _name = type.ToString();
+            currentType = type;
+        }
+        
 
         private string GetValues(string values)
         {
@@ -52,7 +63,6 @@ namespace ConFriend.Services
                 if (i != 1) str += ",";
                 if (v == -1)
                 {
-                   
                     str += output[i]; 
                 }
                 else{
@@ -101,14 +111,11 @@ namespace ConFriend.Services
 
                 switch (command)
                 {
+                    case SQLType.GetSingle:
                     case SQLType.GetAll:
                     case SQLType.Custom:
                         _reader = _command.ExecuteReader();
-                        onRead();
-                        break;
-                    case SQLType.GetSingle:
-                        _reader = _command.ExecuteReader();
-                        onRead();
+                        onRead(currentType);
                         Item = Items[0];
                         break;
                     case SQLType.Create:
@@ -141,15 +148,9 @@ namespace ConFriend.Services
             _command.Dispose(); 
         }
 
-        public abstract T OnRead();
-
-        private void onRead()
+        private void onRead(ModelTypes type)
         {
-            Items = new List<T>();
-            while (Reader.Read())
-            {
-                Items.Add(OnRead());
-            }
+            Items = MyModelMaker.OnRead<T>(type, Reader);
         }
       
     }
