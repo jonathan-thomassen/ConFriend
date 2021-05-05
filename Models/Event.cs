@@ -30,7 +30,7 @@ namespace ConFriend.Models
         public string ToSQL()
         {
             return
-                $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = {StartTime}," +
+                $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}'," +
                 $" Duration = {DurationInMinutes}, Type = '{Type}', Description = '{Description}',Capacity = {Capacity}, ImageUrl = '{Image}'," +
                 $" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
         }
