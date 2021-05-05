@@ -6,19 +6,23 @@ using ConFriend.Interfaces;
 using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ConFriend.Pages.Admin.ConferencePages
 {
     public class EditModel : PageModel
     {
         private readonly ICrudService<Conference> _conferenceService;
+        private readonly ICrudService<Venue> _venueService;
 
         [BindProperty]
         public Conference Conference { get; set; }
+        public SelectList Venues { get; set; }
 
-        public EditModel(ICrudService<Conference>conferenceService)
+        public EditModel(ICrudService<Conference>conferenceService, ICrudService<Venue> venueService)
         {
             _conferenceService = conferenceService;
+            _venueService = venueService;
         }
 
         public IActionResult OnGet(int? id)
@@ -27,6 +31,7 @@ namespace ConFriend.Pages.Admin.ConferencePages
                 return NotFound();
 
             Conference = _conferenceService.GetFromId((int)id);
+            Venues = new SelectList(_venueService.GetAll(), nameof(Venue.VenueId), nameof(Venue.Name));
 
             return Page();
         }

@@ -11,18 +11,29 @@ namespace ConFriend.Pages.Admin.RoomTest
 {
     public class IndexModel : PageModel
     {
-        [BindProperty(SupportsGet = true)] public string FilterCriteria { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string FilterCriteria { get; set; }
+
         public List<Room> Rooms { get; private set; }
+        public List<Venue> Venues { get; private set; }
+        public List<Floor> Floors { get; private set; }
 
-        private ICrudService<Room> roomService;
+        private readonly ICrudService<Room> _roomService;
+        private readonly ICrudService<Venue> _venueService;
+        private readonly ICrudService<Floor> _floorService;
 
-        public IndexModel(ICrudService<Room> rService)
+        public IndexModel(ICrudService<Room> roomService, ICrudService<Venue> venueService, ICrudService<Floor> floorService)
         {
-            this.roomService = rService;
+            _roomService = roomService;
+            _venueService = venueService;
+            _floorService = floorService;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Rooms = roomService.GetAll();
+            Rooms = _roomService.GetAll();
+            Venues = _venueService.GetAll();
+            Floors = _floorService.GetAll();
+            return Page();
         }
     }
 }

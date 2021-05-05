@@ -1,86 +1,89 @@
 ﻿@page
 @model ConFriend.Pages.Admin.RoomTest.IndexModel
 @{
+    ViewData["Title"] = "Room index";
 }
+
 <p>
     <a class="button btn btn-success" asp-page="/Admin/RoomTest/CreateRoom">Create New Room</a>
 </p>
 
-<h4> List of Rooms</h4>
+<h4>List of Rooms</h4>
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            RoomId
-        </th>
-        <th>
-            FloorId
-        </th>
-        <th>
-            VenueId
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Size
-        </th>
-        <th>
-            Capacity
-        </th>
-        <th>
-            DoorAmount
-        </th>
-        <th>
-            Image
-        </th>
-        <th>
-            Coordinates
-        </th>
-
-    </tr>
+        <tr>
+            <th>
+                RoomId
+            </th>
+            <th>
+                Venue
+            </th>
+            <th>
+                Floor
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th>
+                DoorAmount
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Coordinates
+            </th>
+            <th>
+            </th>
+        </tr>
     </thead>
     <tbody>
         @if (Model.Rooms.Count() != 0)
         {
             @foreach (var item in Model.Rooms)
             {
-        <tr>
-            <td>
-                @item.RoomId
-            </td>
-            <td>
-                @item.FloorId
-            </td>
-            <td>
-                @item.VenueId
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.Size
-            </td>
-            <td>
-                @item.Capacity
-            </td>
-            <td>
-                @item.DoorAmount
-            </td>
-            <td>
-                @item.Image
-            </td>
-            <td>
-                @item.Coordinates
-            </td>
-            <td>
-                <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/RoomTest/EditRoom" asp-route-rId="@item.RoomId">Edit Room</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/RoomTest/DeleteRoom" asp-route-rId="@item.RoomId">Delete</a>
-                </p>
-            </td>
-        </tr>
+                <tr>
+                    <td>
+                        @item.RoomId
+                    </td>
+                    <td>
+                        @Model.Venues.Find(venue => venue.VenueId.Equals(item.VenueId))?.Name
+                    </td>
+                    <td>
+                        @Model.Floors.Find(floor => floor.FloorId.Equals(item.FloorId))?.Name
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Size
+                    </td>
+                    <td>
+                        @item.Capacity
+                    </td>
+                    <td>
+                        @item.DoorAmount
+                    </td>
+                    <td>
+                        @item.Image
+                    </td>
+                    <td>
+                        @item.Coordinates
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/RoomTest/EditRoom" asp-route-rId="@item.RoomId">Edit Room</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/RoomTest/DeleteRoom" asp-route-rId="@item.RoomId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
             }
         }
 </table>

@@ -14,8 +14,8 @@
         @Model.Conference.ConferenceId
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Conference.VenueId" class="control-label"></label>
-        @Model.Conference.VenueId
+        <label class="control-label">Venue:</label>
+        @Model.Venues.Find(venue => venue.VenueId.Equals(Model.Conference.VenueId))?.Name
     </div>
     <div class="form-group">
         <label asp-for="@Model.Conference.Name" class="control-label"></label>
