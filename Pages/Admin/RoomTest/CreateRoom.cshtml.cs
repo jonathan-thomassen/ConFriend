@@ -13,7 +13,7 @@ namespace ConFriend.Pages.Admin.RoomTest
     public class CreateRoomModel : PageModel
     {
         [BindProperty] public Room NewRoom { get; set; }
-        private Room _room;
+        //public int VenueId;
         public List<Floor> Floors { get; set; }
         public List<Venue> Venues { get; set; }
         public SelectList SelectListFloors { get; set; }
@@ -42,10 +42,11 @@ namespace ConFriend.Pages.Admin.RoomTest
         {
             if (!VenueSet)
             {
+                Venues = _venueService.GetAll();
                 Floors = _floorService.GetAll();
                 VenueSet = true;
                 SelectListFloors = new SelectList(Floors.FindAll(floor => floor.VenueId.Equals(NewRoom.VenueId)), nameof(Floor.VenueId), nameof(Floor.Name));
-                _room = NewRoom;
+                //VenueId = NewRoom.VenueId;
 
                 return Page();
             }
@@ -54,6 +55,8 @@ namespace ConFriend.Pages.Admin.RoomTest
             {
                 return Page();
             }
+
+            //NewRoom.VenueId = VenueId;
             _roomService.Create(NewRoom);
             return Page();
         }
