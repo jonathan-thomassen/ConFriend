@@ -40,11 +40,14 @@
                 </td>
                 <td>
                     <p>
-                        <a class="button btn btn-primary" asp-page="/Admin/FloorTest/EditFloor" asp-route-hNr="@item.FloorId">Edit Floor</a>
-                        <a class="button btn btn-danger" asp-page="/Admin/FloorTest/DeleteFloor" asp-route-hNr="@item.FloorId">Delete</a>
+                        <a class="button btn btn-primary" asp-page="/Admin/FloorTest/EditFloor" asp-route-fId="@item.FloorId">Edit Floor</a>
+                        <a class="button btn btn-danger" asp-page="/Admin/FloorTest/DeleteFloor" asp-route-fId="@item.FloorId">Delete</a>
                     </p>
                 </td>
             </tr>
         }
     }
 </table>
+
+<a class="button btn btn-primary" asp-page="/Admin/RoomTest/Index">Go to all Rooms</a>
+<a class="button btn btn-primary" asp-page="/Admin/EventTest/Index">Go to all Events</a>

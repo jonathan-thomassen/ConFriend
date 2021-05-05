@@ -9,30 +9,34 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConFriend.Pages.Admin.UserPages
 {
-    public class CreateModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly ICrudService<User> _userService;
 
         [BindProperty]
         public new User User { get; set; }
 
-        public CreateModel(ICrudService<User> userService)
+        public DeleteModel(ICrudService<User> userService)
         {
             _userService = userService;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
+            if (id == null)
+                return NotFound();
+
+            User = _userService.GetFromId((int)id);
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int? id)
         {
-            if (!ModelState.IsValid)
-                return Page();
+            if (id == null)
+                return NotFound();
 
-            User.PasswordRepeat = null;
-            _userService.Create(User);
+            _userService.Delete((int)id);
             return RedirectToPage("UserIndex");
         }
     }

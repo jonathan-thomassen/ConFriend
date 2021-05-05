@@ -1,0 +1,55 @@
+﻿@page
+@model ConFriend.Pages.Admin.RoomTest.DeleteRoomModel
+@{
+}
+<h4>Delete Room</h4>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Room.RoomId" class="control-label">FloorId</label>
+        <input asp-for="@Model.Room.RoomId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.FloorId" class="control-label">FloorId</label>
+        <input asp-for="@Model.Room.FloorId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.FloorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.VenueId" class="control-label">VenueId</label>
+        <input asp-for="@Model.Room.VenueId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.VenueId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.Name" class="control-label">Name</label>
+        <input asp-for="@Model.Room.Name" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.Size" class="control-label">Size</label>
+        <input asp-for="@Model.Room.Size" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.Size" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.Capacity" class="control-label">Capacity</label>
+        <input asp-for="@Model.Room.Capacity" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.DoorAmount" class="control-label">DoorAmount</label>
+        <input asp-for="@Model.Room.DoorAmount" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.Image" class="control-label">ImageURL</label>
+        <input asp-for="@Model.Room.Image" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Room.Coordinates" class="control-label">Coordinates</label>
+        <input asp-for="@Model.Room.Coordinates" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.Room.Coordinates" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Delete" class="button btn btn-danger" />
+    </div>
+</form>

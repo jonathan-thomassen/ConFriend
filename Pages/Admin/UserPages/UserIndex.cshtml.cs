@@ -14,14 +14,11 @@ namespace ConFriend.Pages.Admin.UserPages
         private readonly ICrudService<User> _userService;
 
         public List<User> Users { get; private set; }
-
-        [BindProperty]
-        public int UserId { get; set; }
-
-        public UserIndexModel(ICrudService<User> uService)
+        
+        public UserIndexModel(ICrudService<User> userService)
         {
-            _userService = uService;
-            //Users = _userService.GetAll();
+            _userService = userService;
+            Users = _userService.GetAll();
         }
 
         public IActionResult OnGet()

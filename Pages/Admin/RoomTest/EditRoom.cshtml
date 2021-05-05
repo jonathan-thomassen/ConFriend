@@ -1,0 +1,60 @@
+﻿@page
+@model ConFriend.Pages.Admin.RoomTest.EditRoomModel
+@{
+}
+<h4>Edit Room</h4>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.RoomId" class="control-label">FloorId</label>
+        <input asp-for="@Model.NewRoom.RoomId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.FloorId" class="control-label">FloorId</label>
+        <input asp-for="@Model.NewRoom.FloorId" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.FloorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.VenueId" class="control-label">VenueId</label>
+        <input asp-for="@Model.NewRoom.VenueId" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.VenueId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.Name" class="control-label">Name</label>
+        <input asp-for="@Model.NewRoom.Name" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.Size" class="control-label">Size</label>
+        <input asp-for="@Model.NewRoom.Size" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.Size" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.Capacity" class="control-label">Capacity</label>
+        <input asp-for="@Model.NewRoom.Capacity" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.DoorAmount" class="control-label">DoorAmount</label>
+        <input asp-for="@Model.NewRoom.DoorAmount" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.DoorAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.Image" class="control-label">ImageURL</label>
+        <input asp-for="@Model.NewRoom.Image" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewRoom.Coordinates" class="control-label">Coordinates</label>
+        <input asp-for="@Model.NewRoom.Coordinates" class="form-control" />
+        <span asp-validation-for="@Model.NewRoom.Coordinates" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save Changes" class="button btn btn-dark" />
+    </div>
+</form>
+@if (Model.done)
+{
+    <h4 style="color:green">The Room has been created</h4>
+    <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
+}
