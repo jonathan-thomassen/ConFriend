@@ -28,7 +28,7 @@
     {
         <div class="form-group">
             <label class="control-label">Venue:</label>
-            @Model.Venues.Find(venue => venue.VenueId.Equals(@Model.NewRoom.VenueId))?.Name
+            @Model.Venues.Find(venue => venue.VenueId.Equals(Model.NewRoom.VenueId))?.Name
         </div>
         <div class="form-group">
             <label class="control-label">Floor:</label>
