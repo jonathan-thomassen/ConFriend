@@ -27,6 +27,9 @@ namespace ConFriend.Pages.Admin.RoomTest
             _roomService = roomService;
             _venueService = venueService;
             _floorService = floorService;
+            _roomService.Init(ModelTypes.Room);
+            _venueService.Init(ModelTypes.Venue);
+            _floorService.Init(ModelTypes.Floor);
         }
         public IActionResult OnGet()
         {

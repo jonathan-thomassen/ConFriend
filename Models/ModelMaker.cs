@@ -145,16 +145,14 @@ namespace ConFriend.Models
             Room room = new Room();
 
             room.RoomId = reader.GetInt32(0);
-            room.Name = reader.GetString(1);
-            room.Floor = reader.GetString(2);
-            room.Events = null;
+            room.FloorId = reader.GetInt32(1);
+            room.VenueId = reader.GetInt32(2);
+            room.Name = reader.GetString(3);
             room.Size = reader.GetInt32(4);
             room.Capacity = reader.GetInt32(5);
             room.DoorAmount = reader.GetInt32(6);
-            room.Image = reader.GetString(7);
-            room.Coordinates = null;
-            room.SeatCategories = null;
-            room.Features = null;
+            room.Image = reader.IsDBNull(7) ? "" : reader.GetString(7);
+            room.Coordinates = reader.IsDBNull(8) ? "" : reader.GetString(8);
 
             return room;
         }
