@@ -40,6 +40,8 @@ namespace ConFriend.Pages.Admin.RoomTest
             Venues = _venueService.GetAll();
             VenueId = 0;
             FloorId = 0;
+            Venues.Insert(0, new Venue());
+
             SelectListVenues = new SelectList(Venues, nameof(Venue.VenueId), nameof(Venue.Name));
         }
 
@@ -53,6 +55,7 @@ namespace ConFriend.Pages.Admin.RoomTest
                 NewRoom.VenueId = (int)venueId;
                 VenueId = (int)venueId;
 
+                ModelState.Clear();
                 return Page();
             }
 
@@ -60,10 +63,10 @@ namespace ConFriend.Pages.Admin.RoomTest
             NewRoom.FloorId = (int)floorId;
 
             if (!ModelState.IsValid)
-                return Page();
+                return RedirectToPage("Index");
 
             _roomService.Create(NewRoom);
-            return (RedirectToPage("Index"));
+            return RedirectToPage("Index");
         }
     }
 }
