@@ -2,9 +2,20 @@
 @model ConFriend.Pages.ThemeListModel
 @{
     ViewData["Title"] = "Speakers List";
+    Model.GetThemes();
 }
 <div>
-    <a asp-page="/Admin/Speaker/speakerCreate">Add New Speaker</a>
+    <form method="post">
+
+        <div class="form-group">
+            <label asp-for="@Model.MyTheme.Name" class="control-label"></label>
+            <input asp-for="@Model.MyTheme.Name" class="form-control" />
+            <span asp-validation-for="MyTheme.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" asp-page-handler="SaveNew" class="btn btn btn-primary">Save</button>
+        </div>
+    </form>
 </div>
 
 <h4 style="color:aquamarine"> Themes</h4>
@@ -27,29 +38,24 @@
     </thead>
     <tbody>
 
-        @if (Model.Themes.Count() != 0)
+        @foreach (var item in Model.Themes)
         {
-            @foreach (var item in Model.Themes)
-            {
-                <tr>
-                    <td>
-                        <form method="post">
+            <tr>
+                <td>
+                    <form method="post">
 
-                            <div class="form-group">
-                                <label asp-for="@Model.MyTheme.Name" class="control-label"></label>
-                                <input asp-for="@Model.MyTheme.Name" value="@item.Name" class="form-control" />
-                                <span asp-validation-for="MyTheme.Name" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn btn-primary">Save</button>
-                                @if (!Model.IsNewEntry)
-                                {
-                                    <button type="submit" asp-page-handler="Delete" class="btn btn btn-warning">Delete</button>
-                                }
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            }
+                        <div class="form-group">
+                            <label asp-for="@Model.MyTheme.Name" class="control-label"></label>
+                            <input asp-for="@Model.MyTheme.Name" value="@item.Name" class="form-control" />
+                            <span asp-validation-for="MyTheme.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" asp-page-handler="Save" name="id" value="@item.ThemeId" class="btn btn btn-primary">Save</button>
+                            <button type="submit" asp-page-handler="Delete" name="id" value="@item.ThemeId" class="btn btn btn-warning">Delete</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+
         }
 </table>

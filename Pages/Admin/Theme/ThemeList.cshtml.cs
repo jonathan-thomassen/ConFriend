@@ -37,34 +37,47 @@ namespace ConFriend.Pages
         {
             Themes = ThemeService.GetAll();
         }
-
-        public IActionResult OnPostDelete(int htnr)
+        public List<Theme> GetThemes()
         {
-            ThemeService.Delete(htnr);
+            Themes = ThemeService.GetAll();
+            return Themes;
+        }
+     
+        public IActionResult OnPostDelete(int id)
+        {
+            ThemeService.Delete(id);
 
+            Themes = ThemeService.GetAll();
+            return Page();
+        }
+        public IActionResult OnPostSave(int id)
+        {
+            Theme newTheme = new Theme();
+            newTheme.ThemeId = id;
+            newTheme.Name = MyTheme.Name;
+            ThemeService.Update(newTheme);
+            Themes = ThemeService.GetAll();
+            return Page();
+        }
+        public IActionResult OnPostSaveNew(int id)
+        {
+            Theme newTheme = new Theme();
+            newTheme.ThemeId = id;
+            newTheme.Name = MyTheme.Name;
+
+            ThemeService.Create(newTheme);
+         
             Themes = ThemeService.GetAll();
             return Page();
         }
         public IActionResult OnPost()
         {
+            
             if (!ModelState.IsValid)
             {
+                
                 return Page();
             }
-
-            Theme newTheme = new Theme();
-            newTheme.ThemeId = Id ?? 0;
-            newTheme.Name = MyTheme.Name;
-
-            if (IsNewEntry)
-            {
-                ThemeService.Create(newTheme);
-            }
-            else
-            {
-                ThemeService.Update(newTheme);
-            }
-
             return Page();
                 //RedirectToPage("/Admin/Speaker/speakerCreate");
         }
