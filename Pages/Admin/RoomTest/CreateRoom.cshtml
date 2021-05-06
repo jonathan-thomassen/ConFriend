@@ -2,6 +2,8 @@
 @model ConFriend.Pages.Admin.RoomTest.CreateRoomModel
 @{
     ViewData["Title"] = "Create room";
+    int venueId;
+    int floorId;
 }
 
 <script type="text/javascript">
@@ -10,13 +12,18 @@
     }
 </script>
 
+@{
+    venueId = Model.VenueId;
+    floorId = Model.FloorId;
+}
+
 <h4>Create Room</h4>
-<form method="post">
-    @if (!Model.VenueSet)
+<form method="post" asp-route-venueId="@venueId" asp-route-floorId="@floorId">
+    @if (venueId == 0)
     {
         <div class="form-group">
             <label class="control-label">Venue:</label>
-            <select asp-for="@Model.NewRoom.VenueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
+            <select asp-for="@venueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
             <span asp-validation-for="NewRoom.VenueId" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -32,10 +39,9 @@
         </div>
         <div class="form-group">
             <label class="control-label">Floor:</label>
-            <select asp-for="@Model.NewRoom.FloorId" asp-items="@Model.SelectListFloors"></select>
+            <select asp-for="@floorId" asp-items="@Model.SelectListFloors"></select>
             <span asp-validation-for="NewRoom.FloorId" class="text-danger"></span>
         </div>
-        @(Model.VenueSet = true)
     }
     <div class="form-group">
         <label asp-for="@Model.NewRoom.Name" class="control-label">Name</label>
