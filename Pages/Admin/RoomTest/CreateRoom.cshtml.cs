@@ -45,7 +45,7 @@ namespace ConFriend.Pages.Admin.RoomTest
             SelectListVenues = new SelectList(Venues, nameof(Venue.VenueId), nameof(Venue.Name));
         }
 
-        public IActionResult OnPost(int? venueId, int?floorId)
+        public IActionResult OnPost(int? venueId, int? floorId)
         {
             if (floorId == 0)
             {
