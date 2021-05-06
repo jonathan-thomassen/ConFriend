@@ -43,7 +43,7 @@ namespace ConFriend.Models
         }
         private object MyRead<T>(ModelTypes readmodel)
         {
-           
+
             switch (readmodel)
             {
                 case ModelTypes.Conference:
@@ -62,6 +62,12 @@ namespace ConFriend.Models
                     return Maker_User();
                 case ModelTypes.Venue:
                     return Maker_Venue();
+                case ModelTypes.SeatCategory:
+                    break;
+                case ModelTypes.Theme:
+                    return Maker_Theme();
+                case ModelTypes.Feature:
+                    break;
                 default:
                     break;
             }
@@ -181,6 +187,15 @@ namespace ConFriend.Models
             venue.RoomFeatures = null;
 
             return venue;
+        }
+        public Theme Maker_Theme()
+        {
+            Theme theme = new Theme();
+
+            theme.ThemeId = reader.GetInt32(0);
+            theme.Name = reader.GetString(1);
+
+            return theme;
         }
     }
 }

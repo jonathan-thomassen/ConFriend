@@ -1,4 +1,4 @@
-﻿@page "{htrn?}"
+﻿@page "{id?}"
 @model ConFriend.Pages.ThemeListModel
 @{
     ViewData["Title"] = "Speakers List";
@@ -37,7 +37,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.MyTheme.Name" class="control-label"></label>
-                                <input asp-for="@Model.MyTheme.Name" class="form-control" />
+                                <input asp-for="@Model.MyTheme.Name" value="@item.Name" class="form-control" />
                                 <span asp-validation-for="MyTheme.Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">

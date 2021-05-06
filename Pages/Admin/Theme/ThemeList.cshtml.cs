@@ -32,6 +32,12 @@ namespace ConFriend.Pages
             ThemeService = theme;
             this.ThemeService.Init(ModelTypes.Theme);
         }
+
+        public void OnGet()
+        {
+            Themes = ThemeService.GetAll();
+        }
+
         public IActionResult OnPostDelete(int htnr)
         {
             ThemeService.Delete(htnr);

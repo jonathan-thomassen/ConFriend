@@ -28,14 +28,14 @@ namespace ConFriend.Pages
 
 
         }
-        public void InitHotels()
-        {
-            foreach (Speaker speak in Speakers)
-            {
-                List<Speaker> speaks = SpeakerService.GetAll();
+        //public void InitHotels()
+        //{
+        //    foreach (Speaker speak in Speakers)
+        //    {
+        //        List<Speaker> speaks = SpeakerService.GetAll();
              
-            }
-        }
+        //    }
+        //}
 
         public IActionResult OnPost()
         {
