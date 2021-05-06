@@ -11,7 +11,7 @@ namespace ConFriend.Pages
 {
     public class speakerlistModel : PageModel
     {
-        private readonly ICrudService<Speaker> SpeakerServis;
+        private readonly ICrudService<Speaker> SpeakerService;
         [FromRoute]
         public int? htrn { get; set; }
 
@@ -23,8 +23,8 @@ namespace ConFriend.Pages
      
         public speakerlistModel(ICrudService<Speaker> speakerService)
         {
-            this.SpeakerServis = speakerService;
-            this.SpeakerServis.Init(ModelTypes.Speaker);
+            this.SpeakerService = speakerService;
+            this.SpeakerService.Init(ModelTypes.Speaker);
 
 
         }
@@ -32,7 +32,7 @@ namespace ConFriend.Pages
         {
             foreach (Speaker speak in Speakers)
             {
-                List<Speaker> speaks = SpeakerServis.GetAll();
+                List<Speaker> speaks = SpeakerService.GetAll();
              
             }
         }
@@ -45,16 +45,16 @@ namespace ConFriend.Pages
         {
             if (String.IsNullOrEmpty(FilterCriteria))
             {
-                Speakers = SpeakerServis.GetAll();
+                Speakers = SpeakerService.GetAll();
                  //speaker = SpeakerServis.GetFiltered(FilterCriteria);
             }
-            Speakers = SpeakerServis.GetAll();
+            Speakers = SpeakerService.GetAll();
         }
         public IActionResult OnPostDelete(int htnr)
         {
-            SpeakerServis.Delete(htnr);
+            SpeakerService.Delete(htnr);
 
-            Speakers = SpeakerServis.GetAll();
+            Speakers = SpeakerService.GetAll();
             return Page();
         }
     }

@@ -11,7 +11,7 @@ namespace ConFriend.Pages
 {
     public class speakerCreateModel : PageModel
     {
-        private readonly ICrudService<Speaker> SpeakerServis;
+        private readonly ICrudService<Speaker> SpeakerService;
     
 
         [FromRoute]
@@ -27,8 +27,8 @@ namespace ConFriend.Pages
 
         public speakerCreateModel(ICrudService<Speaker> speaks)
         {
-            SpeakerServis = speaks;
-            this.SpeakerServis.Init(ModelTypes.Speaker);
+            SpeakerService = speaks;
+            this.SpeakerService.Init(ModelTypes.Speaker);
         }
 
         public IActionResult OnGet()

@@ -72,7 +72,8 @@ namespace ConFriend.Models
             Conference conference = new Conference();
 
             conference.ConferenceId = reader.GetInt32(0);
-            conference.Name = reader.GetString(1);
+            conference.VenueId = reader.GetInt32(1);
+            conference.Name = reader.GetString(2);
             conference.EventThemes = new List<string>();
             conference.Speakers = null;
             conference.Events = null;

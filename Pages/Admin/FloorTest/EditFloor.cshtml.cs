@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.FloorTest
         public EditFloorModel(ICrudService<Floor> fService)
         {
             floorService = fService;
+            floorService.Init(ModelTypes.Floor);
             done = false;
         }
         public void OnGet(int fId)

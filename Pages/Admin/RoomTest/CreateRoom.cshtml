@@ -35,6 +35,7 @@
             <select asp-for="@Model.NewRoom.FloorId" asp-items="@Model.SelectListFloors"></select>
             <span asp-validation-for="NewRoom.FloorId" class="text-danger"></span>
         </div>
+        @(Model.VenueSet = true)
     }
     <div class="form-group">
         <label asp-for="@Model.NewRoom.Name" class="control-label">Name</label>
