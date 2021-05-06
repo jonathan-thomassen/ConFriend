@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.RoomTest
         public EditRoomModel(ICrudService<Room> rService)
         {
             roomService = rService;
+            roomService.Init(ModelTypes.Room);
             done = false;
         }
         public void OnGet(int rId)

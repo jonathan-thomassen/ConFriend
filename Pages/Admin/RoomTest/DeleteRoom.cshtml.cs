@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.RoomTest
         public DeleteRoomModel(ICrudService<Room> rService)
         {
             roomService = rService;
+            roomService.Init(ModelTypes.Room);
         }
         public void OnGet(int rId)
         {
