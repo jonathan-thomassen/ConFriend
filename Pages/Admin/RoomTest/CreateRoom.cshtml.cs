@@ -42,6 +42,7 @@ namespace ConFriend.Pages.Admin.RoomTest
             return Page();
         }
 
+
         public IActionResult OnPost()
         {
             if (!VenueSet)
