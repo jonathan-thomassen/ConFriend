@@ -1,0 +1,67 @@
+﻿@page "{htrn?}"
+@model ConFriend.Pages.ThemeListModel
+@{
+    ViewData["Title"] = "Speakers List";
+}
+<div>
+    <a asp-page="/Admin/Speaker/speakerCreate">Add New Speaker</a>
+</div>
+<form>
+    <p>
+        Search: <input type="text" asp-for="FilterCriteria" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<h4 style="color:aquamarine"> List of Speakers</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Hotel No
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Speakers.Count() != 0)
+        {
+
+            @foreach (var item in Model.Speakers)
+            {
+                <tr>
+                    <td>
+                      
+
+                    </td>
+                    <td>
+                      
+                    </td>
+                    <td>
+                     
+                    </td>
+                    <td>
+                      
+                    </td>
+                    <td>
+                        <p>
+                        
+                        </p>
+                    </td>
+                    <td>
+                        <form method="post">
+                           
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+</table>

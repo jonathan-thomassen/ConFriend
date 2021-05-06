@@ -49,7 +49,6 @@ namespace ConFriend.Services
                 SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
 
             return Item;
-
         }
         public bool Update(T item)
         {
