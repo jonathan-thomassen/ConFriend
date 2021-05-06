@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.FloorTest
         public DeleteFloorModel(ICrudService<Floor> fService)
         {
             floorService = fService;
+            floorService.Init(ModelTypes.Floor);
         }
         public void OnGet(int fId)
         {

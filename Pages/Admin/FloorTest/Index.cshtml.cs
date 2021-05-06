@@ -18,11 +18,12 @@ namespace ConFriend.Pages.Admin.FloorTest
 
         public IndexModel(ICrudService<Floor> fService)
         {
-            this.floorService = fService;
+            floorService = fService;
+            floorService.Init(ModelTypes.Floor);
         }
         public void OnGet()
         {
-            //Floors = floorService.GetAll();
+            Floors = floorService.GetAll();
         }
     }
 }
