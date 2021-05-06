@@ -27,11 +27,9 @@
     </thead>
     <tbody>
 
-
         @if (Model.Themes.Count() != 0)
         {
-
-            @foreach (var item in Themes)
+            @foreach (var item in Model.Themes)
             {
                 <tr>
                     <td>

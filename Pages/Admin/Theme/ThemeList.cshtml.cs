@@ -20,6 +20,8 @@ namespace ConFriend.Pages
         {
             get { return Id == null; }
         }
+
+        [BindProperty(SupportsGet = true)]
         public List<Theme> Themes { get; private set; }
 
         [BindProperty]
