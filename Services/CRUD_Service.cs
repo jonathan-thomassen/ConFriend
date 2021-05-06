@@ -49,7 +49,6 @@ namespace ConFriend.Services
                 SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id}");
 
             return Item;
-
         }
         public bool Update(T item)
         {

@@ -11,6 +11,8 @@ namespace ConFriend.Models
 
         string Identity();
 
+
+        // static ModelTypes somting { get; set;}
         // ModelTypes DataType { get; }
 
         //please also implement:

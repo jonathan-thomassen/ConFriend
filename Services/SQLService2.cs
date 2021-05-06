@@ -38,7 +38,7 @@ namespace ConFriend.Services
         public SQLService2(IConfiguration configuration) : base(configuration)
         {
                MyModelMaker = new ModelMaker();
-                
+           
         }
 
         public SQLService2(string connectionString) : base(connectionString)
