@@ -44,9 +44,9 @@ namespace ConFriend.Services
         {
             //current.IdentitySQL
             if (IsComposit)
-                SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQL} {id2}"); 
+                SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
             else
-                SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
+                SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id}");
 
             return Item;
 
@@ -59,7 +59,7 @@ namespace ConFriend.Services
         public bool Delete(int id,int id2 = 0)
         {
             if(IsComposit)
-                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQL} {id2}"); 
+                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
             else
                 return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
         }

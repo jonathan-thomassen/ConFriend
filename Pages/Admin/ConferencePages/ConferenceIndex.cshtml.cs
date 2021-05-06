@@ -21,6 +21,8 @@ namespace ConFriend.Pages.Admin.ConferencePages
         {
             _conferenceService = conferenceService;
             _venueService = venueService;
+            _conferenceService.Init(ModelTypes.Conference);
+            _venueService.Init(ModelTypes.Venue);
         }
 
         public IActionResult OnGet()
