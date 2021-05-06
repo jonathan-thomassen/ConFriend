@@ -7,7 +7,7 @@ using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConFriend.Pages.Admin.VenuePages
+namespace ConFriend.Pages
 {
     public class EditModel : PageModel
     {
