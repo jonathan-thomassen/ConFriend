@@ -19,6 +19,7 @@ namespace ConFriend.Pages.Admin.UserPages
         public EditModel(ICrudService<User> userService)
         {
             _userService = userService;
+            _userService.Init(ModelTypes.User);
         }
 
         public IActionResult OnGet(int? id)

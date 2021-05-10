@@ -16,7 +16,6 @@ namespace ConFriend.Interfaces
             Theme
         }
         void Init(ModelTypes DataType);
-    
         bool Create(T item);
         List<T> GetAll();
         T GetFromId(int id, int id2 = 0);
