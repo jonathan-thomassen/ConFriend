@@ -19,6 +19,7 @@ namespace ConFriend.Pages.Admin.EventTest
             eventService = eService;
             eventService.Init(ModelTypes.Event);
             NewEvent = new Event();
+            NewEvent.StartTime = DateTime.Now;
             done = false;
         }
         public void OnGet()
@@ -32,8 +33,7 @@ namespace ConFriend.Pages.Admin.EventTest
                 return Page();
             }
             eventService.Create(NewEvent);
-            done = true;
-            return Page();
+            return RedirectToPage("Index");
         }
     }
 }

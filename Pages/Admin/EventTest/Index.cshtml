@@ -2,7 +2,11 @@
 @model ConFriend.Pages.Admin.EventTest.IndexModel
 @{
 }
-<h4> List of Rooms</h4>
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/EventTest/CreateEvent">Create New Event</a>
+</p>
+
+<h4> List of Events</h4>
 
 <table class="table">
     <thead>
@@ -108,8 +112,8 @@
             </td>
             <td>
                 <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/RoomTest/EditEvent" asp-route-rId="@item.EventId">Edit Room</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/RoomTest/DeleteEvent" asp-route-rId="@item.EventId">Delete</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
+                    <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
                 </p>
             </td>
         </tr>

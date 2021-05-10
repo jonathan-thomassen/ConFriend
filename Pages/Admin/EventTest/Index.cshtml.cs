@@ -19,10 +19,11 @@ namespace ConFriend.Pages.Admin.EventTest
         {
             eventService = eService;
             eventService.Init(ModelTypes.Event);
+            Events = eventService.GetAll();
         }
         public void OnGet()
         {
-            Events = eventService.GetAll();
+            
         }
     }
 }

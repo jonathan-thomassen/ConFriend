@@ -116,7 +116,8 @@ namespace ConFriend.Services
                     case SQLType.Custom:
                         _reader = _command.ExecuteReader();
                         onRead(currentType);
-                        Item = Items[0];
+                        if (Items.Count > 0)
+                            Item = Items[0];
                         break;
                     case SQLType.Create:
                     case SQLType.Update:

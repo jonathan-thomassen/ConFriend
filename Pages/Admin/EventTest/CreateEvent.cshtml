@@ -2,7 +2,7 @@
 @model ConFriend.Pages.Admin.EventTest.CreateEventModel
 @{
 }
-<h4>Create Room</h4>
+<h4>Create Event</h4>
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.NewEvent.SpeakerId" class="control-label">SpeakerID</label>
@@ -81,5 +81,5 @@
 @if (Model.done)
 {
     <h4 style="color:green">The Room has been created</h4>
-    <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
+    <a class="button btn btn-dark" asp-page="Index">Return to all Events</a>
 }
