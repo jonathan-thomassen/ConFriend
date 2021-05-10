@@ -1,9 +1,14 @@
 ﻿@page
-@model ConFriend.Pages.Admin.EventTest.CreateEventModel
+@model ConFriend.Pages.Admin.EventTest.EditEventModel
 @{
 }
-<h4>Create Event</h4>
+<h4>Edit Event</h4>
 <form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.EventId" class="control-label">SpeakerID</label>
+        <input asp-for="@Model.NewEvent.EventId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.NewEvent.EventId" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <label asp-for="@Model.NewEvent.SpeakerId" class="control-label">SpeakerID</label>
         <input asp-for="@Model.NewEvent.SpeakerId" class="form-control" />
@@ -30,7 +35,7 @@
         <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewEvent.Duration" class="control-label">Duration</label>
+        <label asp-for="@Model.NewEvent.Duration" class="control-label">Duration in Minutes</label>
         <input asp-for="@Model.NewEvent.Duration" class="form-control" />
         <span asp-validation-for="@Model.NewEvent.Duration" class="text-danger"></span>
     </div>
@@ -78,8 +83,3 @@
         <input type="submit" value="Create" class="button btn btn-dark" />
     </div>
 </form>
-@if (Model.done)
-{
-    <h4 style="color:green">The Room has been created</h4>
-    <a class="button btn btn-dark" asp-page="Index">Return to all Events</a>
-}

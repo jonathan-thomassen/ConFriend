@@ -9,21 +9,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConFriend.Pages.Admin.EventTest
 {
-    public class IndexModel : PageModel
+    public class DeleteEventModel : PageModel
     {
-        public List<Event> Events { get; private set; }
-
         private ICrudService<Event> eventService;
+        [BindProperty] public Event Event { get; set; }
 
-        public IndexModel(ICrudService<Event> eService)
+        public DeleteEventModel(ICrudService<Event> eService)
         {
             eventService = eService;
             eventService.Init(ModelTypes.Event);
-            Events = eventService.GetAll();
         }
-        public void OnGet()
+        public void OnGet(int eId)
         {
-            
+            Event = eventService.GetFromId(eId);
+        }
+
+        public IActionResult OnPost(int eId)
+        {  eventService.Delete(Event.EventId);
+            return RedirectToPage("Index");
         }
     }
 }
