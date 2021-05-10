@@ -16,6 +16,7 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
@@ -24,31 +25,30 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/testfolder/SQL_test">Test</a>
+                    <li class="dropdown">
+                        <button class="dropbtn">AdminDemo</button>
+                        <div class="dropdown-content">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FloorTest/Index">FloorTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">SpeakerTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenuePages/VenueIndex">VenueTest</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FloorTest/Index">FloorTest</a>
+                    <li class="dropdown">
+                        <button class="dropbtn">AdminDemo2</button>
+                        <div class="dropdown-content">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">ConferenceTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomTest/Index">RoomTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenuePages/VenueIndex">VenueTest</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">SpeakerTest</a>
+                    <li class="dropdown">
+                        <button class="dropbtn">AdminDemo3</button>
+                        <div class="dropdown-content">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">ConferenceTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomTest/Index">RoomTest</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/UserPages/UserIndex">UserTest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenuePages/VenueIndex">VenueTest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">ConferenceTest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomTest/Index">RoomTest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
-                    </li>
-                    
                 </ul>
             </div>
         </div>
