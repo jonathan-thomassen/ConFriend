@@ -12,8 +12,12 @@ namespace ConFriend.Models
         public string Name { get; set; }
         //public Speaker Host { get; set; }
         public DateTime StartTime { get; set; }
-        //public TimeSpan Duration { get; set; }
-        public int DurationInMinutes { get; set; }
+        public TimeSpan Duration { get; set; }
+        public DateTime EndTime
+        {
+            get { return StartTime+Duration; }
+        }
+        //public int DurationInMinutes { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
         //public Room Room { get; set; }
@@ -30,9 +34,10 @@ namespace ConFriend.Models
         public string ToSQL()
         {
             return
-                $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}'," +
-                $" Duration = {DurationInMinutes}, Type = '{Type}', Description = '{Description}',Capacity = {Capacity}, ImageUrl = '{Image}'," +
-                $" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
+                $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}', Duration = {Duration.Minutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}', Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
+            //$"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}'," +
+            //$" Duration = {DurationInMinutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
+            //$" Hidden = {Hidden}, Cancelled = {Cancelled}, RoomHidden = {RoomHidden}, RoomCancelled = {RoomCancelled}";
         }
 
         public string Identity()

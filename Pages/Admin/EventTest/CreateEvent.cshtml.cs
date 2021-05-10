@@ -17,6 +17,7 @@ namespace ConFriend.Pages.Admin.EventTest
         public CreateEventModel(ICrudService<Event> eService)
         {
             eventService = eService;
+            eventService.Init(ModelTypes.Event);
             NewEvent = new Event();
             done = false;
         }

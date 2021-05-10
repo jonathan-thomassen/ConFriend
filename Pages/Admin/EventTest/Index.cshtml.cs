@@ -17,7 +17,8 @@ namespace ConFriend.Pages.Admin.EventTest
 
         public IndexModel(ICrudService<Event> eService)
         {
-            this.eventService = eService;
+            eventService = eService;
+            eventService.Init(ModelTypes.Event);
         }
         public void OnGet()
         {

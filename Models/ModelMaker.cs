@@ -102,21 +102,24 @@ namespace ConFriend.Models
             Event _event = new Event();
 
             _event.EventId = reader.GetInt32(0);
-            _event.Name = reader.GetString(1);
+            _event.SpeakerId = reader.GetInt32(1);
+            _event.RoomId = reader.GetInt32(2);
+            _event.ConferenceId = reader.GetInt32(3);
+            _event.Name = reader.GetString(4);
             //_event.Host = null;
             //_event.Host = Reader.GetInt32(2);
-            _event.StartTime = reader.GetDateTime(3);
-            //_event.Duration = Reader.GetInt32(0);
-            _event.Type = reader.GetString(4);
-            _event.Description = reader.GetString(4);
+            _event.StartTime = reader.GetDateTime(5);
+            _event.Duration = TimeSpan.FromMinutes(reader.GetInt32(6));
+            _event.Type = reader.GetString(7);
+            _event.Description = reader.GetString(8);
             //_event.Room = null;
-            _event.Capacity = reader.GetInt32(0);
+            _event.Capacity = reader.GetInt32(9);
             _event.Users = null;
-            _event.Image = reader.GetString(4);
-            _event.Hidden = reader.GetBoolean(4);
-            _event.Cancelled = reader.GetBoolean(4);
-            _event.RoomHidden = reader.GetBoolean(4);
-            _event.RoomCancelled = reader.GetBoolean(4);
+            _event.Image = reader.IsDBNull(10)? "" : reader.GetString(10);
+            _event.Hidden = reader.GetBoolean(11);
+            _event.Cancelled = reader.GetBoolean(12);
+            _event.RoomHidden = reader.GetBoolean(13);
+            _event.RoomCancelled = reader.GetBoolean(14);
             _event.SeatCategoriesTaken = null;
             _event.Themes = null;
 
