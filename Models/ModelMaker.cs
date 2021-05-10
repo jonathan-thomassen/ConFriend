@@ -92,8 +92,8 @@ namespace ConFriend.Models
 
             enrollment.EnrollmentId = reader.GetInt32(0);
             enrollment.SignUpTime = reader.GetDateTime(1);
-            enrollment.User = null;
-            enrollment.Event = null;
+            enrollment.userId = reader.GetInt32(2);
+            enrollment.eventId = reader.GetInt32(3);
 
             return enrollment;
         }

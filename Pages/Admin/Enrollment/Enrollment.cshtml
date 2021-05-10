@@ -6,14 +6,14 @@
     <form method="post">
 
         <div class="form-group">
-            <label asp-for="@Model.enrollment.User" class="control-label"></label>
-            <input asp-for="@Model.enrollment.User" class="form-control" />
-            <span asp-validation-for="enrollment.User" class="text-danger"></span>
+            <label asp-for="@Model.enrollment.userId" class="control-label"></label>
+            <input asp-for="@Model.enrollment.userId" class="form-control" />
+            <span asp-validation-for="enrollment.userId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.enrollment.Event" class="control-label"></label>
-            <input asp-for="@Model.enrollment.Event" class="form-control" />
-            <span asp-validation-for="enrollment.Event" class="text-danger"></span>
+            <label asp-for="@Model.enrollment.eventId" class="control-label"></label>
+            <input asp-for="@Model.enrollment.eventId" class="form-control" />
+            <span asp-validation-for="enrollment.eventId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <button type="submit" asp-page-handler="SaveNew" class="btn btn btn-primary">Save</button>
@@ -54,14 +54,14 @@
                 <form method="post">
 
                     <div class="form-group">
-                        <label asp-for="@Model.enrollment.User" class="control-label"></label>
-                        <input asp-for="@Model.enrollment.User"  class="form-control" />
-                        <span asp-validation-for="enrollment.User" class="text-danger"></span>
+                        <label asp-for="@Model.enrollment.userId" class="control-label"></label>
+                        <input asp-for="@Model.enrollment.userId"  class="form-control" />
+                        <span asp-validation-for="enrollment.userId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.enrollment.Event" class="control-label"></label>
-                        <input asp-for="@Model.enrollment.Event" class="form-control" />
-                        <span asp-validation-for="enrollment.Event" class="text-danger"></span>
+                        <label asp-for="@Model.enrollment.eventId" class="control-label"></label>
+                        <input asp-for="@Model.enrollment.eventId" class="form-control" />
+                        <span asp-validation-for="enrollment.eventId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <button type="submit" asp-page-handler="Save" name="id" value="@item.EnrollmentId" class="btn btn btn-primary">Save</button>
