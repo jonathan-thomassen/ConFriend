@@ -96,7 +96,10 @@
                 @item.Capacity
             </td>
             <td>
-                @item.Image
+                @if (item.Image != "")
+                {
+                    <img src="~/rooms/@item.Image" style="max-height: 50px" alt="image"/>
+                }
             </td>
             <td>
                 @item.Hidden
@@ -113,6 +116,7 @@
             <td>
                 <p>
                     <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/Image" asp-route-Id="@item.EventId">Edit Image</a>
                     <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
                 </p>
             </td>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConFriend.Models
 {
@@ -11,6 +12,8 @@ namespace ConFriend.Models
         public int ConferenceId { get; set; }
         public string Name { get; set; }
         //public Speaker Host { get; set; }
+
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime EndTime
