@@ -19,6 +19,7 @@ namespace ConFriend.Pages
         public DeleteModel(ICrudService<Venue> venueService)
         {
             _venueService = venueService;
+            venueService.Init(ModelTypes.Venue);
         }
 
         public IActionResult OnGet(int? id)

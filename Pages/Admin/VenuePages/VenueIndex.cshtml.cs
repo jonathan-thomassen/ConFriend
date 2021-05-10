@@ -18,6 +18,7 @@ namespace ConFriend.Pages
         public VenueIndexModel(ICrudService<Venue> venueService)
         {
             _venueService = venueService;
+            venueService.Init(ModelTypes.Venue);
         }
 
         public IActionResult OnGet()
