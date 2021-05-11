@@ -17,7 +17,8 @@ namespace ConFriend
         Venue,
         SeatCategory,
         Theme,
-        Feature
+        Feature,
+        RoomFeature
     }
 }
 namespace ConFriend.Models
@@ -68,7 +69,8 @@ namespace ConFriend.Models
                     return Maker_Theme();
                 case ModelTypes.Feature:
                     return Maker_Feature();
-                    break;
+                case ModelTypes.RoomFeature:
+                    return Maker_RoomFeature();
                 default:
                     break;
             }
@@ -209,6 +211,16 @@ namespace ConFriend.Models
             feature.Name = reader.GetString(1);
 
             return feature;
+        }
+        public RoomFeature Maker_RoomFeature()
+        {
+            RoomFeature roomFeature = new RoomFeature();
+
+            roomFeature.FeatureId = reader.GetInt32(0);
+            roomFeature.RoomId = reader.GetInt32(1);
+            roomFeature.IsAvailable = reader.GetBoolean(2);
+
+            return roomFeature;
         }
     }
 }

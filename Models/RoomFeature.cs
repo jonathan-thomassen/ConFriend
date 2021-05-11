@@ -10,9 +10,10 @@ namespace ConFriend.Models
         public int FeatureId { get; set; }
         public int RoomId { get; set; }
         public bool IsAvailable { get; set; }
+        public ModelTypes DataType = ModelTypes.RoomFeature;
         public string ToSQL()
         {
-            return $"IsAvailable = {IsAvailable}";
+            return $"IsAvailable = '{IsAvailable}'";
         }
 
         public string Identity()

@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConFriend.Pages.Admin.FeatureTest
 {
-    public class EditFeatureModel : PageModel
+    public class DeleteFeatureModel : PageModel
     {
         [BindProperty] public Feature Feature { get; set; }
         private ICrudService<Feature> featureService;
-        public EditFeatureModel(ICrudService<Feature> fService)
+        public DeleteFeatureModel(ICrudService<Feature> fService)
         {
             featureService = fService;
             featureService.Init(ModelTypes.Feature);
@@ -29,7 +29,7 @@ namespace ConFriend.Pages.Admin.FeatureTest
             {
                 return Page();
             }
-            featureService.Update(Feature);
+            featureService.Delete(Feature.FeatureId);
             return RedirectToPage("Index");
         }
     }

@@ -1,0 +1,50 @@
+﻿@page
+@model ConFriend.Pages.Admin.RoomFeatureTest.IndexModel
+@{
+}
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/FeatureTest/CreateFeature">Create New RoomFeature</a>
+</p>
+
+<h4>List of RoomFeatures</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FeatureId
+            </th>
+            <th>
+                RoomId
+            </th>
+            <th>
+                IsAvailable
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.RoomFeatures.Count() != 0)
+    {
+        @foreach (var item in Model.RoomFeatures)
+        {
+        <tr>
+            <td>
+                @item.FeatureId
+            </td>
+            <td>
+                @item.RoomId
+            </td>
+            <td>
+                @item.IsAvailable
+            </td>
+            <td>
+                <p>
+                    <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/EditFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
+                    <a class="button btn btn-danger" asp-page="/Admin/FeatureTest/DeleteFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
+                </p>
+            </td>
+        </tr>
+        }
+    }
+</table>
