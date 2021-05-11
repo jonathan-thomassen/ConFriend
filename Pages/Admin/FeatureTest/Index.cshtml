@@ -1,0 +1,44 @@
+﻿@page
+@model ConFriend.Pages.Admin.FeatureTest.IndexModel
+@{
+}
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/FeatureTest/CreateFeature">Create New Feature</a>
+</p>
+
+<h4>List of Features</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FeatureId
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Features.Count() != 0)
+        {
+            @foreach (var item in Model.Features)
+            {
+                <tr>
+                    <td>
+                        @item.FeatureId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/EditFeature" asp-route-rId="@item.FeatureId">Edit Feature</a>
+                            <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/Image" asp-route-Id="@item.FeatureId">Edit Image</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/FeatureTest/DeleteFeature" asp-route-rId="@item.FeatureId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+</table>

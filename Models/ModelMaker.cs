@@ -67,6 +67,7 @@ namespace ConFriend.Models
                 case ModelTypes.Theme:
                     return Maker_Theme();
                 case ModelTypes.Feature:
+                    return Maker_Feature();
                     break;
                 default:
                     break;
@@ -199,6 +200,15 @@ namespace ConFriend.Models
             theme.Name = reader.GetString(1);
 
             return theme;
+        }
+        public Feature Maker_Feature()
+        {
+            Feature feature = new Feature();
+
+            feature.FeatureId= reader.GetInt32(0);
+            feature.Name = reader.GetString(1);
+
+            return feature;
         }
     }
 }
