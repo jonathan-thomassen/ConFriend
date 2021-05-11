@@ -15,11 +15,11 @@ namespace ConFriend.Models
         //public Speaker Host { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime), DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime EndTime
         {
-            get { return StartTime + Duration; }
+            get { return (DateTime)StartTime + Duration; }
         }
         //public int DurationInMinutes { get; set; }
         public string Type { get; set; }
@@ -37,9 +37,8 @@ namespace ConFriend.Models
         public List<string> Themes { get; set; }
         public string ToSQL()
         {
-            int test = (int)Duration.TotalMinutes;
             CultureInfo culture = new CultureInfo("en-US");
-            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime.ToString(culture)}'," +
+            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{((DateTime)StartTime).ToString(culture)}'," +
                    $" Duration = {(int)Duration.TotalMinutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
                    $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
         }
