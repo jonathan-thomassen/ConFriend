@@ -10,11 +10,11 @@ namespace ConFriend.Models
         public int ThemeId { get; set; }
         public int EventId { get; set; }
 
-        public ModelTypes DataType => ModelTypes.Event;
+        public ModelTypes DataType => ModelTypes.EventTheme;
 
         public string ToSQL()
         {
-            return $"ThemeId = {ThemeId} AND EventId = {EventId}";
+            return $"ThemeId = {ThemeId}, EventId = {EventId}";
         }
 
  
