@@ -88,3 +88,7 @@ namespace ConFriend.Pages
         }
     }
 }
+//Enrollment
+//RoomSeatCategory
+//SeatCategory
+//SetCatTakenTest

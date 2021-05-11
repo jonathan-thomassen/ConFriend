@@ -17,4 +17,10 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\SetCatTakenTest\" />
+    <Folder Include="Pages\Admin\RoomSeatCategory\" />
+    <Folder Include="Pages\Admin\SeatCategory\" />
+  </ItemGroup>
+
 </Project>
