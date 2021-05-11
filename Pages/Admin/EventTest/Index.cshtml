@@ -48,16 +48,16 @@
                 Image
             </th>
             <th>
-                Hidden
+                Hid
             </th>
             <th>
-                Cancelled
+                Can
             </th>
             <th>
-                RoomHidden
+                RHid
             </th>
             <th>
-                RoomCancelled
+                RCan
             </th>
             <th>
             </th>
@@ -68,94 +68,94 @@
         {
             @foreach (var item in Model.Events)
             {
-        <tr>
-            <td>
-                @item.EventId
-            </td>
-            <td>
-                @Model.Conferences.Find(conference => conference.ConferenceId.Equals(item.ConferenceId))?.Name
-            </td>
-            <td>
-                @($"{Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.FirstName} {Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.LastName}")
-            </td>
-            <td>
-                @Model.Venues.Find(venue => venue.VenueId.Equals(Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.VenueId))?.Name
-            </td>
-            <td>
-                @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.StartTime
-            </td>
-            <td>
-                @item.EndTime
-            </td>
-            <td>
-                @item.Type
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.Capacity
-            </td>
-            <td>
-                @if (item.Image != "")
-                {
-                    <img src="~/events/@item.Image" style="max-height: 50px" alt="image" />
-                }
-            </td>
-            <td>
-                @if (item.Hidden)
-                {
-                    <p>&#10003;</p>
-                }
-                else
-                {
-                    <p>&#10060;</p>
-                }
-            </td>
-            <td>
-                @if (item.Cancelled)
-                {
-                    <p>&#10003;</p>
-                }
-                else
-                {
-                    <p>&#10060;</p>
-                }
-            </td>
-            <td>
-                @if (item.RoomHidden)
-                {
-                    <p>&#10003;</p>
-                }
-                else
-                {
-                    <p>&#10060;</p>
-                }
-            </td>
-            <td>
-                @if (item.RoomCancelled)
-                {
-                    <p>&#10003;</p>
-                }
-                else
-                {
-                    <p>&#10060;</p>
-                }
-            </td>
-            <td>
-                <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
-                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/Image" asp-route-Id="@item.EventId">Edit Image</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
-                </p>
-            </td>
-        </tr>
+                <tr>
+                    <td>
+                        @item.EventId
+                    </td>
+                    <td>
+                        @Model.Conferences.Find(conference => conference.ConferenceId.Equals(item.ConferenceId))?.Name
+                    </td>
+                    <td>
+                        @($"{Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.FirstName} {Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.LastName}")
+                    </td>
+                    <td>
+                        @Model.Venues.Find(venue => venue.VenueId.Equals(Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.VenueId))?.Name
+                    </td>
+                    <td>
+                        @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.StartTime
+                    </td>
+                    <td>
+                        @item.EndTime
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Capacity
+                    </td>
+                    <td>
+                        @if (item.Image != "")
+                        {
+                            <img src="~/events/@item.Image" style="max-height: 50px" alt="image" />
+                        }
+                    </td>
+                    <td>
+                        @if (item.Hidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Cancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomHidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomCancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
+                            <a class="button btn btn-primary" asp-page="/Admin/EventTest/Image" asp-route-Id="@item.EventId">Edit Image</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
             }
         }
 </table>
