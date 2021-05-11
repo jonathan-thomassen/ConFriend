@@ -38,8 +38,6 @@ namespace ConFriend.Pages.Admin.RoomTest
         public void OnGet()
         {
             Venues = _venueService.GetAll();
-            VenueId = 0;
-            FloorId = 0;
             Venues.Insert(0, new Venue());
 
             SelectListVenues = new SelectList(Venues, nameof(Venue.VenueId), nameof(Venue.Name));
@@ -51,7 +49,8 @@ namespace ConFriend.Pages.Admin.RoomTest
             {
                 Venues = _venueService.GetAll();
                 Floors = _floorService.GetAll();
-                SelectListFloors = new SelectList(Floors.FindAll(floor => floor.VenueId.Equals(venueId)), nameof(Floor.VenueId), nameof(Floor.Name));
+                Floors.Insert(0 , new Floor());
+                SelectListFloors = new SelectList(Floors.FindAll(floor => floor.VenueId.Equals(venueId) || floor.VenueId == 0), nameof(Floor.FloorId), nameof(Floor.Name));
                 NewRoom.VenueId = (int)venueId;
                 VenueId = (int)venueId;
 
