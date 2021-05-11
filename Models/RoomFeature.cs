@@ -13,7 +13,7 @@ namespace ConFriend.Models
         public ModelTypes DataType = ModelTypes.RoomFeature;
         public string ToSQL()
         {
-            return $"IsAvailable = '{IsAvailable}'";
+            return $"FeatureId = {FeatureId}, RoomId = {RoomId}, IsAvailable = '{IsAvailable}'";
         }
 
         public string Identity()
