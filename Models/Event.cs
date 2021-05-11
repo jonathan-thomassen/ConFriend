@@ -33,7 +33,6 @@ namespace ConFriend.Models
         public List<string> Themes { get; set; }
         public string ToSQL()
         {
-            int test = (int)Duration.TotalMinutes;
             return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}'," +
                    $" Duration = {(int)Duration.TotalMinutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
                    $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
