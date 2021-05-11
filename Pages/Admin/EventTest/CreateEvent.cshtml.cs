@@ -12,6 +12,7 @@ namespace ConFriend.Pages.Admin.EventTest
     public class CreateEventModel : PageModel
     {
         [BindProperty] public Event NewEvent { get; set; }
+
         public bool done { get; set; }
         private ICrudService<Event> eventService;
         public CreateEventModel(ICrudService<Event> eService)
@@ -24,6 +25,7 @@ namespace ConFriend.Pages.Admin.EventTest
         }
         public void OnGet()
         {
+          
         }
 
         public IActionResult OnPost()
