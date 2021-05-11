@@ -51,11 +51,6 @@ namespace ConFriend.Services
            _name = type.ToString();
             currentType = type;
         }
-        public void initComposite(ModelTypes type)
-        {
-            _name = type.ToString();
-            currentType = type;
-        }
 
         private string GetValues(string values)
         {
