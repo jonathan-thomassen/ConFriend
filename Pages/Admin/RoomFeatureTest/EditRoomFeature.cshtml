@@ -1,0 +1,34 @@
+﻿@page
+@model ConFriend.Pages.Admin.RoomFeatureTest.EditRoomFeatureModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.RoomFeature.RoomId" class="control-label">RoomId</label>
+        <input asp-for="@Model.RoomFeature.RoomId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.RoomFeature.RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.RoomFeature.FeatureId" class="control-label">FeatureId</label>
+        <input asp-for="@Model.RoomFeature.FeatureId" readonly="readonly" class="form-control" />
+        <span asp-validation-for="@Model.RoomFeature.FeatureId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.RoomFeature.IsAvailable" class="control-label">IsAvailable</label>
+        <input asp-for="@Model.RoomFeature.IsAvailable" class="form-control" />
+        <span asp-validation-for="@Model.RoomFeature.IsAvailable" class="text-danger"></span>
+    </div>
+
+    @if (Model.IsDeleting)
+    {
+        <div class="form-group">
+            <input type="submit" asp-page-handler="Delete" value="Delete" class="button btn btn-danger" />
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <input type="submit" value="Save" class="button btn btn-dark" />
+        </div>
+    }
+</form>

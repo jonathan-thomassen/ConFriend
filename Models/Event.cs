@@ -16,11 +16,10 @@ namespace ConFriend.Models
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime), DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
         public DateTime? StartTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        public DateTime EndTime
-        {
-            get { return (DateTime)StartTime + Duration; }
-        }
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Duration)]
+        public TimeSpan? Duration { get; set; }
+        public DateTime? EndTime => StartTime + Duration;
+
         //public int DurationInMinutes { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
@@ -39,7 +38,7 @@ namespace ConFriend.Models
         {
             CultureInfo culture = new CultureInfo("en-US");
             return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
-                   $" StartTime = '{((DateTime)StartTime).ToString(culture)}', Duration = {(int)Duration.TotalMinutes}," +
+                   $" StartTime = '{((DateTime)StartTime).ToString(culture)}', Duration = {(int)((TimeSpan)Duration).TotalMinutes}," +
                    $" Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
                    $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}'," +
                    $" RoomCancelled = '{RoomCancelled}'";

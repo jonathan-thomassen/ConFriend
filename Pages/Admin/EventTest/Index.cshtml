@@ -12,16 +12,19 @@
     <thead>
         <tr>
             <th>
-                EventId
+                Id
             </th>
             <th>
-                SpeakerId
+                Conference
             </th>
             <th>
-                RoomId
+                Speaker
             </th>
             <th>
-                ConferenceId
+                Venue
+            </th>
+            <th>
+                Room
             </th>
             <th>
                 Name
@@ -45,16 +48,16 @@
                 Image
             </th>
             <th>
-                Hidden
+                Hid
             </th>
             <th>
-                Cancelled
+                Can
             </th>
             <th>
-                RoomHidden
+                RHid
             </th>
             <th>
-                RoomCancelled
+                RCan
             </th>
             <th>
             </th>
@@ -70,13 +73,16 @@
                         @item.EventId
                     </td>
                     <td>
-                        @item.SpeakerId
+                        @Model.Conferences.Find(conference => conference.ConferenceId.Equals(item.ConferenceId))?.Name
                     </td>
                     <td>
-                        @item.RoomId
+                        @($"{Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.FirstName} {Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.LastName}")
                     </td>
                     <td>
-                        @item.ConferenceId
+                        @Model.Venues.Find(venue => venue.VenueId.Equals(Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.VenueId))?.Name
+                    </td>
+                    <td>
+                        @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
                     </td>
                     <td>
                         @item.Name
@@ -105,7 +111,7 @@
                     <td>
                         @if (item.Hidden)
                         {
-                            <p>&#10003;</p>
+                            <p>&#10004;</p>
                         }
                         else
                         {
@@ -115,7 +121,7 @@
                     <td>
                         @if (item.Cancelled)
                         {
-                            <p>&#10003;</p>
+                            <p>&#10004;</p>
                         }
                         else
                         {
@@ -125,7 +131,7 @@
                     <td>
                         @if (item.RoomHidden)
                         {
-                            <p>&#10003;</p>
+                            <p>&#10004;</p>
                         }
                         else
                         {
@@ -135,7 +141,7 @@
                     <td>
                         @if (item.RoomCancelled)
                         {
-                            <p>&#10003;</p>
+                            <p>&#10004;</p>
                         }
                         else
                         {

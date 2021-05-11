@@ -3,7 +3,7 @@
 @{
 }
 <p>
-    <a class="button btn btn-success" asp-page="/Admin/FeatureTest/CreateFeature">Create New RoomFeature</a>
+    <a class="button btn btn-success" asp-page="/Admin/RoomFeatureTest/CreateRoomFeature">Create New RoomFeature</a>
 </p>
 
 <h4>List of RoomFeatures</h4>
@@ -12,10 +12,10 @@
     <thead>
         <tr>
             <th>
-                FeatureId
+                RoomId
             </th>
             <th>
-                RoomId
+                FeatureId
             </th>
             <th>
                 IsAvailable
@@ -29,19 +29,19 @@
         {
         <tr>
             <td>
-                @item.FeatureId
+                @item.RoomId
             </td>
             <td>
-                @item.RoomId
+                @item.FeatureId
             </td>
             <td>
                 @item.IsAvailable
             </td>
             <td>
                 <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/EditFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
-                    <a class="button btn btn-primary" asp-page="/Admin/FeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/FeatureTest/DeleteFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
+                    <a class="button btn btn-danger" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-page-handler="Delete" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
                 </p>
             </td>
         </tr>

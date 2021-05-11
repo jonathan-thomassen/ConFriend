@@ -1,23 +1,48 @@
 ﻿@page
 @model ConFriend.Pages.Admin.EventTest.CreateEventModel
 @{
+    ViewData["Title"] = "Create event";
+
+    int venueId;
+    int roomId = 0;
+
+    venueId = Model.VenueId;
 }
 <h4>Create Event</h4>
-<form method="post">
+<form method="post" asp-route-venueId="@venueId" asp-route-roomId="@roomId">
     <div class="form-group">
-        <label asp-for="@Model.NewEvent.SpeakerId" class="control-label">SpeakerID</label>
-        <input asp-for="@Model.NewEvent.SpeakerId" class="form-control" />
-        <span asp-validation-for="@Model.NewEvent.SpeakerId" class="text-danger"></span>
+        <label class="control-label">Speaker:</label>
+        <select asp-for="NewEvent.SpeakerId" asp-items="@Model.SelectListSpeakers"></select>
+        <span asp-validation-for="NewEvent.SpeakerId" class="text-danger"></span>
     </div>
+    @if (venueId == 0)
+    {
+        <div class="form-group">
+            <label class="control-label">Venue:</label>
+            <select asp-for="@venueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Room:</label>
+            -
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label class="control-label">Venue:</label>
+            @Model.Venues.Find(venue => venue.VenueId.Equals(venueId))?.Name
+            <input type="submit" asp-page-handler="ClearVenueChoice" style="border-style: none; background-color: white;" value="&#128473;" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Room:</label>
+            <select asp-for="@roomId" asp-items="@Model.SelectListRooms"></select>
+            <span asp-validation-for="NewEvent.RoomId" class="text-danger"></span>
+        </div>
+    }
     <div class="form-group">
-        <label asp-for="@Model.NewEvent.RoomId" class="control-label">RoomId</label>
-        <input asp-for="@Model.NewEvent.RoomId" class="form-control" />
-        <span asp-validation-for="@Model.NewEvent.RoomId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.ConferenceId" class="control-label">ConferenceId</label>
-        <input asp-for="@Model.NewEvent.ConferenceId" class="form-control" />
-        <span asp-validation-for="@Model.NewEvent.ConferenceId" class="text-danger"></span>
+        <label class="control-label">Conference:</label>
+        <select asp-for="NewEvent.ConferenceId" asp-items="@Model.SelectListConferences"></select>
+        <span asp-validation-for="NewEvent.ConferenceId" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewEvent.Name" class="control-label">Name</label>
@@ -30,9 +55,9 @@
         <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewEvent.Duration" class="control-label">Duration</label>
-        <input asp-for="@Model.NewEvent.Duration" class="form-control" />
-        <span asp-validation-for="@Model.NewEvent.Duration" class="text-danger"></span>
+        <label asp-for="NewEvent.Duration" class="control-label">Duration</label>
+        <input asp-for="NewEvent.Duration" class="form-control" />
+        <span asp-validation-for="NewEvent.Duration" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewEvent.Type" class="control-label">Type</label>
@@ -48,11 +73,6 @@
         <label asp-for="@Model.NewEvent.Capacity" class="control-label">Capacity</label>
         <input asp-for="@Model.NewEvent.Capacity" class="form-control" />
         <span asp-validation-for="@Model.NewEvent.Capacity" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.Image" class="control-label">Image</label>
-        <input asp-for="@Model.NewEvent.Image" class="form-control" />
-        <span asp-validation-for="@Model.NewEvent.Image" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewEvent.Hidden" class="control-label">Hidden</label>
