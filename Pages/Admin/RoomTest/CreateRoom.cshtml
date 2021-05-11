@@ -6,12 +6,6 @@
     int floorId;
 }
 
-<script type="text/javascript">
-    function ClearTextBox() {
-        document.getElementById("filterCriteria").value = "";
-    }
-</script>
-
 @{
     venueId = Model.VenueId;
     floorId = Model.FloorId;
@@ -36,6 +30,7 @@
         <div class="form-group">
             <label class="control-label">Venue:</label>
             @Model.Venues.Find(venue => venue.VenueId.Equals(Model.NewRoom.VenueId))?.Name
+            <input type="submit" asp-page-handler="ClearVenueChoice" style="border-style: none; background-color: white;" value="&#128473;" />
         </div>
         <div class="form-group">
             <label class="control-label">Floor:</label>
@@ -45,12 +40,12 @@
     }
     <div class="form-group">
         <label asp-for="@Model.NewRoom.Name" class="control-label">Name</label>
-        <input asp-for="@Model.NewRoom.Name" class="form-control" /> 
+        <input asp-for="@Model.NewRoom.Name" class="form-control" />
         <span asp-validation-for="@Model.NewRoom.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewRoom.Size" class="control-label">Size</label>
-        <div style="display: inline-block"><input asp-for="@Model.NewRoom.Size" class="form-control" style="max-width: 100px"/> m²</div>
+        <div style="display: inline-block"><input asp-for="@Model.NewRoom.Size" class="form-control" style="max-width: 100px" /> m²</div>
         <span asp-validation-for="@Model.NewRoom.Size" class="text-danger"></span>
     </div>
     <div class="form-group">

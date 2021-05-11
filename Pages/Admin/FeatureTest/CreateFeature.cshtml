@@ -1,0 +1,15 @@
+﻿@page
+@model ConFriend.Pages.Admin.FeatureTest.CreateFeatureModel
+@{
+}
+<h4>Create Feature</h4>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Feature.Name" class="control-label">Name</label>
+        <input asp-for="@Model.Feature.Name" class="form-control" />
+        <span asp-validation-for="@Model.Feature.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="button btn btn-dark" />
+    </div>
+</form>

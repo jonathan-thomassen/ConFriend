@@ -7,22 +7,20 @@ using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConFriend.Pages.Admin.EventTest
+namespace ConFriend.Pages.Admin.FeatureTest
 {
-    public class CreateEventModel : PageModel
+    public class CreateFeatureModel : PageModel
     {
-        [BindProperty] public Event NewEvent { get; set; }
-        private ICrudService<Event> eventService;
-        public CreateEventModel(ICrudService<Event> eService)
+        [BindProperty] public Feature Feature { get; set; }
+        private ICrudService<Feature> featureService;
+        public CreateFeatureModel(ICrudService<Feature> fService)
         {
-            eventService = eService;
-            eventService.Init(ModelTypes.Event);
-            NewEvent = new Event();
-            //NewEvent.StartTime = DateTime.Now;
+            featureService = fService;
+            featureService.Init(ModelTypes.Feature);
+            Feature = new Feature();
         }
         public void OnGet()
         {
-          
         }
 
         public IActionResult OnPost()
@@ -31,7 +29,7 @@ namespace ConFriend.Pages.Admin.EventTest
             {
                 return Page();
             }
-            eventService.Create(NewEvent);
+            featureService.Create(Feature);
             return RedirectToPage("Index");
         }
     }

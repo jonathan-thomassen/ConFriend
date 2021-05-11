@@ -23,12 +23,21 @@ namespace ConFriend.Services
             ItemIdentitySQL = $"{DataType}Id =";
             init(DataType);
         }
-        public void Init_Composit(ModelTypes DataTypeA, ModelTypes DataTypeB)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DataTypeA"></param>
+        /// The first part of the composite key
+        /// <param name="DataTypeB"></param>
+        /// THe second part of the composite key
+        /// <param name="TrueDataType"></param>
+        /// The actual DataType in use
+        public void Init_Composite(ModelTypes DataTypeA, ModelTypes DataTypeB, ModelTypes TrueDataType)
         {
             IsComposit = true;
             ItemIdentitySQL = $"{DataTypeA}Id =";
             ItemIdentitySQLExtra = $"{DataTypeB}Id =";
-            init(DataTypeA);
+            init(TrueDataType);
         }
         public bool Create(T item)
         {

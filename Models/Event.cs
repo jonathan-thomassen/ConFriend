@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace ConFriend.Models
 {
@@ -11,11 +13,13 @@ namespace ConFriend.Models
         public int ConferenceId { get; set; }
         public string Name { get; set; }
         //public Speaker Host { get; set; }
-        public DateTime StartTime { get; set; }
+
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime), DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
+        public DateTime? StartTime { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime EndTime
         {
-            get { return StartTime + Duration; }
+            get { return (DateTime)StartTime + Duration; }
         }
         //public int DurationInMinutes { get; set; }
         public string Type { get; set; }
@@ -33,9 +37,12 @@ namespace ConFriend.Models
         public List<string> Themes { get; set; }
         public string ToSQL()
         {
-            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{StartTime}'," +
-                   $" Duration = {(int)Duration.TotalMinutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
-                   $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
+            CultureInfo culture = new CultureInfo("en-US");
+            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
+                   $" StartTime = '{((DateTime)StartTime).ToString(culture)}', Duration = {(int)Duration.TotalMinutes}," +
+                   $" Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
+                   $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}'," +
+                   $" RoomCancelled = '{RoomCancelled}'";
         }
 
         public string Identity()

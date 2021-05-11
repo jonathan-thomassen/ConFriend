@@ -1,0 +1,31 @@
+﻿@page
+@model ConFriend.Pages.Admin.EventTest.ImageModel
+@{
+}
+
+<html>
+<head>
+    <title>Image Upload</title>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">
+    <legend> Upload Image </legend>
+    <label for="Image">Image</label>
+    <input type="file" asp-for="Upload" />
+    <input type="submit" />
+</form>
+<h1>Uploaded Image</h1>
+@if (Model.Event != null)
+{
+    @if (Model.Event.Image != null)
+    {
+        <div>
+            <img src="~/events/@Model.Event.Image" alt="image" />
+        </div>
+    }
+}
+<div>    
+    <a asp-page="Index">Back to index</a>
+</div>
+</body>
+</html>
