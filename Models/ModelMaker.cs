@@ -16,6 +16,7 @@ namespace ConFriend
         User,
         Venue,
         SeatCategory,
+        RoomSeatCategory,
         Theme,
         Feature,
         RoomFeature,
@@ -97,9 +98,9 @@ namespace ConFriend.Models
             Enrollment enrollment = new Enrollment();
 
             enrollment.EnrollmentId = reader.GetInt32(0);
-            enrollment.SignUpTime = reader.GetDateTime(1);
+            enrollment.eventId = reader.GetInt32(1);
             enrollment.userId = reader.GetInt32(2);
-            enrollment.eventId = reader.GetInt32(3);
+            enrollment.SignUpTime = reader.GetDateTime(3);
 
             return enrollment;
         }

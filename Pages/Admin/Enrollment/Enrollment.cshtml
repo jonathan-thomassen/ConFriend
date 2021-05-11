@@ -1,25 +1,13 @@
 ﻿@page
+
 @model ConFriend.Pages.EnrollmentModel
 @{
+    ViewData["Title"] = "List Enrollments";
 }
-<div>
-    <form method="post">
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/Enrollment/CreatEnrollment">Create New Enrollment</a>
+</p>
 
-        <div class="form-group">
-            <label asp-for="@Model.enrollment.userId" class="control-label"></label>
-            <input asp-for="@Model.enrollment.userId" class="form-control" />
-            <span asp-validation-for="enrollment.userId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.enrollment.eventId" class="control-label"></label>
-            <input asp-for="@Model.enrollment.eventId" class="form-control" />
-            <span asp-validation-for="enrollment.eventId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <button type="submit" asp-page-handler="SaveNew" class="btn btn btn-primary">Save</button>
-        </div>
-    </form>
-</div>
 
 <h4 style="color:aquamarine"> Themes</h4>
 <h1>Create Location</h1>
@@ -51,20 +39,15 @@
                 <p>@item.SignUpTime</p>
             </td>
             <td>
+                <p>@item.userId</p>
+            </td>
+            <td>
+                <p>@item.eventId</p>
+            </td>
+            <td>
                 <form method="post">
-
                     <div class="form-group">
-                        <label asp-for="@Model.enrollment.userId" class="control-label"></label>
-                        <input asp-for="@Model.enrollment.userId"  class="form-control" />
-                        <span asp-validation-for="enrollment.userId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="@Model.enrollment.eventId" class="control-label"></label>
-                        <input asp-for="@Model.enrollment.eventId" class="form-control" />
-                        <span asp-validation-for="enrollment.eventId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" asp-page-handler="Save" name="id" value="@item.EnrollmentId" class="btn btn btn-primary">Save</button>
+                        <button type="submit" asp-page-handler="Edit" name="id" value="@item.EnrollmentId" class="btn btn btn-primary">edit</button>
                         <button type="submit" asp-page-handler="Delete" name="id" value="@item.EnrollmentId" class="btn btn btn-warning">Delete</button>
                     </div>
                 </form>

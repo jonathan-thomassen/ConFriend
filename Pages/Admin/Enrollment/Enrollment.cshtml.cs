@@ -6,6 +6,7 @@ using ConFriend.Interfaces;
 using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ConFriend.Pages
 {
@@ -15,19 +16,16 @@ namespace ConFriend.Pages
         private readonly ICrudService<User> UserSevice;
         private readonly ICrudService<Event> EventSevice;
 
-        [FromRoute]
-        public int? Id { get; set; }
-
-        public bool IsNewEntry
-        {
-            get { return Id == null; }
-        }
+      
 
         [BindProperty(SupportsGet = true)]
         public List<Enrollment> Enrollments { get; private set; }
 
-        [BindProperty]
-        public Enrollment enrollment { get; set; }
+ 
+        public List<User> MyUsers;
+        public List<Event> MyEvents;
+
+  
 
         public EnrollmentModel(ICrudService<Enrollment> enroll, ICrudService<User> userSevice, ICrudService<Event> eventSevice)
         {
@@ -39,7 +37,6 @@ namespace ConFriend.Pages
             this.UserSevice.Init(ModelTypes.User);
             this.EventSevice.Init(ModelTypes.Event);
         }
-
         public void OnGet()
         {
             Enrollments = EnrollmentSevice.GetAll();
@@ -57,26 +54,18 @@ namespace ConFriend.Pages
             Enrollments = EnrollmentSevice.GetAll();
             return Page();
         }
-        public IActionResult OnPostSave(int id)
+        public IActionResult OnPostEdit(int id)
         {
-            Enrollment newEnrollment = new Enrollment();
+            
             //need to be set on server side, so users cant cheet with the time
-            newEnrollment.SignUpTime = DateTime.Now;
-            newEnrollment.EnrollmentId = id;
+            //newEnrollment.SignUpTime = DateTime.Now;
+            //newEnrollment.EnrollmentId = id;
 
-            EnrollmentSevice.Update(newEnrollment);
-            Enrollments = EnrollmentSevice.GetAll();
+           // EnrollmentSevice.Update(newEnrollment);
+           // Enrollments = EnrollmentSevice.GetAll();
             return Page();
         }
-        public IActionResult OnPostSaveNew(int id)
-        {
-            Enrollment newEnrollment = new Enrollment();
       
-            EnrollmentSevice.Create(newEnrollment);
-
-            Enrollments = EnrollmentSevice.GetAll();
-            return Page();
-        }
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

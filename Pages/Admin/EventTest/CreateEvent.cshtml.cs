@@ -16,7 +16,7 @@ namespace ConFriend.Pages.Admin.EventTest
         public List<Room> Rooms;
         public List<Venue> Venues;
         public List<Conference> Conferences;
-        public List<Models.Speaker> Speakers;
+        public List<Speaker> Speakers;
 
         public SelectList SelectListVenues;
         public SelectList SelectListRooms;
@@ -29,7 +29,7 @@ namespace ConFriend.Pages.Admin.EventTest
         private readonly ICrudService<Room> _roomService;
         private readonly ICrudService<Venue> _venueService;
         private readonly ICrudService<Conference> _conferenceService;
-        private readonly ICrudService<Models.Speaker> _speakerService;
+        private readonly ICrudService<Speaker> _speakerService;
 
         public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Venue> venueService, ICrudService<Conference> conferenceService, ICrudService<Models.Speaker> speakerService)
         {
@@ -53,11 +53,11 @@ namespace ConFriend.Pages.Admin.EventTest
             Conferences = _conferenceService.GetAll();
 
             Venues.Insert(0, new Venue());
-            Speakers.Insert(0, new Models.Speaker());
+            Speakers.Insert(0, new Speaker());
             Conferences.Insert(0, new Conference());
 
             SelectListVenues = new SelectList(Venues, nameof(Venue.VenueId), nameof(Venue.Name));
-            SelectListSpeakers = new SelectList(Speakers, nameof(Models.Speaker.SpeakerId), nameof(Models.Speaker.FullName));
+            SelectListSpeakers = new SelectList(Speakers, nameof(Speaker.SpeakerId), nameof(Speaker.FullName));
             SelectListConferences = new SelectList(Conferences, nameof(Conference.ConferenceId), nameof(Conference.Name));
         }
 
@@ -72,11 +72,11 @@ namespace ConFriend.Pages.Admin.EventTest
                 Conferences = _conferenceService.GetAll();
 
                 Rooms.Insert(0, new Room());
-                Speakers.Insert(0, new Models.Speaker());
+                Speakers.Insert(0, new Speaker());
                 Conferences.Insert(0, new Conference());
 
                 SelectListRooms = new SelectList(Rooms.FindAll(room => room.VenueId.Equals(venueId) || room.VenueId == 0), nameof(Room.RoomId), nameof(Room.Name));
-                SelectListSpeakers = new SelectList(Speakers, nameof(Models.Speaker.SpeakerId), nameof(Models.Speaker.FullName));
+                SelectListSpeakers = new SelectList(Speakers, nameof(Speaker.SpeakerId), nameof(Speaker.FullName));
                 SelectListConferences = new SelectList(Conferences, nameof(Conference.ConferenceId), nameof(Conference.Name));
                 
                 VenueId = (int)venueId;

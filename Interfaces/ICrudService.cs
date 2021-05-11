@@ -19,6 +19,7 @@ namespace ConFriend.Interfaces
         void Init_Composite(ModelTypes DataTypeA, ModelTypes DataTypeB, ModelTypes TrueDataType);
         bool Create(T item);
         List<T> GetAll();
+       
         T GetFromId(int id, int id2 = 0);
         bool Delete(int id, int id2 = 0);
         bool Update(T item);

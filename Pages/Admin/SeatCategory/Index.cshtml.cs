@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConFriend.Pages.Admin.EventTheme
+namespace ConFriend.Pages.Admin.SeatCategory
 {
-    public class EventThemTestModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

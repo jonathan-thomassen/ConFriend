@@ -14,7 +14,7 @@ namespace ConFriend.Models
         
         public string ToSQL()
         {
-            return $"EventId = {Event.EventId}, UserId = {User.UserId}, SignUpTime = {SignUpTime}";
+            return $"EventId = {eventId}, UserId = {userId}, SignUpTime = '{SignUpTime}'";
         }
 
         public string Identity()

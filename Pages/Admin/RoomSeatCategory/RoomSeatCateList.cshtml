@@ -1,0 +1,48 @@
+﻿@page
+@model ConFriend.Pages.RoomSeatCateListModel
+@{
+}
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/RoomFeatureTest/CreateRoomFeature">Create New RoomFeature</a>
+</p>
+
+<h4>List of RoomFeatures</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                RoomId
+            </th>
+            <th>
+                FeatureId
+            </th>
+            <th>
+                IsAvailable
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.RoomSeatCategorys  != null)
+        {
+            @foreach (var item in Model.RoomSeatCategorys)
+            {
+                <tr>
+                    <td>
+                        @Model.GetRoomName(@item.RoomId)
+                    </td>
+                    <td>
+                        @Model.GetSeatCategory(@item.SeatCategoryId)
+                    </td>
+                    <td>
+                        @item.Amount
+                    </td>
+                    <td>
+                        <p>
+
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+</table>
