@@ -39,7 +39,7 @@ namespace ConFriend.Pages.Admin.EventTest
             if (id != null)
             {
                 Event = _eventService.GetFromId((int)id);
-                var file = Path.Combine("wwwroot\\", "event", Upload.FileName);
+                var file = Path.Combine("wwwroot\\", "events", Upload.FileName);
                 using (var fileStream = new FileStream(file, FileMode.Create))
                 {
                     Upload.CopyTo(fileStream);

@@ -38,9 +38,11 @@ namespace ConFriend.Models
         public string ToSQL()
         {
             CultureInfo culture = new CultureInfo("en-US");
-            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}', StartTime = '{((DateTime)StartTime).ToString(culture)}'," +
-                   $" Duration = {(int)Duration.TotalMinutes}, Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
-                   $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}', RoomCancelled = '{RoomCancelled}'";
+            return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
+                   $" StartTime = '{((DateTime)StartTime).ToString(culture)}', Duration = {(int)Duration.TotalMinutes}," +
+                   $" Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
+                   $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}'," +
+                   $" RoomCancelled = '{RoomCancelled}'";
         }
 
         public string Identity()
