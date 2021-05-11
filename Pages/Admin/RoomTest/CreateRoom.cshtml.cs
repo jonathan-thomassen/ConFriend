@@ -68,5 +68,10 @@ namespace ConFriend.Pages.Admin.RoomTest
             _roomService.Create(NewRoom);
             return RedirectToPage("Index");
         }
+
+        public void OnPostClearVenueChoice()
+        {
+            OnGet();
+        }
     }
 }

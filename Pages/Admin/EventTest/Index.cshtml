@@ -56,71 +56,100 @@
             <th>
                 RoomCancelled
             </th>
-
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
-    @if (Model.Events.Count() != 0)
-    {
-        @foreach (var item in Model.Events)
+        @if (Model.Events.Count() != 0)
         {
-        <tr>
-            <td>
-                @item.EventId
-            </td>
-            <td>
-                @item.SpeakerId
-            </td>
-            <td>
-                @item.RoomId
-            </td>
-            <td>
-                @item.ConferenceId
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.StartTime
-            </td>
-            <td>
-                @item.EndTime
-            </td>
-            <td>
-                @item.Type
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.Capacity
-            </td>
-            <td>
-                @if (item.Image != "")
-                {
-                    <img src="~/rooms/@item.Image" style="max-height: 50px" alt="image"/>
-                }
-            </td>
-            <td>
-                @item.Hidden
-            </td>
-            <td>
-                @item.Cancelled
-            </td>
-            <td>
-                @item.RoomHidden
-            </td>
-            <td>
-                @item.RoomCancelled
-            </td>
-            <td>
-                <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
-                    <a class="button btn btn-primary" asp-page="/Admin/EventTest/Image" asp-route-Id="@item.EventId">Edit Image</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
-                </p>
-            </td>
-        </tr>
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>
+                        @item.EventId
+                    </td>
+                    <td>
+                        @item.SpeakerId
+                    </td>
+                    <td>
+                        @item.RoomId
+                    </td>
+                    <td>
+                        @item.ConferenceId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.StartTime
+                    </td>
+                    <td>
+                        @item.EndTime
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Capacity
+                    </td>
+                    <td>
+                        @if (item.Image != "")
+                        {
+                            <img src="~/events/@item.Image" style="max-height: 50px" alt="image" />
+                        }
+                    </td>
+                    <td>
+                        @if (item.Hidden)
+                        {
+                            <p>&#10003;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Cancelled)
+                        {
+                            <p>&#10003;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomHidden)
+                        {
+                            <p>&#10003;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomCancelled)
+                        {
+                            <p>&#10003;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
+                            <a class="button btn btn-primary" asp-page="/Admin/EventTest/Image" asp-route-Id="@item.EventId">Edit Image</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
         }
-    }
 </table>
