@@ -16,6 +16,7 @@ namespace ConFriend.Services
         Update,
         Delete,
         Create,
+        JoinOn,
         Custom
     }
     public abstract class SQLService2<T> : Connection where T : IModel
@@ -52,7 +53,7 @@ namespace ConFriend.Services
            _name = type.ToString();
             currentType = type;
         }
-
+    
         private string GetValues(string values)
         {
             string[] output = values.Split("=");
@@ -94,6 +95,9 @@ namespace ConFriend.Services
                 case SQLType.Delete:
                     if (condition == "n") return "Error";
                     return $"DELETE FROM [{_name}] WHERE {condition}";
+                case SQLType.JoinOn:
+                    string[] join = condition.Split('.');
+                    return $"SELECT * FROM [{_name}] join [{join[0]}] on {join[0]}.{join[1]} = {_name}.{join[2]}";
                 case SQLType.GetAll:
                 default:
                     return $"SELECT * FROM [{_name}]";

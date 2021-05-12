@@ -42,6 +42,14 @@ namespace ConFriend.Pages.SetCatTakenTest
         public async Task OnGetAsync()
         {
             SeatCategorylist = await _seatCategoryService.GetAll();
+            MyEvents = await _eventService.GetAll();
+            MyUsers = await _userService.GetAll();
+
+            
+
+            SelectEventList = new SelectList(MyEvents, nameof(Models.User.UserId), nameof(Models.User.FullName));
+            SelectUserList = new SelectList(MyUsers, nameof(Models.Event.EventId), nameof(Models.Event.Name));
+
         }
         public async Task<List<SeatCategoryTaken>> GetSeatlistAsync()
         {

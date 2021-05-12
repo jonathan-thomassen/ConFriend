@@ -20,11 +20,11 @@ namespace ConFriend.Interfaces
         void Init_Composite(ModelTypes DataTypeA, ModelTypes DataTypeB, ModelTypes TrueDataType);
         Task<bool> Create(T item);
         Task<List<T>> GetAll();
-       
+    
         Task<T> GetFromId(int id, int id2 = 0);
         Task<bool> Delete(int id, int id2 = 0);
         Task<bool> Update(T item);
-        Task<List<T>> GetFiltered(string filter, FilterType filterType);
+        Task<List<T>> GetFiltered(ModelTypes modeljoin, int filterID);
        
     }
 }

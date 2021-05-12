@@ -78,31 +78,11 @@ namespace ConFriend.Services
         }
         //current.IdentitySQL
 
-
-        public async Task<List<T>> GetFiltered(string filter, ICrudService<T>.FilterType filterType)
+   
+        public async Task<List<T>> GetFiltered(ModelTypes mtype, int filterID)
         {
-            /*switch (readmodel)
-            {
-                case ModelTypes.Conference:
-                    break;
-                case ModelTypes.Enrollment:
-                    break;
-                case ModelTypes.Event:
-                    break;
-                case ModelTypes.Floor:
-                    break;
-                case ModelTypes.Room:
-                    break;
-                case ModelTypes.Speaker:
-                    break;
-                case ModelTypes.User:
-                    break;
-                case ModelTypes.Venue:
-                    break;
-                default:
-                    break;
-            }*/
-            return null;
+            await SQLCommand(SQLType.JoinOn, $"{ItemIdentitySQL} {mtype}.{mtype}Id");
+            return Items;
         }
     }
 }
