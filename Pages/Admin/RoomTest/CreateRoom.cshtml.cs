@@ -35,20 +35,20 @@ namespace ConFriend.Pages.Admin.RoomTest
             _floorService.Init(ModelTypes.Floor);
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Venues = _venueService.GetAll();
+            Venues = await _venueService.GetAll();
             Venues.Insert(0, new Venue());
 
             SelectListVenues = new SelectList(Venues, nameof(Venue.VenueId), nameof(Venue.Name));
         }
 
-        public IActionResult OnPost(int? venueId, int? floorId)
+        public async Task<IActionResult> OnPostAsync(int? venueId, int? floorId)
         {
             if (floorId == 0)
             {
-                Venues = _venueService.GetAll();
-                Floors = _floorService.GetAll();
+                Venues = await _venueService.GetAll();
+                Floors = await _floorService.GetAll();
                 Floors.Insert(0 , new Floor());
                 SelectListFloors = new SelectList(Floors.FindAll(floor => floor.VenueId.Equals(venueId) || floor.VenueId == 0), nameof(Floor.FloorId), nameof(Floor.Name));
                 NewRoom.VenueId = (int)venueId;
@@ -64,13 +64,13 @@ namespace ConFriend.Pages.Admin.RoomTest
             if (!ModelState.IsValid)
                 return RedirectToPage("Index");
 
-            _roomService.Create(NewRoom);
+            await _roomService.Create(NewRoom);
             return RedirectToPage("Index");
         }
 
-        public void OnPostClearVenueChoice()
+        public async Task OnPostClearVenueChoiceAsync()
         {
-            OnGet();
+            await OnGetAsync();
         }
     }
 }

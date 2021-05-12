@@ -21,9 +21,9 @@ namespace ConFriend.Pages.Admin.FloorTest
             floorService = fService;
             floorService.Init(ModelTypes.Floor);
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Floors = floorService.GetAll();
+            Floors = await floorService.GetAll();
         }
     }
 }

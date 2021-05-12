@@ -24,13 +24,13 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            roomFeatureService.Create(RoomFeature);
+            await roomFeatureService.Create(RoomFeature);
             return RedirectToPage("Index");
         }
     }

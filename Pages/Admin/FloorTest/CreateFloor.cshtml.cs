@@ -25,13 +25,13 @@ namespace ConFriend.Pages.Admin.FloorTest
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            floorService.Create(NewFloor);
+            await floorService.Create(NewFloor);
             done = true;
             return Page();
         }

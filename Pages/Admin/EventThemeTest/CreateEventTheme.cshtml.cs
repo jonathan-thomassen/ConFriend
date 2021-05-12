@@ -23,13 +23,13 @@ namespace ConFriend.Pages.Admin.EventThemeTest
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            eventThemeService.Create(EventTheme);
+            await eventThemeService.Create(EventTheme);
             return RedirectToPage("Index");
         }
     }

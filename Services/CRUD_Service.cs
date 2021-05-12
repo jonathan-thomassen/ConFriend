@@ -44,65 +44,45 @@ namespace ConFriend.Services
             ItemIdentitySQLExtra = $"{DataTypeB}Id =";
             init(TrueDataType);
         }
-        public bool Create(T item)
+        public async Task<bool> Create(T item)
         {
-            return SQLCommand(SQLType.Create, "n", item.ToSQL());
+            return await SQLCommand(SQLType.Create, "n", item.ToSQL());
         }
-        public List<T> GetAll() 
+        public async Task<List<T>> GetAll() 
         {
-            SQLCommand(SQLType.GetAll);
+            await SQLCommand(SQLType.GetAll);
             return Items;
         }
 
-        public T GetFromId(int id, int id2 = 0)
+        public async Task<T> GetFromId(int id, int id2 = 0)
         {
             //current.IdentitySQL
             if (IsComposit)
-                SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
+                await SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
             else
-                SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id}");
+                await SQLCommand(SQLType.GetSingle, $"{ItemIdentitySQL} {id}");
 
             return Item;
         }
-        public bool Update(T item)
+        public async Task<bool> Update(T item)
         {
-            return SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
+            return await SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
-        public bool Delete(int id,int id2 = 0)
+        public async Task<bool> Delete(int id,int id2 = 0)
         {
             if(IsComposit)
-                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
+                return await SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id} AND {ItemIdentitySQLExtra} {id2}"); 
             else
-                return SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
+                return await SQLCommand(SQLType.Delete, $"{ItemIdentitySQL} {id}");
         }
         //current.IdentitySQL
 
-
-        public List<T> GetFiltered(string filter, ICrudService<T>.FilterType filterType)
+   
+        public async Task<List<T>> GetFiltered(ModelTypes mtype, int filterID)
         {
-            /*switch (readmodel)
-            {
-                case ModelTypes.Conference:
-                    break;
-                case ModelTypes.Enrollment:
-                    break;
-                case ModelTypes.Event:
-                    break;
-                case ModelTypes.Floor:
-                    break;
-                case ModelTypes.Room:
-                    break;
-                case ModelTypes.Speaker:
-                    break;
-                case ModelTypes.User:
-                    break;
-                case ModelTypes.Venue:
-                    break;
-                default:
-                    break;
-            }*/
-            return null;
+            await SQLCommand(SQLType.JoinOn, $"{ItemIdentitySQL} {mtype}.{mtype}Id");
+            return Items;
         }
     }
 }

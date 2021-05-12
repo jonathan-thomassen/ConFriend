@@ -22,17 +22,17 @@ namespace ConFriend.Pages
             venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Venue = _venueService.GetFromId((int)id);
+            Venue = await _venueService.GetFromId((int)id);
 
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
                 return Page();
@@ -40,7 +40,7 @@ namespace ConFriend.Pages
                 return NotFound();
 
             Venue.VenueId = (int)id;
-            _venueService.Update(Venue);
+            await _venueService.Update(Venue);
             return RedirectToPage("VenueIndex");
         }
     }

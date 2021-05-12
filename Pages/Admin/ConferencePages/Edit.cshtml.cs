@@ -27,18 +27,18 @@ namespace ConFriend.Pages.Admin.ConferencePages
             _venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Conference = _conferenceService.GetFromId((int)id);
-            Venues = new SelectList(_venueService.GetAll(), nameof(Venue.VenueId), nameof(Venue.Name));
+            Conference = await _conferenceService.GetFromId((int)id);
+            Venues = new SelectList(await _venueService.GetAll(), nameof(Venue.VenueId), nameof(Venue.Name));
 
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
                 return Page();
@@ -46,7 +46,7 @@ namespace ConFriend.Pages.Admin.ConferencePages
                 return NotFound();
 
             Conference.ConferenceId = (int)id;
-            _conferenceService.Update(Conference);
+            await _conferenceService.Update(Conference);
             return RedirectToPage("ConferenceIndex");
         }
     }

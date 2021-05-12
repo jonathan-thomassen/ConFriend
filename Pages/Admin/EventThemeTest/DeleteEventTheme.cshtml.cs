@@ -19,18 +19,18 @@ namespace ConFriend.Pages.Admin.EventThemeTest
             eventThemeService = etService;
             eventThemeService.Init_Composite(ModelTypes.Theme, ModelTypes.Event, ModelTypes.EventTheme);
         }
-        public void OnGet(int tId, int eId)
+        public async Task OnGetAsync(int tId, int eId)
         {
-            EventTheme = eventThemeService.GetFromId(tId, eId);
+            EventTheme = await eventThemeService.GetFromId(tId, eId);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            eventThemeService.Delete(EventTheme.ThemeId, EventTheme.EventId);
+            await eventThemeService.Delete(EventTheme.ThemeId, EventTheme.EventId);
             return RedirectToPage("Index");
         }
     }

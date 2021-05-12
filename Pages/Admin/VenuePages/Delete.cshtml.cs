@@ -22,22 +22,22 @@ namespace ConFriend.Pages
             venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Venue = _venueService.GetFromId((int)id);
+            Venue = await _venueService.GetFromId((int)id);
 
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            _venueService.Delete((int)id);
+            await _venueService.Delete((int)id);
             return RedirectToPage("VenueIndex");
         }
     }

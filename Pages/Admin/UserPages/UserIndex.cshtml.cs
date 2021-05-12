@@ -19,7 +19,7 @@ namespace ConFriend.Pages.Admin.UserPages
         {
             _userService = userService;
             _userService.Init(ModelTypes.User);
-            Users = _userService.GetAll();
+            Users = _userService.GetAll().Result;
         }
 
         public IActionResult OnGet()

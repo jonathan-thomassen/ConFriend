@@ -2,7 +2,7 @@
 @model ConFriend.Pages.ThemeListModel
 @{
     ViewData["Title"] = "Theme List";
-    Model.GetThemes();
+    await Model.GetThemesAsync();
 }
 <div>
     <form method="post">

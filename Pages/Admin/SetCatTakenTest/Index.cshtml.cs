@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ConFriend.Interfaces;
 using ConFriend.Models;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ConFriend.Pages.SetCatTakenTest
 {
     public class IndexModel : PageModel
     {
         private readonly ICrudService<SeatCategoryTaken> _seatCategoryService;
-
+        private readonly ICrudService<Event> _eventService;
+        private readonly ICrudService<User> _userService;
 
         [BindProperty(SupportsGet = true)]
         public List<SeatCategoryTaken> SeatCategorylist { get; private set; }
@@ -21,37 +22,55 @@ namespace ConFriend.Pages.SetCatTakenTest
         [BindProperty]
         public SeatCategoryTaken SeatType { get; set; }
 
-        public IndexModel(ICrudService<SeatCategoryTaken> ss)
+        public List<User> MyUsers { get; set; }
+        public List<Event> MyEvents { get; set; }
+
+        public SelectList SelectEventList;
+        public SelectList SelectUserList;
+
+        public IndexModel(ICrudService<SeatCategoryTaken> ss, ICrudService<Event> es, ICrudService<User> us)
         {
+            _eventService = es;
+            _userService = us;
+            _eventService.Init(ModelTypes.Event);
+            _userService.Init(ModelTypes.User);
             _seatCategoryService = ss;
             _seatCategoryService.Init_Composite(ModelTypes.SeatCategory, ModelTypes.Event, ModelTypes.SeatCategoryTaken);
        
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            SeatCategorylist = _seatCategoryService.GetAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
+            MyEvents = await _eventService.GetAll();
+            MyUsers = await _userService.GetAll();
+
+            
+
+            SelectEventList = new SelectList(MyEvents, nameof(Models.User.UserId), nameof(Models.User.FullName));
+            SelectUserList = new SelectList(MyUsers, nameof(Models.Event.EventId), nameof(Models.Event.Name));
+
         }
-        public List<SeatCategoryTaken> GetSeatlist()
+        public async Task<List<SeatCategoryTaken>> GetSeatlistAsync()
         {
-            SeatCategorylist = _seatCategoryService.GetAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return SeatCategorylist;
         }
 
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            _seatCategoryService.Delete(id);
-
-            SeatCategorylist = _seatCategoryService.GetAll();
+            _seatCategoryService.Delete(id).Wait();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return Page();
         }
-        public IActionResult OnPostSave(int? id, int? id2)
+        public async Task<IActionResult> OnPostSaveAsync(int? id, int? id2)
         {
             if (id != null)
-                _seatCategoryService.Update(SeatType);
+                await _seatCategoryService.Update(SeatType);
             else
-                _seatCategoryService.Create(SeatType);
-            SeatCategorylist = _seatCategoryService.GetAll();
+                await _seatCategoryService.Create(SeatType);
+            Task.WaitAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return Page();
         }
 

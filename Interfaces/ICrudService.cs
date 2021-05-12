@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConFriend.Interfaces
 {
@@ -17,13 +18,13 @@ namespace ConFriend.Interfaces
         }
         void Init(ModelTypes DataType);
         void Init_Composite(ModelTypes DataTypeA, ModelTypes DataTypeB, ModelTypes TrueDataType);
-        bool Create(T item);
-        List<T> GetAll();
-       
-        T GetFromId(int id, int id2 = 0);
-        bool Delete(int id, int id2 = 0);
-        bool Update(T item);
-        List<T> GetFiltered(string filter, FilterType filterType);
+        Task<bool> Create(T item);
+        Task<List<T>> GetAll();
+    
+        Task<T> GetFromId(int id, int id2 = 0);
+        Task<bool> Delete(int id, int id2 = 0);
+        Task<bool> Update(T item);
+        Task<List<T>> GetFiltered(ModelTypes modeljoin, int filterID);
        
     }
 }

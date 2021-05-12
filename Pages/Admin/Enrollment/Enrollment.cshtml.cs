@@ -34,21 +34,21 @@ namespace ConFriend.Pages
             this.UserSevice.Init(ModelTypes.User);
             this.EventSevice.Init(ModelTypes.Event);
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Enrollments = EnrollmentSevice.GetAll();
+            Enrollments = await EnrollmentSevice.GetAll();
         }
-        public List<Enrollment> GetThemes()
+        public async Task<List<Enrollment>> GetThemesAsync()
         {
-            Enrollments = EnrollmentSevice.GetAll();
+            Enrollments = await EnrollmentSevice.GetAll();
             return Enrollments;
         }
 
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            EnrollmentSevice.Delete(id);
+            EnrollmentSevice.Delete(id).Wait();
 
-            Enrollments = EnrollmentSevice.GetAll();
+            Enrollments = await EnrollmentSevice.GetAll();
             return Page();
         }
         public IActionResult OnPostEdit(int id)

@@ -27,23 +27,23 @@ namespace ConFriend.Pages.Admin.ConferencePages
             _venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Conference = _conferenceService.GetFromId((int)id);
-            Venues = _venueService.GetAll();
+            Conference = await _conferenceService.GetFromId((int)id);
+            Venues = await _venueService.GetAll();
 
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            _conferenceService.Delete((int)id);
+            await _conferenceService.Delete((int)id);
             return RedirectToPage("ConferenceIndex");
         }
     }
