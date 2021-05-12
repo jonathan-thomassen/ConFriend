@@ -8,107 +8,108 @@
 
     venueId = Model.VenueId;
 }
-
-<form method="post" asp-route-venueId="@venueId" asp-route-roomId="@roomId">
-    <div class="form-group">
-        @*<label asp-for="@Model.NewEvent.Name" class="control-label">Name</label>*@
-        <input asp-for="@Model.NewEvent.Name" style="width: 33.6em; font-size: x-large" placeholder="Navn" />
-        <span asp-validation-for="@Model.NewEvent.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        @*<label class="control-label">Taler:</label>*@
-        <select asp-for="NewEvent.SpeakerId" asp-items="@Model.SelectListSpeakers" style="width: 24.5em; height:1.85em"></select>
-        <span asp-validation-for="NewEvent.SpeakerId" class="text-danger"></span>
-
-        <label asp-for="@Model.NewEvent.StartTime" class="control-label" style="margin-left: 6.5em">Start-tidspunkt:</label>
-        <input asp-for="@Model.NewEvent.StartTime" style="width: 12em" />
-        <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
-    </div>
-    <div class="row">
-        <div class="column">
-            <div class="form-group">
-                @*<label asp-for="@Model.NewEvent.Description" class="control-label">Description</label>*@
-                <textarea asp-for="@Model.NewEvent.Description" style="resize: none; width: 30em; height: 38.5em; margin-left: 1.2em; font-size: small" placeholder="Beskrivelse"></textarea>
-                <span asp-validation-for="@Model.NewEvent.Description" class="text-danger"></span>
-            </div>
+<div style="margin-left: 9em">
+    <form method="post" asp-route-venueId="@venueId" asp-route-roomId="@roomId">
+        <div class="form-group">
+            @*<label asp-for="@Model.NewEvent.Name" class="control-label">Name</label>*@
+            <input asp-for="@Model.NewEvent.Name" style="width: 33.6em; font-size: x-large" placeholder="Navn" />
+            <span asp-validation-for="@Model.NewEvent.Name" class="text-danger"></span>
         </div>
-        <div class="column" style="margin-left: 1em">
-            <img src="~/events/SweetPotatoBeauregard.png" alt="Event image" height="400" width="400" />
-            <div class="row" style="margin-top: 1em">
-                <div class="column" style="margin-left: 1em">
-                    <div class="form-group">
-                        <label asp-for="NewEvent.Duration">Varighed:</label>
-                        <input type="number" min="5" max="240" step="5" asp-for="Duration" style="width: 3.5em; margin-left: 0.5em" />&nbsp;min.
-                        <span asp-validation-for="NewEvent.Duration" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="@Model.NewEvent.Capacity">Kapacitet:</label>
-                        <input type="number" asp-for="@Model.NewEvent.Capacity" min="1" max="5000" style="width: 3.5em; margin-left: 0.35em" />&nbsp;per.
-                        <span asp-validation-for="@Model.NewEvent.Capacity" class="text-danger"></span>
-                    </div> 
-                </div>
-                <div class="column" style="margin-left: 1em">
-                    <div class="form-group">
-                        <label asp-for="@Model.NewEvent.Type">Type:</label>
-                        <input asp-for="@Model.NewEvent.Type" style="width: 10em; margin-left: 1em" />
-                        <span asp-validation-for="@Model.NewEvent.Type" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NewEvent.RoomId">Lokale:</label>
-                        <select asp-for="NewEvent.RoomId" asp-items="@Model.SelectListRooms" style="width: 10em; height: 1.85em; margin-left: 0.3em"></select>
-                        <span asp-validation-for="NewEvent.RoomId" class="text-danger"></span>
-                    </div>
+        <div class="form-group">
+            @*<label class="control-label">Taler:</label>*@
+            <select asp-for="NewEvent.SpeakerId" asp-items="@Model.SelectListSpeakers" style="width: 24.5em; height:1.85em"></select>
+            <span asp-validation-for="NewEvent.SpeakerId" class="text-danger"></span>
+
+            <label asp-for="@Model.NewEvent.StartTime" class="control-label" style="margin-left: 6.5em">Start-tidspunkt:</label>
+            <input asp-for="@Model.NewEvent.StartTime" style="width: 12em" />
+            <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="form-group">
+                    @*<label asp-for="@Model.NewEvent.Description" class="control-label">Description</label>*@
+                    <textarea asp-for="@Model.NewEvent.Description" style="resize: none; width: 30em; height: 38.5em; margin-left: 1.2em; font-size: small" placeholder="Beskrivelse"></textarea>
+                    <span asp-validation-for="@Model.NewEvent.Description" class="text-danger"></span>
                 </div>
             </div>
+            <div class="column" style="margin-left: 1em">
+                <img src="~/events/SweetPotatoBeauregard.png" alt="Event image" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />
+                <div class="row" style="margin-top: 1em">
+                    <div class="column" style="margin-left: 1em">
+                        <div class="form-group">
+                            <label asp-for="NewEvent.Duration">Varighed:</label>
+                            <input type="number" min="5" max="240" step="5" asp-for="Duration" style="width: 3.5em; margin-left: 0.5em" />&nbsp;min.
+                            <span asp-validation-for="NewEvent.Duration" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.NewEvent.Capacity">Kapacitet:</label>
+                            <input type="number" asp-for="@Model.NewEvent.Capacity" min="1" max="5000" style="width: 3.5em; margin-left: 0.35em" />&nbsp;per.
+                            <span asp-validation-for="@Model.NewEvent.Capacity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="column" style="margin-left: 1em">
+                        <div class="form-group">
+                            <label asp-for="@Model.NewEvent.Type">Type:</label>
+                            <input asp-for="@Model.NewEvent.Type" style="width: 9.5em; margin-left: 1em" />
+                            <span asp-validation-for="@Model.NewEvent.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NewEvent.RoomId">Lokale:</label>
+                            <select asp-for="NewEvent.RoomId" asp-items="@Model.SelectListRooms" style="width: 9.5em; height: 1.85em; margin-left: 0.3em"></select>
+                            <span asp-validation-for="NewEvent.RoomId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    @*@if (venueId == 0)
-        {
-            <div class="form-group">
-                <label class="control-label">Venue:</label>
-                <select asp-for="@venueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Room:</label>
-                -
-            </div>
-        }
-        else
-        {
-            <div class="form-group">
-                <label class="control-label">Venue:</label>
-                @Model.Venues.Find(venue => venue.VenueId.Equals(venueId))?.Name
-                <input type="submit" asp-page-handler="ClearVenueChoice" style="border-style: none; background-color: white;" value="&#128473;" />
-            </div>
+        @*@if (venueId == 0)
+            {
+                <div class="form-group">
+                    <label class="control-label">Venue:</label>
+                    <select asp-for="@venueId" asp-items="@Model.SelectListVenues" onchange="this.form.submit();"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Room:</label>
+                    -
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label">Venue:</label>
+                    @Model.Venues.Find(venue => venue.VenueId.Equals(venueId))?.Name
+                    <input type="submit" asp-page-handler="ClearVenueChoice" style="border-style: none; background-color: white;" value="&#128473;" />
+                </div>
 
-        }
+            }
 
-        <div class="form-group">
-            <label class="control-label">Conference:</label>
-            <select asp-for="NewEvent.ConferenceId" asp-items="@Model.SelectListConferences"></select>
-            <span asp-validation-for="NewEvent.ConferenceId" class="text-danger"></span>
+            <div class="form-group">
+                <label class="control-label">Conference:</label>
+                <select asp-for="NewEvent.ConferenceId" asp-items="@Model.SelectListConferences"></select>
+                <span asp-validation-for="NewEvent.ConferenceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.NewEvent.Hidden" class="control-label">Hidden</label>
+                <input asp-for="@Model.NewEvent.Hidden" class="form-control" />
+                <span asp-validation-for="@Model.NewEvent.Hidden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.NewEvent.Cancelled" class="control-label">Cancelled</label>
+                <input asp-for="@Model.NewEvent.Cancelled" class="form-control" />
+                <span asp-validation-for="@Model.NewEvent.Cancelled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.NewEvent.RoomHidden" class="control-label">RoomHidden</label>
+                <input asp-for="@Model.NewEvent.RoomHidden" class="form-control" />
+                <span asp-validation-for="@Model.NewEvent.RoomHidden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.NewEvent.RoomCancelled" class="control-label">RoomCancelled</label>
+                <input asp-for="@Model.NewEvent.RoomCancelled" class="form-control" />
+                <span asp-validation-for="@Model.NewEvent.RoomCancelled" class="text-danger"></span>
+            </div>*@
+        <div>
+            <input type="submit" value="Opret event" class="button btn btn-primary" style="margin-left: 21em" />
         </div>
-        <div class="form-group">
-            <label asp-for="@Model.NewEvent.Hidden" class="control-label">Hidden</label>
-            <input asp-for="@Model.NewEvent.Hidden" class="form-control" />
-            <span asp-validation-for="@Model.NewEvent.Hidden" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.NewEvent.Cancelled" class="control-label">Cancelled</label>
-            <input asp-for="@Model.NewEvent.Cancelled" class="form-control" />
-            <span asp-validation-for="@Model.NewEvent.Cancelled" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.NewEvent.RoomHidden" class="control-label">RoomHidden</label>
-            <input asp-for="@Model.NewEvent.RoomHidden" class="form-control" />
-            <span asp-validation-for="@Model.NewEvent.RoomHidden" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.NewEvent.RoomCancelled" class="control-label">RoomCancelled</label>
-            <input asp-for="@Model.NewEvent.RoomCancelled" class="form-control" />
-            <span asp-validation-for="@Model.NewEvent.RoomCancelled" class="text-danger"></span>
-        </div>*@
-        <div class="form-group">
-            <input type="submit" value="Opret event" class="button btn btn-dark" />
-        </div>
-</form>
+    </form>
+</div>

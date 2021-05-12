@@ -13,7 +13,7 @@ namespace ConFriend.Pages.Events
     public class CreateEventModel : PageModel
     {
         [BindProperty] public Event NewEvent { get; set; }
-        [BindProperty] public int Duration { get; set; }
+        [BindProperty] public int? Duration { get; set; }
 
         public List<Room> Rooms;
         public List<Venue> Venues;
@@ -95,7 +95,10 @@ namespace ConFriend.Pages.Events
             //NewEvent.RoomId = (int)roomId;
 
             NewEvent.ConferenceId = 1;
-            NewEvent.Duration = TimeSpan.FromMinutes(Duration);
+            if (Duration != null)
+            {
+                NewEvent.Duration = TimeSpan.FromMinutes((int) Duration);
+            }
 
             if (!ModelState.IsValid)
                 return Page();
