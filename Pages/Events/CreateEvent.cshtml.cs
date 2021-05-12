@@ -13,6 +13,8 @@ namespace ConFriend.Pages.Events
     public class CreateEventModel : PageModel
     {
         [BindProperty] public Event NewEvent { get; set; }
+        [BindProperty] public int Duration { get; set; }
+
         public List<Room> Rooms;
         public List<Venue> Venues;
         public List<Conference> Conferences;
@@ -46,13 +48,13 @@ namespace ConFriend.Pages.Events
             _speakerService.Init(ModelTypes.Speaker);
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
             NewEvent = new Event();
-            Venues = _venueService.GetAll();
-            Speakers = _speakerService.GetAll();
-            Conferences = _conferenceService.GetAll();
-            Rooms = _roomService.GetAll();
+            Venues = await _venueService.GetAll();
+            Speakers = await _speakerService.GetAll();
+            Conferences = await _conferenceService.GetAll();
+            Rooms = await _roomService.GetAll();
 
             Venues.Insert(0, new Venue());
             Speakers.Insert(0, new Models.Speaker {FirstName = "Vælg en taler"});
@@ -67,7 +69,7 @@ namespace ConFriend.Pages.Events
             SelectListRooms.First().Disabled = true;
         }
 
-        public IActionResult OnPost(/*int? venueId, int? roomId*/)
+        public async Task<IActionResult> OnPostAsync(/*int? venueId, int? roomId*/)
         {
             //if (roomId == 0)
             //{
@@ -93,17 +95,18 @@ namespace ConFriend.Pages.Events
             //NewEvent.RoomId = (int)roomId;
 
             NewEvent.ConferenceId = 1;
+            NewEvent.Duration = TimeSpan.FromMinutes(Duration);
 
             if (!ModelState.IsValid)
                 return Page();
 
-            _eventService.Create(NewEvent);
-            return RedirectToPage("/Pages/Admin/EventTest/Index");
+            await _eventService.Create(NewEvent);
+            return RedirectToPage("/Admin/EventTest/Index");
         }
 
-        public void OnPostClearVenueChoice()
-        {
-            OnGet();
-        }
+        //public void OnPostClearVenueChoice()
+        //{
+        //    OnGet();
+        //}
     }
 }
