@@ -1,5 +1,60 @@
 ﻿@page
-@model ConFriend.Pages.Admin.SeatCategory.IndexModel
+@model ConFriend.Pages.SeatCate.IndexModel
 @{
+    ViewData["Title"] = "SeatCategory List";
 }
-<p> Coming real soon</p>
+<div>
+    <form method="post">
+
+        <div class="form-group">
+            <label asp-for="@Model.SeatType.NameKey" class="control-label"></label>
+            <input asp-for="@Model.SeatType.NameKey" class="form-control" />
+            <span asp-validation-for="SeatType.NameKey" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" asp-page-handler="Save" class="btn btn btn-primary">Save New</button>
+        </div>
+    </form>
+</div>
+
+<h4 style="color:aquamarine"> Themes</h4>
+<h1>Create Location</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Hotel No
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.SeatCategorylist)
+        {
+            <tr>
+                <td>
+                    <form method="post">
+
+                        <div class="form-group">
+                            <label asp-for="@Model.SeatType.NameKey" class="control-label"></label>
+                            <input asp-for="@Model.SeatType.NameKey" value="@item.NameKey" class="form-control" />
+                            <span asp-validation-for="SeatType.NameKey" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" asp-page-handler="Save" name="id" value="@item.SeatCategoryId" class="btn btn btn-primary">Update</button>
+                            <button type="submit" asp-page-handler="Delete" name="id" value="@item.SeatCategoryId" class="btn btn btn-warning">Delete</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+
+        }
+</table>

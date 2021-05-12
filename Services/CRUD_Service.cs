@@ -23,6 +23,11 @@ namespace ConFriend.Services
             ItemIdentitySQL = $"{DataType}Id =";
             init(DataType);
         }
+        public void Init(ModelTypes DataType,string name)
+        {
+            ItemIdentitySQL = $"{name}Id =";
+            init(DataType);
+        }
         /// <summary>
         /// 
         /// </summary>
