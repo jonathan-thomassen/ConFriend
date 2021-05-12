@@ -26,27 +26,27 @@ namespace ConFriend.Pages.Admin.EventTest
             _eventService.Init(ModelTypes.Event);
         }
 
-        public void OnGet(int? id)
+        public async Task OnGetAsync(int? id)
         {
             if (id != null)
             {
-                Event = _eventService.GetFromId((int)id);
+                Event = await _eventService.GetFromId((int)id);
             }
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id != null)
             {
-                Event = _eventService.GetFromId((int)id);
+                Event = await _eventService.GetFromId((int)id);
                 var file = Path.Combine("wwwroot\\", "events", Upload.FileName);
-                using (var fileStream = new FileStream(file, FileMode.Create))
+                await using (var fileStream = new FileStream(file, FileMode.Create))
                 {
-                    Upload.CopyTo(fileStream);
+                    await Upload.CopyToAsync(fileStream);
                 }
 
                 Event.Image = Upload.FileName;
-                _eventService.Update(Event);
+                await _eventService.Update(Event);
             }
             return Page();
         }

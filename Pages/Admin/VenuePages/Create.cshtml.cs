@@ -27,12 +27,12 @@ namespace ConFriend.Pages
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            _venueService.Create(Venue);
+            await _venueService.Create(Venue);
             return RedirectToPage("VenueIndex");
         }
     }

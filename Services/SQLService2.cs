@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using ConFriend.Interfaces;
 using ConFriend.Models;
@@ -99,21 +100,21 @@ namespace ConFriend.Services
             }
         }
 
-        public bool SQLCommand(SQLType command,string condition = "n", string values = "n")
+        public async Task<bool> SQLCommand(SQLType command,string condition = "n", string values = "n")
         {
             string test = QueryBuilder(command, condition, values);
             if (test == "Error") return false;
             OpenDB(test);
             try
             {
-                _command.Connection.Open();
+                await _command.Connection.OpenAsync();
 
                 switch (command)
                 {
                     case SQLType.GetSingle:
                     case SQLType.GetAll:
                     case SQLType.Custom:
-                        _reader = _command.ExecuteReader();
+                        _reader = await _command.ExecuteReaderAsync();
                         onRead(currentType);
                         if (Items.Count > 0)
                             Item = Items[0];
@@ -121,7 +122,7 @@ namespace ConFriend.Services
                     case SQLType.Create:
                     case SQLType.Update:
                     case SQLType.Delete:
-                        RowsAltered = _command.ExecuteNonQuery();
+                        RowsAltered = await _command.ExecuteNonQueryAsync();
                         break;
                     default:
                         break;
@@ -132,6 +133,7 @@ namespace ConFriend.Services
                 Console.WriteLine(e);
                 throw;
             }
+            Task.WaitAll();
             CloseDB();
             return true;
         }

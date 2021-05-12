@@ -45,12 +45,12 @@ namespace ConFriend.Pages.Admin.EventTest
             _conferenceService.Init(ModelTypes.Conference);
             _speakerService.Init(ModelTypes.Speaker);
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
             NewEvent = new Event();
-            Venues = _venueService.GetAll();
-            Speakers = _speakerService.GetAll();
-            Conferences = _conferenceService.GetAll();
+            Venues = await _venueService.GetAll();
+            Speakers = await _speakerService.GetAll();
+            Conferences = await _conferenceService.GetAll();
 
             Venues.Insert(0, new Venue());
             Speakers.Insert(0, new Models.Speaker());
@@ -61,15 +61,15 @@ namespace ConFriend.Pages.Admin.EventTest
             SelectListConferences = new SelectList(Conferences, nameof(Conference.ConferenceId), nameof(Conference.Name));
         }
 
-        public IActionResult OnPost(int? venueId, int? roomId)
+        public async Task<IActionResult> OnPostAsync(int? venueId, int? roomId)
         {
             if (roomId == 0)
             {
-                Venues = _venueService.GetAll();
+                Venues = await _venueService.GetAll();
 
-                Rooms = _roomService.GetAll();
-                Speakers = _speakerService.GetAll();
-                Conferences = _conferenceService.GetAll();
+                Rooms = await _roomService.GetAll();
+                Speakers = await _speakerService.GetAll();
+                Conferences = await _conferenceService.GetAll();
 
                 Rooms.Insert(0, new Room());
                 Speakers.Insert(0, new Models.Speaker());
@@ -89,13 +89,13 @@ namespace ConFriend.Pages.Admin.EventTest
             if (!ModelState.IsValid)
                 return RedirectToPage("Index");
 
-            _eventService.Create(NewEvent);
+            await _eventService.Create(NewEvent);
             return RedirectToPage("Index");
         }
 
-        public void OnPostClearVenueChoice()
+        public async Task OnPostClearVenueChoiceAsync()
         {
-            OnGet();
+            await OnGetAsync();
         }
     }
 }

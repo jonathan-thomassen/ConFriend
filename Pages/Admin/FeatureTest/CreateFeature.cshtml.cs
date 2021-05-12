@@ -23,13 +23,13 @@ namespace ConFriend.Pages.Admin.FeatureTest
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            featureService.Create(Feature);
+            await featureService.Create(Feature);
             return RedirectToPage("Index");
         }
     }

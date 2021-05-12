@@ -31,11 +31,11 @@ namespace ConFriend.Pages.Admin.RoomTest
             _venueService.Init(ModelTypes.Venue);
             _floorService.Init(ModelTypes.Floor);
         }
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Rooms = _roomService.GetAll();
-            Venues = _venueService.GetAll();
-            Floors = _floorService.GetAll();
+            Rooms = await _roomService.GetAll();
+            Venues = await _venueService.GetAll();
+            Floors = await _floorService.GetAll();
             return Page();
         }
     }

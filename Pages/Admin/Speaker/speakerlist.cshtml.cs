@@ -41,20 +41,20 @@ namespace ConFriend.Pages
         {
             return Page();
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
             if (String.IsNullOrEmpty(FilterCriteria))
             {
-                Speakers = SpeakerService.GetAll();
+                Speakers = await SpeakerService.GetAll();
                  //speaker = SpeakerServis.GetFiltered(FilterCriteria);
             }
-            Speakers = SpeakerService.GetAll();
+            Speakers = await SpeakerService.GetAll();
         }
-        public IActionResult OnPostDelete(int htnr)
+        public async Task<IActionResult> OnPostDeleteAsync(int htnr)
         {
-            SpeakerService.Delete(htnr);
+            SpeakerService.Delete(htnr).Wait();
 
-            Speakers = SpeakerService.GetAll();
+            Speakers = await SpeakerService.GetAll();
             return Page();
         }
     }

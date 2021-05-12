@@ -33,41 +33,40 @@ namespace ConFriend.Pages
             this.ThemeService.Init(ModelTypes.Theme);
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Themes = ThemeService.GetAll();
+            Themes = await ThemeService.GetAll();
         }
-        public List<Theme> GetThemes()
+        public async Task<List<Theme>> GetThemesAsync()
         {
-            Themes = ThemeService.GetAll();
+            Themes = await ThemeService.GetAll();
             return Themes;
         }
      
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            ThemeService.Delete(id);
-
-            Themes = ThemeService.GetAll();
+            ThemeService.Delete(id).Wait();
+            Themes = await ThemeService.GetAll();
             return Page();
         }
-        public IActionResult OnPostSave(int id)
+        public async Task<IActionResult> OnPostSaveAsync(int id)
         {
             Theme newTheme = new Theme();
             newTheme.ThemeId = id;
             newTheme.Name = MyTheme.Name;
-            ThemeService.Update(newTheme);
-            Themes = ThemeService.GetAll();
+            ThemeService.Update(newTheme).Wait();
+            Themes = await ThemeService.GetAll();
             return Page();
         }
-        public IActionResult OnPostSaveNew(int id)
+        public async Task<IActionResult> OnPostSaveNewAsync(int id)
         {
             Theme newTheme = new Theme();
             newTheme.ThemeId = id;
             newTheme.Name = MyTheme.Name;
 
-            ThemeService.Create(newTheme);
+            ThemeService.Create(newTheme).Wait();
          
-            Themes = ThemeService.GetAll();
+            Themes = await ThemeService.GetAll();
             return Page();
         }
         public IActionResult OnPost()

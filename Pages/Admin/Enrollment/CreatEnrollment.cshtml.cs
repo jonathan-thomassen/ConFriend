@@ -49,11 +49,11 @@ namespace ConFriend.Pages
             this.UserSevice.Init(ModelTypes.User);
             this.EventSevice.Init(ModelTypes.Event);
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
            
-            MyUsers = UserSevice.GetAll();
-            MyEvents = EventSevice.GetAll();
+            MyUsers = await UserSevice.GetAll();
+            MyEvents = await EventSevice.GetAll();
 
             //Venues.Insert(0, new Venue());
             // Speakers.Insert(0, new Speaker());
@@ -68,12 +68,12 @@ namespace ConFriend.Pages
             ChosenEvent = roomId;
             return Page();
         }
-        public IActionResult OnPostSaveNew(int? EId, int? UId)
+        public async Task<IActionResult> OnPostSaveNewAsync(int? EId, int? UId)
         {
            // enrollment.User = UserSevice.GetFromId(enrollment.userId);
             //enrollment.Event = EventSevice.GetFromId(enrollment.eventId);
 
-            EnrollmentSevice.Create(enrollment);
+            await EnrollmentSevice.Create(enrollment);
 
             return RedirectToPage("Enrollment");
 

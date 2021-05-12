@@ -37,13 +37,13 @@ namespace ConFriend.Pages.Admin.EventTest
             _conferenceService.Init(ModelTypes.Conference);
             _venueService.Init(ModelTypes.Venue);
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Events = _eventService.GetAll();
-            Speakers = _speakerService.GetAll();
-            Conferences = _conferenceService.GetAll();
-            Rooms = _roomService.GetAll();
-            Venues = _venueService.GetAll();
+            Events = await _eventService.GetAll();
+            Speakers = await _speakerService.GetAll();
+            Conferences = await _conferenceService.GetAll();
+            Rooms = await _roomService.GetAll();
+            Venues = await _venueService.GetAll();
         }
     }
 }

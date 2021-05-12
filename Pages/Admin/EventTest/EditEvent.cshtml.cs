@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +15,14 @@ namespace ConFriend.Pages.Admin.EventTest
             eventService = eService;
             eventService.Init(ModelTypes.Event);
         }
-        public void OnGet(int eId)
+        public async Task OnGetAsync(int eId)
         {
-            NewEvent = eventService.GetFromId(eId);
+            NewEvent = await eventService.GetFromId(eId);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            eventService.Update(NewEvent);
+            await eventService.Update(NewEvent);
             return RedirectToPage("Index");
         }
     }

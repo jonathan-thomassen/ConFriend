@@ -19,13 +19,13 @@ namespace ConFriend.Pages.Admin.EventTest
             eventService = eService;
             eventService.Init(ModelTypes.Event);
         }
-        public void OnGet(int eId)
+        public async Task OnGetAsync(int eId)
         {
-            Event = eventService.GetFromId(eId);
+            Event = await eventService.GetFromId(eId);
         }
 
-        public IActionResult OnPost(int eId)
-        {  eventService.Delete(Event.EventId);
+        public async Task<IActionResult> OnPostAsync(int eId)
+        {  await eventService.Delete(Event.EventId);
             return RedirectToPage("Index");
         }
     }

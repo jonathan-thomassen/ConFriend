@@ -25,10 +25,10 @@ namespace ConFriend.Pages.Admin.ConferencePages
             _venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Conferences = _conferenceService.GetAll();
-            Venues = _venueService.GetAll();
+            Conferences = await _conferenceService.GetAll();
+            Venues = await _venueService.GetAll();
             return Page();
         }
     }

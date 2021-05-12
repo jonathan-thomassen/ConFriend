@@ -22,10 +22,10 @@ namespace ConFriend.Pages.Admin.EventThemeTest
         {
             _eventThemeService = etService;
             _eventThemeService.Init_Composite(ModelTypes.Theme, ModelTypes.Event, ModelTypes.EventTheme);
-            EventThemes = _eventThemeService.GetAll();
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            EventThemes = await _eventThemeService.GetAll();
         }
     }
 }

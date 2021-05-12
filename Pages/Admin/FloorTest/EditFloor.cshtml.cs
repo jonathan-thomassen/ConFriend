@@ -20,14 +20,14 @@ namespace ConFriend.Pages.Admin.FloorTest
             floorService.Init(ModelTypes.Floor);
             done = false;
         }
-        public void OnGet(int fId)
+        public async Task OnGetAsync(int fId)
         {
-            NewFloor = floorService.GetFromId(fId);
+            NewFloor = await floorService.GetFromId(fId);
         }
 
-        public void OnPost()
+        public async Task OnPostAsync()
         {
-            floorService.Update(NewFloor);
+            await floorService.Update(NewFloor);
             done = true;
         }
     }

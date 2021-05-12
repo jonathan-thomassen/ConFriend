@@ -22,10 +22,10 @@ namespace ConFriend.Pages.Admin.FeatureTest
         {
             _featureService = fService;
             _featureService.Init(ModelTypes.Feature);
-            Features = _featureService.GetAll();
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            Features = await _featureService.GetAll();
         }
     }
 }

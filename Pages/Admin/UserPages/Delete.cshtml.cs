@@ -22,22 +22,22 @@ namespace ConFriend.Pages.Admin.UserPages
             _userService.Init(ModelTypes.User);
         }
 
-        public IActionResult OnGet(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            User = _userService.GetFromId((int)id);
+            User = await _userService.GetFromId((int)id);
 
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            _userService.Delete((int)id);
+            await _userService.Delete((int)id);
             return RedirectToPage("UserIndex");
         }
     }

@@ -22,10 +22,10 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
         {
             _roomFeatureService = rfService;
             _roomFeatureService.Init_Composite(ModelTypes.Feature, ModelTypes.Room, ModelTypes.RoomFeature);
-            RoomFeatures = _roomFeatureService.GetAll();
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            RoomFeatures = await _roomFeatureService.GetAll();
         }
     }
 }

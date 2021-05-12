@@ -19,31 +19,31 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
             roomFeatureService = rfService;
             roomFeatureService.Init_Composite(ModelTypes.Feature, ModelTypes.Room, ModelTypes.RoomFeature);
         }
-        public void OnGet(int fId, int rId)
+        public async Task OnGetAsync(int fId, int rId)
         {
-            RoomFeature = roomFeatureService.GetFromId(fId, rId);
+            RoomFeature = await roomFeatureService.GetFromId(fId, rId);
         }
-        public void OnGetDelete(int fId, int rId)
+        public async Task OnGetDeleteAsync(int fId, int rId)
         {
-            RoomFeature = roomFeatureService.GetFromId(fId, rId);
+            RoomFeature = await roomFeatureService.GetFromId(fId, rId);
             IsDeleting = true;
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            roomFeatureService.Update(RoomFeature);
+            await roomFeatureService.Update(RoomFeature);
             return RedirectToPage("Index");
         }
-        public IActionResult OnPostDelete()
+        public async Task<IActionResult> OnPostDeleteAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            roomFeatureService.Delete(RoomFeature.FeatureId, RoomFeature.RoomId);
+            await roomFeatureService.Delete(RoomFeature.FeatureId, RoomFeature.RoomId);
             return RedirectToPage("Index");
         }
     }

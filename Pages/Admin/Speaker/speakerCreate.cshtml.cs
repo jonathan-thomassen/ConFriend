@@ -31,10 +31,10 @@ namespace ConFriend.Pages
             this.SpeakerService.Init(ModelTypes.Speaker);
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             if (Id == null) return Page();
-            speak = SpeakerService.GetFromId(Id.GetValueOrDefault()) ?? new Speaker();
+            speak = await SpeakerService.GetFromId(Id.GetValueOrDefault()) ?? new Speaker();
             return Page();
         }
         //public async Task<IActionResult> OnGetAsync()
@@ -42,7 +42,7 @@ namespace ConFriend.Pages
 
         //}
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -60,11 +60,11 @@ namespace ConFriend.Pages
 
             if (IsNewEntry)
             {
-                SpeakerService.Create(newSpeaker);
+                await SpeakerService.Create(newSpeaker);
             }
             else {
 
-                SpeakerService.Update(newSpeaker);
+                await SpeakerService.Update(newSpeaker);
             }
 
             return RedirectToPage("/Admin/Speaker/speakerCreate");
