@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ConFriend.Interfaces;
 using ConFriend.Models;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ConFriend.Pages.SetCatTakenTest
 {
     public class IndexModel : PageModel
     {
         private readonly ICrudService<SeatCategoryTaken> _seatCategoryService;
-
+        private readonly ICrudService<Event> _eventService;
+        private readonly ICrudService<User> _userService;
 
         [BindProperty(SupportsGet = true)]
         public List<SeatCategoryTaken> SeatCategorylist { get; private set; }
@@ -21,8 +22,18 @@ namespace ConFriend.Pages.SetCatTakenTest
         [BindProperty]
         public SeatCategoryTaken SeatType { get; set; }
 
-        public IndexModel(ICrudService<SeatCategoryTaken> ss)
+        public List<User> MyUsers { get; set; }
+        public List<Event> MyEvents { get; set; }
+
+        public SelectList SelectEventList;
+        public SelectList SelectUserList;
+
+        public IndexModel(ICrudService<SeatCategoryTaken> ss, ICrudService<Event> es, ICrudService<User> us)
         {
+            _eventService = es;
+            _userService = us;
+            _eventService.Init(ModelTypes.Event);
+            _userService.Init(ModelTypes.User);
             _seatCategoryService = ss;
             _seatCategoryService.Init_Composite(ModelTypes.SeatCategory, ModelTypes.Event, ModelTypes.SeatCategoryTaken);
        

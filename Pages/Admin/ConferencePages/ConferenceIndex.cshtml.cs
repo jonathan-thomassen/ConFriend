@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConFriend.Pages.Admin.ConferencePages
+
+
 {
     public class ConferenceIndexModel : PageModel
     {

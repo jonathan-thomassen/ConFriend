@@ -7,7 +7,7 @@ using ConFriend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+//
 namespace ConFriend.Pages.Admin.EventTest
 {
     public class CreateEventModel : PageModel
