@@ -51,12 +51,14 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewEvent.StartTime" class="control-label">StartTime</label>
-        <input asp-for="@Model.NewEvent.StartTime" class="form-control" />
+        <input asp-for="@Model.NewEvent.StartTime" style="max-width: 15em" class="form-control" />
         <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="NewEvent.Duration" class="control-label">Duration</label>
-        <input asp-for="NewEvent.Duration" class="form-control" />
+        <div class="row">
+            <input type="number" min="5" max="240" step="5" asp-for="NewEvent.Duration" style="max-width: 5em; margin-left: 1em" class="form-control" />&nbsp;min
+        </div>
         <span asp-validation-for="NewEvent.Duration" class="text-danger"></span>
     </div>
     <div class="form-group">

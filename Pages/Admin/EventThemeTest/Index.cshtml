@@ -1,7 +1,9 @@
 ﻿@page
 @model ConFriend.Pages.Admin.EventThemeTest.IndexModel
 @{
+    ViewData["Title"] = "Event-Theme list";
 }
+
 <p>
     <a class="button btn btn-success" asp-page="/Admin/EventThemeTest/CreateEventTheme">Create New EventTheme</a>
 </p>
@@ -10,33 +12,33 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            EventId
-        </th>
-        <th>
-            ThemeId
-        </th>
-    </tr>
+        <tr>
+            <th>
+                EventId
+            </th>
+            <th>
+                ThemeId
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @if (Model.EventThemes.Count() != 0)
-    {
-        @foreach (var item in Model.EventThemes)
+        @if (Model.EventThemes.Count() != 0)
         {
-            <tr>
-                <td>
-                    @item.EventId
-                </td>
-                <td>
-                    @item.ThemeId
-                </td>
-                <td>
-                    <p>
-                        <a class="button btn btn-danger" asp-page="/Admin/EventThemeTest/DeleteEventTheme" asp-route-tId="@item.ThemeId" asp-route-eId="@item.EventId">Delete</a>
-                    </p>
-                </td>
-            </tr>
+            @foreach (var item in Model.EventThemes)
+            {
+                <tr>
+                    <td>
+                        @item.EventId
+                    </td>
+                    <td>
+                        @item.ThemeId
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-danger" asp-page="/Admin/EventThemeTest/DeleteEventTheme" asp-route-tId="@item.ThemeId" asp-route-eId="@item.EventId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
         }
-    }
 </table>

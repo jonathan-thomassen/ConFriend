@@ -1,8 +1,10 @@
 ﻿@page
 @model ConFriend.Pages.Admin.RoomTest.EditRoomModel
 @{
+    ViewData["Title"] = "Edit room";
 }
-<h4>Edit Room</h4>
+
+<h4>Edit room</h4>
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.NewRoom.RoomId" class="control-label">FloorId</label>
@@ -55,6 +57,6 @@
 </form>
 @if (Model.done)
 {
-    <h4 style="color:green">The Room has been created</h4>
+    <h4 style="color:green">The room has been created</h4>
     <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
 }

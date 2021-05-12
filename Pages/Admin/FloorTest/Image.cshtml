@@ -1,31 +1,32 @@
 ﻿@page
 @model ConFriend.Pages.Admin.FloorTest.ImageModel
 @{
+    ViewData["Title"] = "Floor Image";
 }
 
 <html>
 <head>
-    <title>Image Upload</title>
+    <title>Image Upload (Floor)</title>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data">
-    <legend> Upload Image </legend>
-    <label for="Image">Image</label>
-    <input type="file" asp-for="Upload" />
-    <input type="submit" />
-</form>
-<h1>Uploaded Image</h1>
-@if (Model.Floor != null)
-{
-    @if (Model.Floor.Image != null)
+    <form method="post" enctype="multipart/form-data">
+        <legend> Upload Image </legend>
+        <label for="Image">Image</label>
+        <input type="file" asp-for="Upload" />
+        <input type="submit" />
+    </form>
+    <h1>Uploaded Image</h1>
+    @if (Model.Floor != null)
     {
-        <div>
-            <img src="~/floors/@Model.Floor.Image" alt="image" />
-        </div>
+        @if (Model.Floor.Image != null)
+        {
+            <div>
+                <img src="~/floors/@Model.Floor.Image" alt="image" />
+            </div>
+        }
     }
-}
-<div>    
-    <a asp-page="Index">Back to index</a>
-</div>
+    <div>
+        <a asp-page="Index">Back to index</a>
+    </div>
 </body>
 </html>

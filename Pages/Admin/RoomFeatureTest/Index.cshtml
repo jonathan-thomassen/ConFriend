@@ -1,7 +1,9 @@
 ﻿@page
 @model ConFriend.Pages.Admin.RoomFeatureTest.IndexModel
 @{
+    ViewData["Title"] = "Room feature list";
 }
+
 <p>
     <a class="button btn btn-success" asp-page="/Admin/RoomFeatureTest/CreateRoomFeature">Create New RoomFeature</a>
 </p>
@@ -23,28 +25,28 @@
         </tr>
     </thead>
     <tbody>
-    @if (Model.RoomFeatures.Count() != 0)
-    {
-        @foreach (var item in Model.RoomFeatures)
+        @if (Model.RoomFeatures.Count() != 0)
         {
-        <tr>
-            <td>
-                @item.RoomId
-            </td>
-            <td>
-                @item.FeatureId
-            </td>
-            <td>
-                @item.IsAvailable
-            </td>
-            <td>
-                <p>
-                    <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
-                    <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
-                    <a class="button btn btn-danger" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-page-handler="Delete" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
-                </p>
-            </td>
-        </tr>
+            @foreach (var item in Model.RoomFeatures)
+            {
+                <tr>
+                    <td>
+                        @item.RoomId
+                    </td>
+                    <td>
+                        @item.FeatureId
+                    </td>
+                    <td>
+                        @item.IsAvailable
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
+                            <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-page-handler="Delete" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
         }
-    }
 </table>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConFriend.Models
 {
@@ -12,11 +13,9 @@ namespace ConFriend.Models
         public int RoomId { get; set; }
         public int ConferenceId { get; set; }
         public string Name { get; set; }
-        //public Speaker Host { get; set; }
 
-        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime), DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
+        //public Speaker Host { get; set; }
         public DateTime? StartTime { get; set; }
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Duration)]
         public TimeSpan? Duration { get; set; }
         public DateTime? EndTime => StartTime + Duration;
 
@@ -25,7 +24,7 @@ namespace ConFriend.Models
         public string Description { get; set; }
         //public Room Room { get; set; }
         //public Conference Conference { get; set; }
-        public int Capacity { get; set; }
+        public int? Capacity { get; set; }
         public LinkedList<User> Users { get; set; }
         public string Image { get; set; }
         public bool Hidden { get; set; }

@@ -16,12 +16,9 @@ namespace ConFriend.Pages
         private readonly ICrudService<User> UserSevice;
         private readonly ICrudService<Event> EventSevice;
 
-      
-
         [BindProperty(SupportsGet = true)]
         public List<Enrollment> Enrollments { get; private set; }
 
- 
         public List<User> MyUsers;
         public List<Event> MyEvents;
 

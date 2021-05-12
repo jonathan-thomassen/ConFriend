@@ -1,12 +1,14 @@
 ﻿@page
 @model ConFriend.Pages.RoomSeatCateListModel
 @{
+    ViewData["Title"] = "Rooms-SeatCategory couplings";
 }
+
 <p>
-    <a class="button btn btn-success" asp-page="/Admin/RoomFeatureTest/CreateRoomFeature">Create New RoomFeature</a>
+    <a class="button btn btn-success" asp-page="/Admin/RoomFeatureTest/CreateRoomFeature">Create new RoomFeature</a>
 </p>
 
-<h4>List of RoomFeatures</h4>
+<h4>List of Room-SeatCategory couplings</h4>
 
 <table class="table">
     <thead>
@@ -23,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.RoomSeatCategorys  != null)
+        @if (Model.RoomSeatCategorys != null)
         {
             @foreach (var item in Model.RoomSeatCategorys)
             {
