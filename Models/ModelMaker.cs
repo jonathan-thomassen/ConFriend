@@ -17,6 +17,7 @@ namespace ConFriend
         Venue,
         SeatCategory,
         RoomSeatCategory,
+        SeatCategoryTaken,
         Theme,
         Feature,
         RoomFeature,
@@ -66,7 +67,7 @@ namespace ConFriend.Models
                 case ModelTypes.Venue:
                     return Maker_Venue();
                 case ModelTypes.SeatCategory:
-                    break;
+                    return Maker_SeatCategory();
                 case ModelTypes.Theme:
                     return Maker_Theme();
                 case ModelTypes.Feature:
@@ -75,10 +76,31 @@ namespace ConFriend.Models
                     return Maker_RoomFeature();
                 case ModelTypes.EventTheme:
                     return Maker_EventTheme();
+               case ModelTypes.SeatCategoryTaken:
+                    return Maker_SeatCategoryTaken();
                 default:
                     break;
             }
             return null;
+        }
+
+        private SeatCategory Maker_SeatCategory()
+        {
+            SeatCategory SeatType = new SeatCategory();
+
+            SeatType.SeatCategoryId = reader.GetInt32(0);
+            SeatType.NameKey = reader.GetString(1);
+
+            return SeatType;
+        }
+        private SeatCategoryTaken Maker_SeatCategoryTaken()
+        {
+            SeatCategoryTaken SeatType = new SeatCategoryTaken();
+            SeatType.EventId = reader.GetInt32(0);
+            SeatType.SeatCategoryId = reader.GetInt32(1);
+            SeatType.SeatsTaken = reader.GetInt32(2);
+
+            return SeatType;
         }
         public Conference Maker_Conference()
         {
