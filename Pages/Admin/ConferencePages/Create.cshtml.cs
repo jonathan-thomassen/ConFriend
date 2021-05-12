@@ -27,18 +27,18 @@ namespace ConFriend.Pages.Admin.ConferencePages
             _venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Venues = new SelectList(_venueService.GetAll(), nameof(Venue.VenueId), nameof(Venue.Name));
+            Venues = new SelectList(await _venueService.GetAll(), nameof(Venue.VenueId), nameof(Venue.Name));
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            _conferenceService.Create(Conference);
+            await _conferenceService.Create(Conference);
             return RedirectToPage("ConferenceIndex");
         }
     }

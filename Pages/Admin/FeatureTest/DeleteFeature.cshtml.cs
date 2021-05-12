@@ -18,18 +18,18 @@ namespace ConFriend.Pages.Admin.FeatureTest
             featureService = fService;
             featureService.Init(ModelTypes.Feature);
         }
-        public void OnGet(int fId)
+        public async Task OnGetAsync(int fId)
         {
-            Feature = featureService.GetFromId(fId);
+            Feature = await featureService.GetFromId(fId);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            featureService.Delete(Feature.FeatureId);
+            await featureService.Delete(Feature.FeatureId);
             return RedirectToPage("Index");
         }
     }

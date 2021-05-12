@@ -19,14 +19,14 @@ namespace ConFriend.Pages.Admin.RoomTest
             roomService = rService;
             roomService.Init(ModelTypes.Room);
         }
-        public void OnGet(int rId)
+        public async Task OnGetAsync(int rId)
         {
-            Room = roomService.GetFromId(rId);
+            Room = await roomService.GetFromId(rId);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            roomService.Delete(Room.RoomId);
+            await roomService.Delete(Room.RoomId);
             return RedirectToPage("Index");
         }
     }

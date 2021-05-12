@@ -1,10 +1,10 @@
 ﻿@page "{htrn?}"
 @model ConFriend.Pages.speakerlistModel
 @{
-    ViewData["Title"] = "Speakers List";
+    ViewData["Title"] = "Speaker List";
 }
 <div>
-    <a asp-page="/Admin/Speaker/speakerCreate">Add New Speaker</a>
+    <a asp-page="/Admin/Speaker/speakerCreate">Add new speaker</a>
 </div>
 <form>
     <p>
@@ -14,21 +14,25 @@
 </form>
 
 
-<h4 style="color:aquamarine"> List of Speakers</h4>
+<h4 style="color:aquamarine">List of speakers</h4>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Hotel No
+                First name
             </th>
             <th>
-                Name
+                Last name
             </th>
             <th>
-                Address
+                Email
             </th>
-
+                Title
+            <th>
+            </th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -53,7 +57,7 @@
             </td>
             <td>
                 <p>
-                    <a asp-page="/Admin/Speaker/speakerCreate" asp-route-id="@item.SpeakerId">Edit Hotel</a>
+                    <a asp-page="/Admin/Speaker/speakerCreate" asp-route-id="@item.SpeakerId">Edit speaker</a>
                 </p>
             </td>
             <td>

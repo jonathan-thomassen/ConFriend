@@ -20,14 +20,14 @@ namespace ConFriend.Pages.Admin.RoomTest
             roomService.Init(ModelTypes.Room);
             done = false;
         }
-        public void OnGet(int rId)
+        public async Task OnGetAsync(int rId)
         {
-            NewRoom = roomService.GetFromId(rId);
+            NewRoom = await roomService.GetFromId(rId);
         }
 
-        public void OnPost()
+        public async Task OnPostAsync()
         {
-            roomService.Update(NewRoom);
+            await roomService.Update(NewRoom);
             done = true;
         }
     }

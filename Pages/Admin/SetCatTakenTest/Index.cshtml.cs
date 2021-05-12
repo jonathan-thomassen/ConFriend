@@ -39,30 +39,30 @@ namespace ConFriend.Pages.SetCatTakenTest
        
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            SeatCategorylist = _seatCategoryService.GetAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
         }
-        public List<SeatCategoryTaken> GetSeatlist()
+        public async Task<List<SeatCategoryTaken>> GetSeatlistAsync()
         {
-            SeatCategorylist = _seatCategoryService.GetAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return SeatCategorylist;
         }
 
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            _seatCategoryService.Delete(id);
-
-            SeatCategorylist = _seatCategoryService.GetAll();
+            _seatCategoryService.Delete(id).Wait();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return Page();
         }
-        public IActionResult OnPostSave(int? id, int? id2)
+        public async Task<IActionResult> OnPostSaveAsync(int? id, int? id2)
         {
             if (id != null)
-                _seatCategoryService.Update(SeatType);
+                await _seatCategoryService.Update(SeatType);
             else
-                _seatCategoryService.Create(SeatType);
-            SeatCategorylist = _seatCategoryService.GetAll();
+                await _seatCategoryService.Create(SeatType);
+            Task.WaitAll();
+            SeatCategorylist = await _seatCategoryService.GetAll();
             return Page();
         }
 

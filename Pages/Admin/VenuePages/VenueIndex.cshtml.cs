@@ -21,9 +21,9 @@ namespace ConFriend.Pages
             venueService.Init(ModelTypes.Venue);
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Venues = _venueService.GetAll();
+            Venues = await _venueService.GetAll();
             return Page();
         }
     }

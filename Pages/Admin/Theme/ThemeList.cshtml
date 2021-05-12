@@ -1,8 +1,8 @@
 ﻿@page "{id?}"
 @model ConFriend.Pages.ThemeListModel
 @{
-    ViewData["Title"] = "Speakers List";
-    Model.GetThemes();
+    ViewData["Title"] = "Theme List";
+    await Model.GetThemesAsync();
 }
 <div>
     <form method="post">
@@ -18,14 +18,14 @@
     </form>
 </div>
 
-<h4 style="color:aquamarine"> Themes</h4>
-<h1>Create Location</h1>
+<h4 style="color:aquamarine">Themes</h4>
+<h1>Create theme</h1>
 
 <table class="table">
-    <thead>
+    @*<thead>
         <tr>
             <th>
-                Hotel No
+                Id
             </th>
             <th>
                 Name
@@ -35,7 +35,7 @@
             </th>
 
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
 
         @foreach (var item in Model.Themes)

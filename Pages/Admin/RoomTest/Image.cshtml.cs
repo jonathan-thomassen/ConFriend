@@ -28,27 +28,27 @@ namespace ConFriend.Pages.Admin.RoomTest
             _roomService.Init(ModelTypes.Room);
         }
 
-        public void OnGet(int? id)
+        public async Task OnGetAsync(int? id)
         {
             if (id != null)
             {
-                Room = _roomService.GetFromId((int) id);
+                Room = await _roomService.GetFromId((int) id);
             }
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id != null)
             {
-                Room = _roomService.GetFromId((int)id);
+                Room = await _roomService.GetFromId((int)id);
                 var file = Path.Combine("wwwroot\\", "rooms", Upload.FileName);
-                using (var fileStream = new FileStream(file, FileMode.Create))
+                await using (var fileStream = new FileStream(file, FileMode.Create))
                 {
-                    Upload.CopyTo(fileStream);
+                    await Upload.CopyToAsync(fileStream);
                 }
 
                 Room.Image = Upload.FileName;
-                _roomService.Update(Room);
+                await _roomService.Update(Room);
             }
             return Page();
         }

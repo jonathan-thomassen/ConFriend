@@ -19,14 +19,14 @@ namespace ConFriend.Pages.Admin.FloorTest
             floorService = fService;
             floorService.Init(ModelTypes.Floor);
         }
-        public void OnGet(int fId)
+        public async Task OnGetAsync(int fId)
         {
-            Floor = floorService.GetFromId(fId);
+            Floor = await floorService.GetFromId(fId);
         }
 
-        public IActionResult OnPost(int fId)
+        public async Task<IActionResult> OnPostAsync(int fId)
         {
-            floorService.Delete(Floor.FloorId);
+            await floorService.Delete(Floor.FloorId);
             return RedirectToPage("Index");
         }
 

@@ -1,12 +1,14 @@
 ﻿@page
 @model ConFriend.Pages.Admin.FloorTest.IndexModel
 @{
+    ViewData["Title"] = "Floor index";
 }
+
 <p>
     <a class="button btn btn-success" asp-page="/Admin/FloorTest/CreateFloor">Create New Floor</a>
 </p>
 
-<h4> List of Floors</h4>
+<h4>List of Floors</h4>
 
 <table class="table">
     <thead>
@@ -25,33 +27,33 @@
         </tr>
     </thead>
     <tbody>
-    @if (Model.Floors.Count() != 0)
-    {
-        @foreach (var item in Model.Floors)
+        @if (Model.Floors.Count() != 0)
         {
-            <tr>
-                <td>
-                    @item.FloorId
-                </td>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @if (item.Image != "")
-                    {
-                        <img src="~/floors/@item.Image" style="max-height: 50px" alt="image"/>
-                    }
-                </td>
-                <td>
-                    <p>
-                        <a class="button btn btn-primary" asp-page="/Admin/FloorTest/EditFloor" asp-route-fId="@item.FloorId">Edit Floor</a>
-                        <a class="button btn btn-primary" asp-page="/Admin/FloorTest/Image" asp-route-Id="@item.FloorId">Edit Image</a>
-                        <a class="button btn btn-danger" asp-page="/Admin/FloorTest/DeleteFloor" asp-route-fId="@item.FloorId">Delete</a>
-                    </p>
-                </td>
-            </tr>
+            @foreach (var item in Model.Floors)
+            {
+                <tr>
+                    <td>
+                        @item.FloorId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @if (item.Image != "")
+                        {
+                            <img src="~/floors/@item.Image" style="max-height: 50px" alt="image" />
+                        }
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/FloorTest/EditFloor" asp-route-fId="@item.FloorId">Edit Floor</a>
+                            <a class="button btn btn-primary" asp-page="/Admin/FloorTest/Image" asp-route-Id="@item.FloorId">Edit Image</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/FloorTest/DeleteFloor" asp-route-fId="@item.FloorId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
         }
-    }
 </table>
 
 <a class="button btn btn-primary" asp-page="/Admin/RoomTest/Index">Go to all Rooms</a>

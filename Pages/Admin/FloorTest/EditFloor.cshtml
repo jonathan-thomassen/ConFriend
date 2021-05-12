@@ -1,7 +1,9 @@
 ﻿@page
 @model ConFriend.Pages.Admin.FloorTest.EditFloorModel
 @{
+    ViewData["Title"] = "Edit floor";
 }
+
 <h4>Edit Floor</h4>
 <form method="post">
     <div class="form-group">
@@ -30,6 +32,6 @@
 </form>
 @if (Model.done)
 {
-    <h4 style="color:green">The Hotel has been updated</h4>
+    <h4 style="color:green">The Floor has been updated</h4>
     <a class="button btn btn-dark" asp-page="Index">Return to all Floors</a>
 }

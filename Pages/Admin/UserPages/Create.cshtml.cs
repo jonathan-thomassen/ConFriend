@@ -27,13 +27,13 @@ namespace ConFriend.Pages.Admin.UserPages
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
             User.PasswordRepeat = null;
-            _userService.Create(User);
+            await _userService.Create(User);
             return RedirectToPage("UserIndex");
         }
     }

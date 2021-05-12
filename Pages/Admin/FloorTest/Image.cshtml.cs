@@ -27,27 +27,27 @@ namespace ConFriend.Pages.Admin.FloorTest
             _floorService.Init(ModelTypes.Floor);
         }
 
-        public void OnGet(int? id)
+        public async Task OnGetAsync(int? id)
         {
             if (id != null)
             {
-                Floor = _floorService.GetFromId((int)id);
+                Floor = await _floorService.GetFromId((int)id);
             }
         }
 
-        public IActionResult OnPost(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id != null)
             {
-                Floor = _floorService.GetFromId((int)id);
+                Floor = await _floorService.GetFromId((int)id);
                 var file = Path.Combine("wwwroot\\", "floors", Upload.FileName);
-                using (var fileStream = new FileStream(file, FileMode.Create))
+                await using (var fileStream = new FileStream(file, FileMode.Create))
                 {
-                    Upload.CopyTo(fileStream);
+                    await Upload.CopyToAsync(fileStream);
                 }
 
                 Floor.Image = Upload.FileName;
-                _floorService.Update(Floor);
+                await _floorService.Update(Floor);
             }
             return Page();
         }
