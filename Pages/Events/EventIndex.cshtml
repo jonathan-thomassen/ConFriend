@@ -1,0 +1,132 @@
+﻿@page
+@using ConFriend.Models
+@model ConFriend.Pages.Events.EventIndexModel
+@{
+}
+<p>
+    <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
+</p>
+<h4> List of Events</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+
+        <th>
+            Navn
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Starttid
+        </th>
+        <th>
+            Sluttid
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Lokale
+        </th>
+        <th>
+            Hid
+        </th>
+        <th>
+            Can
+        </th>
+        <th>
+            RHid
+        </th>
+        <th>
+            RCan
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @if (Model.Events.Count() != 0)
+        {
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>
+                        @item.EventId
+                    </td>
+
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.StartTime.Value.ToString("dd-MMM HH:mm")
+                    </td>
+                    <td>
+                        @item.EndTime.Value.ToString("dd-MMM HH:mm")
+                    </td>
+                    <td>
+                        @if (item.Capacity >= item.Users.Count)
+                        {
+                            <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                        }
+                        else
+                        {
+                            <p style="color: darkorange">Venteliste</p>
+                        }
+                    </td>
+                    <td>
+                        @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
+                    </td>
+                    <td>
+                        @if (item.Hidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Cancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomHidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomCancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Events/CreateEvent" asp-route-id="@item.EventId">Rediger Event</a>
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+</table>

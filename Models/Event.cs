@@ -33,6 +33,8 @@ namespace ConFriend.Models
         public bool RoomCancelled { get; set; }
         public Dictionary<string, int> SeatCategoriesTaken { get; set; }
         public List<string> Themes { get; set; }
+
+        
         public string ToSQL()
         {
             CultureInfo culture = new CultureInfo("en-US");

@@ -143,14 +143,14 @@ namespace ConFriend.Models
             _event.Description = reader.GetString(8);
             //_event.Room = null;
             _event.Capacity = reader.GetInt32(9);
-            _event.Users = null;
+            _event.Users = new LinkedList<User>();
             _event.Image = reader.IsDBNull(10)? "" : reader.GetString(10);
             _event.Hidden = reader.GetBoolean(11);
             _event.Cancelled = reader.GetBoolean(12);
             _event.RoomHidden = reader.GetBoolean(13);
             _event.RoomCancelled = reader.GetBoolean(14);
-            _event.SeatCategoriesTaken = null;
-            _event.Themes = null;
+            _event.SeatCategoriesTaken = new Dictionary<string, int>();
+            _event.Themes = new List<string>();
 
             return _event;
         }
