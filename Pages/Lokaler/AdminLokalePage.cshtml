@@ -1,0 +1,54 @@
+﻿@page
+@model ConFriend.Pages.Lokaler.AdminLokalePageModel
+@{
+}
+<div style="margin-left: 9em">
+    <form method="post">
+        <div class="form-group">
+            <input asp-for="@Model.Room.Name" style="width: 25em; font-size: x-large" placeholder="Lokale Navn" />
+            <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            @*<label class="control-label">Taler:</label>*@
+            <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height:1.5em"></select>
+            <span asp-validation-for="Room.FloorId" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="column" style="margin-left: 2%">
+                <div class="row">
+                    <p>Str. i m²</p>
+                    <div class="column">
+                        <div class="row">
+                            <div class="form-group" style="margin-left: 50%">
+                                <input type="number" asp-for="@Model.Room.Size" class="form-control" style="width: 5em; height: 2em" ; />
+                                <span asp-validation-for="@Model.Room.Size" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>Kapacitet</p>
+                    <div class="column">
+                        <div class="row">
+                            <div class="form-group" style="margin-left: 40%">
+                                <input type="number" asp-for="@Model.Room.Capacity" class="form-control" style="width: 6em; height: 2em" ; />
+                                <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>Antal dører</p>
+                    <div class="column">
+                        <div class="row">
+                            <div class="form-group" style="margin-left: 40%">
+                                <input type="number" asp-for="@Model.Room.DoorAmount" class="form-control" style="width: 5em; height: 2em"; />
+                                <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
