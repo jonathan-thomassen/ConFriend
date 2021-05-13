@@ -1,0 +1,92 @@
+﻿@page
+@model ConFriend.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "List of events";
+}
+
+<p>
+    <a class="button btn btn-success" asp-page="/Admin/EventTest/CreateEvent">Create New Event</a>
+</p>
+
+<h4> List of Events</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Conference
+            </th>
+            <th>
+                Speaker
+            </th>
+            <th>
+                Venue
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                StartTime
+            </th>
+            <th>
+                EndTime
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Events.Count() != 0)
+        {
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>
+                        @Model.Conferences.Find(conference => conference.ConferenceId.Equals(item.ConferenceId))?.Name
+                    </td>
+                    <td>
+                        @($"{Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.FirstName} {Model.Speakers.Find(speaker => speaker.SpeakerId.Equals(item.SpeakerId))?.LastName}")
+                    </td>
+                    <td>
+                        @Model.Venues.Find(venue => venue.VenueId.Equals(Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.VenueId))?.Name
+                    </td>
+                    <td>
+                        @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.StartTime
+                    </td>
+                    <td>
+                        @item.EndTime
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Capacity
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button btn btn-primary" asp-page="/Admin/EventTest/EditEvent" asp-route-eId="@item.EventId">Edit Event</a>
+                            <a class="button btn btn-danger" asp-page="/Admin/EventTest/DeleteEvent" asp-route-eId="@item.EventId">Delete</a>
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+</table>
