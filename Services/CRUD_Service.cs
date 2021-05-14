@@ -44,10 +44,12 @@ namespace ConFriend.Services
             ItemIdentitySQLExtra = $"{DataTypeB}Id =";
             init(TrueDataType);
         }
+
         public async Task<bool> Create(T item)
         {
             return await SQLCommand(SQLType.Create, "n", item.ToSQL());
         }
+
         public async Task<List<T>> GetAll() 
         {
             await SQLCommand(SQLType.GetAll);

@@ -43,12 +43,6 @@ namespace ConFriend
             services.AddTransient<ICrudService<User>, CRUD_Service<User>>();
             services.AddTransient<ICrudService<Venue>, CRUD_Service<Venue>>();
             
-           
-          
-           
-          
-        
-
 
 
         }
