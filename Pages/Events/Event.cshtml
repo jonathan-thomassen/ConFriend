@@ -4,36 +4,63 @@
     ViewData["Title"] = "Event";
 }
 
-<div class="row">
-    <p style="width: 33.6em; font-size: x-large; position: relative; margin-left: auto; margin-right: auto" placeholder="Navn">@Model.Event?.Name</p>
-</div>
-<div class="row">
-    <p style="width: 24.5em; height: 1.85em; margin-left: auto;">Taler: @Model.Speakers?.Find(speaker => speaker.SpeakerId.Equals(Model.Event?.SpeakerId))?.FullName</p>
-    <label asp-for="Event.StartTime" class="control-label" style="margin-left: 6.5em; margin-right: 1em">Start-tidspunkt:</label>
-    <p style="margin-right:auto">@Model.Event?.StartTime</p>
-</div>
-<div class="row">
-    <div style="margin-left: auto; margin-right: 1em">
-        <p style="resize: none; width: 30em; height: 38.5em; font-size: small; background-color: lightgray; margin-left: auto; margin-right: 0" placeholder="Beskrivelse">@Model.Event?.Description</p>
+<div style="width: 47.7em; margin-left: auto; margin-right: auto">
+    <div class="row">
+        <p style="width: 33.6em; font-size: x-large;" placeholder="Navn">@Model.Event?.Name</p>
     </div>
-    <div style="margin-left: 1em; margin-right: auto">
-        <div class="row">
-            @if (Model.Event?.Image != null)
-            {
-                <img src="~/events/@Model.Event.Image" alt="@Model.Event.Image" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray; margin-left: auto; margin-right: auto" />
-            }
-            else
-            {
-                <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray;  margin-left: auto; margin-right: auto" />
-            }
+    <div class="row">
+        <p style="width: 24.5em; height: 1.85em; margin-left: 0;">Taler: @Model.Speakers?.Find(speaker => speaker.SpeakerId.Equals(Model.Event?.SpeakerId))?.FullName</p>
+        <p style="margin-left: auto; margin-right: 0">Start-tidspunkt:&nbsp;&nbsp;@(Model.Event?.StartTime?.ToString("yyyy-MMMM-dd hh:mm"))</p>
+    </div>
+    <div class="row">
+        <div style="margin-left: auto; margin-right: 1em">
+            <p style="resize: none; width: 30em; height: 38.5em; font-size: small; background-color: lightgray; margin-left: auto; margin-right: 0" placeholder="Beskrivelse">@Model.Event?.Description</p>
         </div>
-        <div class="row" style="margin-top: 1em">
-            <p style="margin-left: auto; margin-right: 0">Varighed: @(Model.Event?.Duration?.TotalMinutes) min.</p>
-            <p style="margin-left: 1em; margin-right: auto">Personer: @Model.Event?.Capacity pers.</p>
-        </div>
-        <div class="row">
-            <p style="margin-left: auto; margin-right: 0">Type: @Model.Event?.Type</p>
-            <p style="margin-left: 1em; margin-right: auto">Lokale: @Model.Rooms?.Find(room => room.RoomId.Equals(Model.Event?.RoomId))?.Name</p>
+        <div style="margin-left: 1em; margin-right: auto">
+            <div class="row">
+                @if (Model.Event?.Image != null)
+                {
+                    <img src="~/events/@Model.Event.Image" alt="@Model.Event.Image" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray; margin-left: auto; margin-right: auto" />
+                }
+                else
+                {
+                    <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray;  margin-left: auto; margin-right: auto" />
+                }
+            </div>
+            <div class="row" style="margin-top: 1em">
+                <div class="col" style="margin-left: 0">
+                    <div class="row">
+                        <p>Varighed:</p>
+                    </div>
+                    <div class="row">
+                        <p>Personer:</p>
+                    </div> 
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <p>@(Model.Event?.Duration?.TotalMinutes) min.</p>
+                    </div>
+                    <div class="row">
+                        <p>@Model.Event?.Capacity pers.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <p>Type:</p>
+                    </div>
+                    <div class="row">
+                        <p>Lokale:</p>
+                    </div>
+                </div>
+                <div class="col" style="margin-right: 0">
+                    <div class="row">
+                        <p>@Model.Event?.Type</p>
+                    </div>
+                    <div class="row">
+                        <p>@Model.Rooms?.Find(room => room.RoomId.Equals(Model.Event?.RoomId))?.Name</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
