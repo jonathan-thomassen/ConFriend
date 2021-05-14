@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
@@ -39,8 +40,6 @@ namespace ConFriend.Pages.Events
             _eventService.Init(ModelTypes.Event);
             _roomService.Init(ModelTypes.Room);
             _speakerService.Init(ModelTypes.Speaker);
-
-            NewEvent = new Event();
         }
 
         public async Task OnGetAsync()
@@ -60,14 +59,16 @@ namespace ConFriend.Pages.Events
             SelectListRooms.First().Selected = true;
             SelectListSpeakers.First().Selected = true;
         }
-        
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> OnPostAsync(string imageName)
         {
             NewEvent.ConferenceId = 1;
             if (Duration != null)
             {
                 NewEvent.Duration = TimeSpan.FromMinutes((int)Duration);
             }
+
+            NewEvent.Image = imageName;
 
             if (!ModelState.IsValid)
                 return Page();
@@ -89,10 +90,20 @@ namespace ConFriend.Pages.Events
             NewEvent.Image = Upload.FileName;
 
             if (NewEvent.RoomId > 0)
-                SelectListRooms.ElementAt((int) NewEvent.RoomId).Selected = true;
+                foreach (var element in SelectListRooms)
+                    if (int.Parse(element.Value) == NewEvent.RoomId)
+                    {
+                        element.Selected = true;
+                        break;
+                    }
 
             if (NewEvent.SpeakerId > 0)
-                SelectListRooms.ElementAt((int)NewEvent.SpeakerId).Selected = true;
+                foreach (var element in SelectListSpeakers)
+                    if (int.Parse(element.Value) == NewEvent.SpeakerId)
+                    {
+                        element.Selected = true;
+                        break;
+                    }
 
             return Page();
         }
