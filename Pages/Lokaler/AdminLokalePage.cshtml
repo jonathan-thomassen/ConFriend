@@ -1,4 +1,5 @@
 ﻿@page
+@using ConFriend.Models
 @model ConFriend.Pages.Lokaler.AdminLokalePageModel
 @{
 }
@@ -9,46 +10,118 @@
             <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            @*<label class="control-label">Taler:</label>*@
             <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height:1.5em"></select>
             <span asp-validation-for="Room.FloorId" class="text-danger"></span>
         </div>
-        <div class="row">
-            <div class="column" style="margin-left: 2%">
-                <div class="row">
-                    <p>Str. i m²</p>
-                    <div class="column">
-                        <div class="row">
-                            <div class="form-group" style="margin-left: 50%">
-                                <input type="number" asp-for="@Model.Room.Size" class="form-control" style="width: 5em; height: 2em" ; />
-                                <span asp-validation-for="@Model.Room.Size" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p>Kapacitet</p>
-                    <div class="column">
-                        <div class="row">
-                            <div class="form-group" style="margin-left: 40%">
-                                <input type="number" asp-for="@Model.Room.Capacity" class="form-control" style="width: 6em; height: 2em" ; />
-                                <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p>Antal dører</p>
-                    <div class="column">
-                        <div class="row">
-                            <div class="form-group" style="margin-left: 40%">
-                                <input type="number" asp-for="@Model.Room.DoorAmount" class="form-control" style="width: 5em; height: 2em"; />
-                                <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="grid-container-lokale">
+            <div style="grid-column: 1 / 1; grid-row: 1 / 1;">Str i m2:</div>
+            <div style="grid-column: 2 / 2; grid-row: 1 / 1;">
+                <input type="number" asp-for="Room.Size" style="width: 100%" />
+                <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
+            </div>
+            <div style="grid-column: 1 / 1; grid-row: 2 / 2;">Kapacitet:</div>
+            <div style="grid-column: 2 / 2; grid-row: 2 / 2;">
+                <input type="number" asp-for="Room.Capacity" style="width: 100%" />
+                <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
+            </div>
+            <div style="grid-column: 1 / 1; grid-row: 3 / 3;">Antal dører:</div>
+            <div style="grid-column: 2 / 2; grid-row: 3 / 3;">
+                <input type="number" asp-for="Room.DoorAmount" style="width: 100%" />
+                <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="grid-column: 1 / 2; grid-row: 4 / 4;">
+                <select asp-for="Room.Features.Values" asp-items="@Model.SelectListFeatures" style="width: 200%; height:8em"></select>
+                <span asp-validation-for="Room.Features.Values" class="text-danger"></span>
+            </div>
+            <div style="grid-column: 3 / 3; grid-row: 1 / 6; margin-left: 100px">
+                <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />
             </div>
         </div>
     </form>
+    <p>
+        <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
+    </p>
+    <h4> List of Events</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Navn</th>
+                <th>Type</th>
+                <th>Starttid</th>
+                <th>Sluttid</th>
+                <th>Status</th>
+                <th>Lokale</th>
+                <th>Hid</th>
+                <th>Can</th>
+                <th>RHid</th>
+                <th>RCan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Events.Count() != 0)
+            {
+                @foreach (var item in Model.Events)
+                {
+                    <tr>
+                        <td>@item.EventId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Type</td>
+                        <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
+                        <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
+                        <td>
+                            @if (item.Capacity >= item.Users.Count)
+                            {
+                                <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                            }
+                            else
+                            {
+                                <p style="color: darkorange">Venteliste</p>
+                            }
+                        </td>
+                        <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
+                        <td>
+                            @if (item.Hidden)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Cancelled)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RoomHidden)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RoomCancelled)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+    </table>
 </div>

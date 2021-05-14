@@ -111,3 +111,11 @@ body {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.grid-container-lokale {
+    display: grid;
+    grid-template-columns: 7% 5% 20%;
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+}
