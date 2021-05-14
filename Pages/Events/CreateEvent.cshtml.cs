@@ -56,6 +56,9 @@ namespace ConFriend.Pages.Events
 
             SelectListRooms.First().Disabled = true;
             SelectListSpeakers.First().Disabled = true;
+
+            SelectListRooms.First().Selected = true;
+            SelectListSpeakers.First().Selected = true;
         }
         
         public async Task<IActionResult> OnPostAsync()
@@ -84,6 +87,12 @@ namespace ConFriend.Pages.Events
             await OnGetAsync();
 
             NewEvent.Image = Upload.FileName;
+
+            if (NewEvent.RoomId > 0)
+                SelectListRooms.ElementAt((int) NewEvent.RoomId).Selected = true;
+
+            if (NewEvent.SpeakerId > 0)
+                SelectListRooms.ElementAt((int)NewEvent.SpeakerId).Selected = true;
 
             return Page();
         }
