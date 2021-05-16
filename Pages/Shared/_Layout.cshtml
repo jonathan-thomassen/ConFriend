@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using ConFriend.Interfaces
+@using ConFriend.Models
+@using ConFriend.Services
+@using Microsoft.AspNetCore.Http
+@inject SessionService SessionService
+@inject ICrudService<User> UserService
+@{
+    UserService.Init(ModelTypes.User);
+    int? currentUserId = SessionService.GetUserId(Context.Session);
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,7 +24,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div @*class="container"*@ style="margin-left: auto; margin-right: auto">
                 <div class="row">
-                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto" asp-area="" asp-page="/Index">ConFriend</a>
+                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right:1em" asp-area="" asp-page="/Index">ConFriend</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -64,7 +76,15 @@
                             </li>
                         </ul>
                     </div>
-                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left:1em" asp-area="" asp-page="/Login/Login">Log ind</a>
+                    @if (currentUserId != null)
+                    {
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="">@UserService.GetFromId((int)currentUserId).Result.Email</a>
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Logout">Log ud</a>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Login">Log ind</a>
+                    }
                 </div>
             </div>
         </nav>
