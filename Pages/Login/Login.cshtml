@@ -1,0 +1,20 @@
+﻿@page
+@model ConFriend.Pages.Login.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form method="post">
+    <div class="row">
+        <input type="email" asp-for="Email" placeholder="E-Mail" style="margin-left: auto; margin-right: auto"/>
+    </div>
+    <div class="row" style="margin-top: 1em">
+        <input type="password" asp-for="Password" placeholder="Kodeord" style="margin-left: auto; margin-right: auto" />
+    </div>
+    <div class="row">
+        <p class="text-danger" style="margin-left: auto; margin-right: auto">@Model.WrongInput</p>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-primary" style="margin-left: auto; margin-right: auto">Log ind</button>
+    </div>
+</form>

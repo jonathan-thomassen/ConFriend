@@ -27,6 +27,8 @@ namespace ConFriend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSession();
+
             services.AddTransient<ICrudService<Conference>, CRUD_Service<Conference>>();
             services.AddTransient<ICrudService<Enrollment>, CRUD_Service<Enrollment>>();
             services.AddTransient<ICrudService<Event>, CRUD_Service<Event>>();
@@ -43,8 +45,7 @@ namespace ConFriend
             services.AddTransient<ICrudService<User>, CRUD_Service<User>>();
             services.AddTransient<ICrudService<Venue>, CRUD_Service<Venue>>();
             
-
-
+            services.AddTransient<SessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +61,8 @@ namespace ConFriend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSession();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
