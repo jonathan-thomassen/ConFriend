@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using ConFriend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -25,24 +25,33 @@ namespace ConFriend.Pages.Events
         public SelectList SelectListRooms;
         public SelectList SelectListSpeakers;
 
-        public int VenueId;
+        public User CurrentUser;
+
+        public bool AccessDenied = false;
 
         private readonly ICrudService<Event> _eventService;
         private readonly ICrudService<Room> _roomService;
         private readonly ICrudService<Speaker> _speakerService;
+        private readonly ICrudService<User> _userService;
+        private readonly SessionService _sessionService;
 
-        public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Venue> venueService, ICrudService<Conference> conferenceService, ICrudService<Speaker> speakerService)
+
+        public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Speaker> speakerService, ICrudService<User> userService, SessionService sessionService)
         {
             _eventService = eventService;
             _roomService = roomService;
             _speakerService = speakerService;
+            _userService = userService;
+            _sessionService = sessionService;
+
 
             _eventService.Init(ModelTypes.Event);
             _roomService.Init(ModelTypes.Room);
             _speakerService.Init(ModelTypes.Speaker);
+            _userService.Init(ModelTypes.User);
         }
 
-        public async Task OnGetAsync()
+        public async Task PageSetup()
         {
             Rooms = await _roomService.GetAll();
             Speakers = await _speakerService.GetAll();
@@ -59,6 +68,29 @@ namespace ConFriend.Pages.Events
             SelectListRooms.First().Selected = true;
             SelectListSpeakers.First().Selected = true;
         }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            if (_sessionService.GetUserId(HttpContext.Session) != null)
+                CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
+            else
+                return OnGetDeniedAsync();
+
+            if (CurrentUser.Type != UserType.Admin)
+                return OnGetDeniedAsync();
+
+            
+            await PageSetup();
+
+            return Page();
+        }
+
+        public IActionResult OnGetDeniedAsync()
+        {
+            AccessDenied = true;
+            return Page();
+        }
+
 
         public async Task<IActionResult> OnPostAsync(string imageName)
         {
@@ -85,7 +117,7 @@ namespace ConFriend.Pages.Events
                 await Upload.CopyToAsync(fileStream);
             }
 
-            await OnGetAsync();
+            await PageSetup();
 
             NewEvent.Image = Upload.FileName;
 
