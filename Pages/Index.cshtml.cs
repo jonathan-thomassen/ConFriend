@@ -40,6 +40,7 @@ namespace ConFriend.Pages
             {
                 int? bindingId = _ucBindingService.GetAll().Result.FindAll(binding => binding.UserId.Equals(userId)).Find(binding => binding.ConferenceId.Equals(conId))?.UserConferenceBindingId;
                 if (bindingId != null)
+                    User = await _userService.GetFromId((int)userId);
                     UserType = _ucBindingService.GetFromId((int)bindingId).Result.UserType;
                 return Page();
             }
