@@ -1,10 +1,19 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Hjem";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @Model.User?.FullName</h1>
-    <h2 class="display-4">User type: @Model.UserType.ToString()</h2>
+    @if (Model.User != null)
+    {
+        <h1 class="display-4">Velkommen @Model.User.FullName</h1>
+        <h2 class="display-4">Brugertype: @Model.UserType.ToString()</h2>
+    }
+    else
+    {
+        <h1 class="display-4">Velkommen gæst</h1>
+        <h2 class="display-4">Brugertype: Gæst</h2>
+    }
+    <h2 class="display-4">Konference: @Model.Conference.Name</h2>
 </div>
