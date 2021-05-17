@@ -1,0 +1,23 @@
+﻿@page
+@using ConFriend.Models
+@model ConFriend.Pages.UCBindingPages.CreateBindingModel
+@{
+}
+
+<h2>Opret forbindelse mellem bruger og konference</h2>
+
+<form method="post">
+    <select asp-for="UserId" asp-items="@Model.SelectListUsers"></select>
+    <select asp-for="ConferenceId" asp-items="@Model.SelectListConferences"></select>
+    <select asp-for="UserType" asp-items="Html.GetEnumSelectList<UserType>()"></select>
+    <button type="submit" class="btn btn-primary">Opret forbindelse</button>
+</form>
+
+@if (Model.BindingCreated == true)
+{
+    <p class="text-success">Forbindelsen blev oprettet</p>
+}
+else if (Model.BindingCreated == false)
+{
+    <p class="text-danger">Fejl! Forbindelsen blev ike oprettet</p>
+}

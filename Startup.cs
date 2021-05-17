@@ -44,7 +44,8 @@ namespace ConFriend
             services.AddTransient<ICrudService<Theme>, CRUD_Service<Theme>>();
             services.AddTransient<ICrudService<User>, CRUD_Service<User>>();
             services.AddTransient<ICrudService<Venue>, CRUD_Service<Venue>>();
-            
+            services.AddTransient<ICrudService<UserConferenceBinding>, CRUD_Service<UserConferenceBinding>>();
+
             services.AddTransient<SessionService>();
         }
 

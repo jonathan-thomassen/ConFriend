@@ -19,6 +19,7 @@ namespace ConFriend.Services
         JoinOn,
         Custom
     }
+
     public abstract class SQLService2<T> : Connection where T : IModel
     {
         private SqlConnection _connection;
@@ -104,7 +105,7 @@ namespace ConFriend.Services
             }
         }
 
-        public async Task<bool> SQLCommand(SQLType command,string condition = "n", string values = "n")
+        public async Task<bool> SQLCommand(SQLType command, string condition = "n", string values = "n")
         {
             string test = QueryBuilder(command, condition, values);
             if (test == "Error") return false;

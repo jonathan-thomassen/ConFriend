@@ -5,13 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConFriend.Models
 {
-    public enum UserType
-    {
-        Normal,
-        Admin,
-        SpecialNeeds
-    }
-
     public class User : IModel
     {
         [Editable(false)]
@@ -32,8 +25,6 @@ namespace ConFriend.Models
         [Required, DataType(DataType.Password), Display(Name = "Repeat password"), Compare(nameof(Password), ErrorMessage = "Passwords are not identical.")]
         public string PasswordRepeat { get; set; }
 
-        public UserType Type { get; set; }
-
         public List<string> Preference { get; set; }
 
         public string FullName {
@@ -43,7 +34,6 @@ namespace ConFriend.Models
         
         }
 
-        
         public string ToSQL()
         {
             string str = "";
@@ -57,8 +47,8 @@ namespace ConFriend.Models
             else{
                 str = "none";
             }
-            //UserId = {UserId},
-            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}', UserType = {(int)Type}";
+
+            return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";
         }
 
         public string Identity()

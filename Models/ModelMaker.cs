@@ -21,7 +21,8 @@ namespace ConFriend
         Theme,
         Feature,
         RoomFeature,
-        EventTheme
+        EventTheme,
+        UserConferenceBinding
     }
 }
 namespace ConFriend.Models
@@ -78,10 +79,24 @@ namespace ConFriend.Models
                     return Maker_EventTheme();
                case ModelTypes.SeatCategoryTaken:
                     return Maker_SeatCategoryTaken();
+                case ModelTypes.UserConferenceBinding:
+                    return Maker_UserConferenceBinding();
                 default:
                     break;
             }
             return null;
+        }
+
+        private UserConferenceBinding Maker_UserConferenceBinding()
+        {
+            UserConferenceBinding userConferenceBinding = new UserConferenceBinding();
+
+            userConferenceBinding.UserConferenceBindingId = reader.GetInt32(0);
+            userConferenceBinding.UserId = reader.GetInt32(1);
+            userConferenceBinding.ConferenceId = reader.GetInt32(2);
+            userConferenceBinding.UserType = (UserType)reader.GetInt32(3);
+
+            return userConferenceBinding;
         }
 
         private SeatCategory Maker_SeatCategory()
@@ -204,7 +219,6 @@ namespace ConFriend.Models
             user.Email = reader.GetString(3);
             user.Password = reader.GetString(4);
             user.Preference = reader.IsDBNull(5) ? new List<string>() : reader.GetString(5).Split(';').ToList();
-            user.Type = (UserType)reader.GetByte(6);
 
             return user;
         }

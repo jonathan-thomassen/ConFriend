@@ -26,6 +26,8 @@ namespace ConFriend.Pages.Events
         public SelectList SelectListSpeakers;
 
         public User CurrentUser;
+        public Conference CurrentConference;
+        public UserConferenceBinding UCBinding;
 
         public bool AccessDenied = false;
 
@@ -33,22 +35,28 @@ namespace ConFriend.Pages.Events
         private readonly ICrudService<Room> _roomService;
         private readonly ICrudService<Speaker> _speakerService;
         private readonly ICrudService<User> _userService;
+        private readonly ICrudService<UserConferenceBinding> _ucBindingService;
+        private readonly ICrudService<Conference> _conferenceService;
         private readonly SessionService _sessionService;
 
 
-        public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Speaker> speakerService, ICrudService<User> userService, SessionService sessionService)
+        public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Speaker> speakerService, ICrudService<User> userService, ICrudService<UserConferenceBinding> ucBindingService, ICrudService<Conference> conferenceService, SessionService sessionService)
         {
             _eventService = eventService;
             _roomService = roomService;
             _speakerService = speakerService;
             _userService = userService;
-            _sessionService = sessionService;
-
+            _conferenceService = conferenceService;
+            _ucBindingService = ucBindingService;
 
             _eventService.Init(ModelTypes.Event);
             _roomService.Init(ModelTypes.Room);
             _speakerService.Init(ModelTypes.Speaker);
             _userService.Init(ModelTypes.User);
+            _conferenceService.Init(ModelTypes.Conference);
+            _ucBindingService.Init(ModelTypes.UserConferenceBinding);
+
+            _sessionService = sessionService;
         }
 
         public async Task PageSetup()
@@ -76,10 +84,16 @@ namespace ConFriend.Pages.Events
             else
                 return OnGetDeniedAsync();
 
-            if (CurrentUser.Type != UserType.Admin)
+            if (_sessionService.GetConferenceId(HttpContext.Session) != null)
+                CurrentConference = await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
+            else
+                return RedirectToPage("/Index");
+
+            UCBinding = _ucBindingService.GetAll().Result.FindAll(binding => binding.UserId.Equals(CurrentUser.UserId)).Find(binding => binding.ConferenceId.Equals(CurrentConference.ConferenceId));
+            
+            if (UCBinding.UserType != UserType.Admin && UCBinding.UserType != UserType.SuperUser)
                 return OnGetDeniedAsync();
 
-            
             await PageSetup();
 
             return Page();
