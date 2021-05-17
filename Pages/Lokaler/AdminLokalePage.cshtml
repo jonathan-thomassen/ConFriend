@@ -29,13 +29,21 @@
                 <input type="number" asp-for="Room.DoorAmount" style="width: 100%" />
                 <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
             </div>
-            <div class="form-group" style="grid-column: 1 / 2; grid-row: 4 / 4;">
-                <select asp-for="Room.Features.Values" asp-items="@Model.SelectListFeatures" style="width: 200%; height:8em"></select>
-                <span asp-validation-for="Room.Features.Values" class="text-danger"></span>
+            @if (@Model.IsEditing)
+            {
+                <div class="form-group" style="grid-column: 1 / 2; grid-row: 4 / 4;">
+                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height:8em"></select>
+                    <span asp-validation-for="Room.Features.Keys" class="text-danger"></span>
+                </div>
+            }
+            <div style="grid-column: 3/4; grid-row: 1/6; margin-left: 100px; justify-items: center">
+                <div>
+                    <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="650" style="border-style: solid; border-width: 0.01em; border-color: gray" />
+                </div>
             </div>
-            <div style="grid-column: 3 / 3; grid-row: 1 / 6; margin-left: 100px">
-                <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />
-            </div>
+        </div>
+        <div class="form-group" style="justify-items: center">
+            <input type="submit" asp-page-handler="Create" value="Create" class="button btn btn-dark" />
         </div>
     </form>
     <p>
@@ -44,84 +52,84 @@
     <h4> List of Events</h4>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Navn</th>
-                <th>Type</th>
-                <th>Starttid</th>
-                <th>Sluttid</th>
-                <th>Status</th>
-                <th>Lokale</th>
-                <th>Hid</th>
-                <th>Can</th>
-                <th>RHid</th>
-                <th>RCan</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>Type</th>
+            <th>Starttid</th>
+            <th>Sluttid</th>
+            <th>Status</th>
+            <th>Lokale</th>
+            <th>Hid</th>
+            <th>Can</th>
+            <th>RHid</th>
+            <th>RCan</th>
+        </tr>
         </thead>
         <tbody>
-            @if (Model.Events.Count() != 0)
+        @if (Model.Events.Count() != 0)
+        {
+            @foreach (var item in Model.Events)
             {
-                @foreach (var item in Model.Events)
-                {
-                    <tr>
-                        <td>@item.EventId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Type</td>
-                        <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
-                        <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
-                        <td>
-                            @if (item.Capacity >= item.Users.Count)
-                            {
-                                <p style="color: green">@item.Users.Count/@item.Capacity</p>
-                            }
-                            else
-                            {
-                                <p style="color: darkorange">Venteliste</p>
-                            }
-                        </td>
-                        <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
-                        <td>
-                            @if (item.Hidden)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.Cancelled)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.RoomHidden)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.RoomCancelled)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>@item.EventId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Type</td>
+                    <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
+                    <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
+                    <td>
+                        @if (item.Capacity >= item.Users.Count)
+                        {
+                            <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                        }
+                        else
+                        {
+                            <p style="color: darkorange">Venteliste</p>
+                        }
+                    </td>
+                    <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
+                    <td>
+                        @if (item.Hidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Cancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomHidden)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomCancelled)
+                        {
+                            <p>&#10004;</p>
+                        }
+                        else
+                        {
+                            <p>&#10060;</p>
+                        }
+                    </td>
+                </tr>
             }
+        }
     </table>
 </div>

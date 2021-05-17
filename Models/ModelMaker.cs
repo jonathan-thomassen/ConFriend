@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConFriend.Services;
 
 namespace ConFriend
 {
@@ -207,7 +208,8 @@ namespace ConFriend.Models
             room.DoorAmount = reader.GetInt32(6);
             room.Image = reader.IsDBNull(7) ? "" : reader.GetString(7);
             room.Coordinates = reader.IsDBNull(8) ? "" : reader.GetString(8);
-
+            room.Features = new Dictionary<string, bool>();
+            room.Events = new List<Event>();
             return room;
         }
         public User Maker_User()
