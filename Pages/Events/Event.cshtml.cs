@@ -27,6 +27,9 @@ namespace ConFriend.Pages.Events
         public bool? SuccessfullySignedUp;
         public int? CurrentUserId;
         public bool? AlreadyRegistered;
+        public int? CurrentlyEnrolled;
+
+        public int? RemainingCapacity => Event.Capacity - CurrentlyEnrolled;
 
         public EventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Speaker> speakerService, ICrudService<Enrollment> enrollmentService, SessionService sessionService)
         {
@@ -48,6 +51,8 @@ namespace ConFriend.Pages.Events
             Event = await _eventService.GetFromId(id);
             Rooms = await _roomService.GetAll();
             Speakers = await _speakerService.GetAll();
+            CurrentUserId = _sessionService.GetUserId(HttpContext.Session);
+            CurrentlyEnrolled = _enrollmentService.GetAll().Result.FindAll(enrollment => enrollment.EventId.Equals(id)).Count;
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -56,8 +61,6 @@ namespace ConFriend.Pages.Events
                 return Page();
 
             await PageSetup((int) id);
-
-            CurrentUserId = _sessionService.GetUserId(HttpContext.Session);
 
             if (CurrentUserId != null)
                 Enrollment = _enrollmentService.GetAll().Result.FindAll(enrollment => enrollment.EventId.Equals(id)).Find(enrollment => enrollment.UserId.Equals(CurrentUserId));
@@ -72,6 +75,9 @@ namespace ConFriend.Pages.Events
 
         public async Task<IActionResult> OnPostAsync(int? eventId)
         {
+            if (eventId == null)
+                return BadRequest();
+
             int? currentUserId = _sessionService.GetUserId(HttpContext.Session);
 
             if (currentUserId != null && eventId != null)

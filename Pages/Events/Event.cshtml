@@ -65,30 +65,46 @@
     </div>
 </div>
 
-@if (Model.AlreadyRegistered == true)
-{
-    <div class="row">
-        <p style="margin-left: auto; margin-right: auto">Du er tilmeldt dette event.</p>
-    </div>
-}
-else if (Model.AlreadyRegistered == false)
-{
-    <form method="post">
-        <div class="row">
-            <button type="submit" asp-route-eventId="@Model.Event?.EventId" class="btn btn-primary" style="margin-left: auto; margin-right: auto">Tilmeld</button>
-        </div>
-    </form>
-}
+<div class="row">
+    <p style="margin-left: auto; margin-right: auto">Antal tilmeldte: @Model.CurrentlyEnrolled / @Model.Event.Capacity</p>
+</div>
 
-@if (Model.SuccessfullySignedUp == true)
+@if (Model.CurrentUserId != null)
 {
-    <div class="row">
-        <p class="text-success" style="margin-left: auto; margin-right: auto">Du er nu tilmeldt dette event.</p>
-    </div>
-}
-else if (Model.SuccessfullySignedUp == false)
-{
-    <div class="row">
-        <p class="text-danger" style="margin-left: auto; margin-right: auto">Fejl. Du blev ikke tilmeldt eventet.</p>
-    </div>
+    @if (Model.AlreadyRegistered == true)
+    {
+        <div class="row">
+            <p style="margin-left: auto; margin-right: auto">Du er tilmeldt dette event.</p>
+        </div>
+    }
+    else if (Model.AlreadyRegistered == false)
+    {
+        if (Model.RemainingCapacity > 0)
+        {
+            <form method="post">
+                <div class="row">
+                    <button type="submit" asp-route-eventId="@Model.Event?.EventId" class="btn btn-primary" style="margin-left: auto; margin-right: auto">Tilmeld</button>
+                </div>
+            </form>
+        }
+        else if (Model.RemainingCapacity <= 0)
+        {
+            <div class="row">
+                <p class="text-warning" style="margin-left: auto; margin-right: auto">Dette event er fuldt booket.</p>
+            </div>
+        }
+    }
+
+    @if (Model.SuccessfullySignedUp == true)
+    {
+        <div class="row">
+            <p class="text-success" style="margin-left: auto; margin-right: auto">Du er nu tilmeldt dette event.</p>
+        </div>
+    }
+    else if (Model.SuccessfullySignedUp == false)
+    {
+        <div class="row">
+            <p class="text-danger" style="margin-left: auto; margin-right: auto">Fejl. Du blev ikke tilmeldt eventet.</p>
+        </div>
+    }
 }
