@@ -4,9 +4,12 @@
 @using Microsoft.AspNetCore.Http
 @inject SessionService SessionService
 @inject ICrudService<User> UserService
+@inject ICrudService<Conference> ConferenceService;
 @{
     UserService.Init(ModelTypes.User);
+    ConferenceService.Init(ModelTypes.Conference);
     int? currentUserId = SessionService.GetUserId(Context.Session);
+    int? currentConferenceId = SessionService.GetConferenceId(Context.Session);
 }
 
 
@@ -24,7 +27,11 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div @*class="container"*@ style="margin-left: auto; margin-right: auto">
                 <div class="row">
-                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right:1em" asp-area="" asp-page="/Index">ConFriend</a>
+                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right: 0" asp-area="" asp-page="/Index">ConFriend</a>
+                    @if (currentConferenceId != null)
+                    {
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 0; margin-right: 1em" asp-area="" asp-page="">&nbsp;-&nbsp;@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</a>
+                    }
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -33,16 +40,16 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                                </li>*@
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                </li>*@
                             <li class="dropdown">
                                 <button class="dropbtn">Events</button>
                                 <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventTest/Index">Events</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent" asp-route-userId="">Opret event</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Events/EventIndex">Event-liste</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent">Opret event</a>
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventThemeTest/Index">Events-Themes</a>
                                 </div>
@@ -79,7 +86,7 @@
                     </div>
                     @if (currentUserId != null)
                     {
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="">@UserService.GetFromId((int)currentUserId).Result.Email</a>
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="">@UserService.GetFromId((int) currentUserId).Result.Email</a>
                         <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Logout">Log ud</a>
                     }
                     else

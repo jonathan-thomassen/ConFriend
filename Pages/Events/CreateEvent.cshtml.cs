@@ -77,7 +77,7 @@ namespace ConFriend.Pages.Events
             SelectListSpeakers.First().Selected = true;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (_sessionService.GetUserId(HttpContext.Session) != null)
                 CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
@@ -85,18 +85,34 @@ namespace ConFriend.Pages.Events
                 return OnGetDeniedAsync();
 
             if (_sessionService.GetConferenceId(HttpContext.Session) != null)
-                CurrentConference = await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
+                CurrentConference =
+                    await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
             else
                 return RedirectToPage("/Index");
 
-            UCBinding = _ucBindingService.GetAll().Result.FindAll(binding => binding.UserId.Equals(CurrentUser.UserId)).Find(binding => binding.ConferenceId.Equals(CurrentConference.ConferenceId));
-            
+            UCBinding = _ucBindingService.GetAll().Result
+                .FindAll(binding => binding.UserId.Equals(CurrentUser.UserId)).Find(binding =>
+                    binding.ConferenceId.Equals(CurrentConference.ConferenceId));
+
             if (UCBinding.UserType != UserType.Admin && UCBinding.UserType != UserType.SuperUser)
                 return OnGetDeniedAsync();
 
             await PageSetup();
 
-            return Page();
+            if (id == null)
+            {
+                return Page();
+            }
+
+            NewEvent = await _eventService.GetFromId((int)id);
+
+            if (NewEvent != null)
+            {
+                Duration = (int)NewEvent.Duration?.TotalMinutes;
+                return Page();
+            }
+
+            return Unauthorized();
         }
 
         public IActionResult OnGetDeniedAsync()

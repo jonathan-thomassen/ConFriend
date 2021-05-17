@@ -50,6 +50,7 @@ namespace ConFriend.Pages.Login
                     _sessionService.SetUserId(HttpContext.Session, user.UserId);
                     return RedirectToPage("/Index");
                 }
+                WrongInput = "Forkert brugernavn/kodeord.";
                 return Page();
             }
 
