@@ -77,6 +77,7 @@ namespace ConFriend.Pages.Lokaler
 
             SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId),
                 nameof(Floor.Name));
+            SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
         }
         public async Task OnGetEditAsync(int rId)
         {
@@ -131,6 +132,26 @@ namespace ConFriend.Pages.Lokaler
                 Room.Features.Add(f.FeatureId, true);
             }
             await _roomService.Create(Room);
+
+            int maxId = 0;
+            foreach (Room r in _roomService.GetAll().Result)
+            {
+                if (r.RoomId > maxId)
+                {
+                    maxId = r.RoomId;
+                }
+            }
+            foreach (int featureId in Room.Features.Keys)
+            {
+
+                RoomFeature rf = new RoomFeature();
+                rf.FeatureId = featureId;
+                rf.RoomId = maxId;
+                rf.IsAvailable = true;
+
+                _roomFeatureService.Create(rf).Wait();
+            }
+
             return RedirectToPage("/Admin/RoomTest/Index");
         }
         public async Task<IActionResult> OnPostUpdateAsync()

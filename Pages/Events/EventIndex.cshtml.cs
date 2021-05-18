@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using ConFriend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -11,6 +12,11 @@ namespace ConFriend.Pages.Events
 {
     public class EventIndexModel : PageModel
     {
+        public bool IsAdmin;
+        public UserConferenceBinding UCBinding;
+        public User CurrentUser;
+        public Conference CurrentConference;
+
         public List<Event> Events { get; private set; }
         public List<Models.Speaker> Speakers { get; private set; }
         public List<Conference> Conferences { get; private set; }
@@ -24,32 +30,37 @@ namespace ConFriend.Pages.Events
         private readonly ICrudService<Conference> _conferenceService;
         private readonly ICrudService<Venue> _venueService;
         private readonly ICrudService<Enrollment> _enrollmentService;
+        private readonly ICrudService<UserConferenceBinding> _ucBindingService;
+        private readonly SessionService _sessionService;
 
-        public EventIndexModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Models.Speaker> speakerService,
-            ICrudService<Conference> conferenceService, ICrudService<Venue> venueService, ICrudService<Enrollment> enrollmentService)
+        public EventIndexModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Enrollment> enrollmentService, ICrudService<UserConferenceBinding> ucBindingService, SessionService sessionService)
         {
             _eventService = eventService;
             _roomService = roomService;
-            _speakerService = speakerService;
-            _conferenceService = conferenceService;
-            _venueService = venueService;
             _enrollmentService = enrollmentService;
+            _ucBindingService = ucBindingService;
 
             _eventService.Init(ModelTypes.Event);
             _roomService.Init(ModelTypes.Room);
-            _speakerService.Init(ModelTypes.Speaker);
-            _conferenceService.Init(ModelTypes.Conference);
-            _venueService.Init(ModelTypes.Venue);
             _enrollmentService.Init(ModelTypes.Enrollment);
+            _ucBindingService.Init(ModelTypes.UserConferenceBinding);
         }
         public async Task OnGetAsync()
         {
+            IsAdmin = true;
             Events = await _eventService.GetAll();
-            Speakers = await _speakerService.GetAll();
-            Conferences = await _conferenceService.GetAll();
             Rooms = await _roomService.GetAll();
-            Venues = await _venueService.GetAll();
             Enrollments = await _enrollmentService.GetAll();
+
+            //if (_sessionService.GetUserId(HttpContext.Session) != null)
+            //    CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
+
+            //UCBinding = _ucBindingService.GetAll().Result
+            //    .FindAll(binding => binding.UserId.Equals(CurrentUser.UserId)).Find(binding =>
+            //        binding.ConferenceId.Equals(CurrentConference.ConferenceId));
+
+            //if (UCBinding?.UserType != UserType.Admin && UCBinding?.UserType != UserType.SuperUser)
+            //    return OnGetDeniedAsync();
 
             //foreach (Event e in Events)
             //{
