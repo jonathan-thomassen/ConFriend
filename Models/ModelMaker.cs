@@ -161,6 +161,7 @@ namespace ConFriend.Models
             //_event.Room = null;
             _event.Capacity = reader.GetInt32(9);
             _event.Users = new LinkedList<User>();
+            _event.Enrollments = new List<Enrollment>();
             _event.Image = reader.IsDBNull(10)? "" : reader.GetString(10);
             _event.Hidden = reader.GetBoolean(11);
             _event.Cancelled = reader.GetBoolean(12);

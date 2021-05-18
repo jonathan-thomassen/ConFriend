@@ -87,12 +87,18 @@ namespace ConFriend.Pages.Lokaler
             Rooms = await _roomService.GetAll();
             RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
 
+            foreach (RoomFeature rf in RoomFeatures)
+            {
+                Room.Features.Add(rf.FeatureId, true);
+            }
+            
+
             EventsInRoom = Room.RoomId != 0
                 ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
                 : new List<Event>();
 
             SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
-            SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name));
+            SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
             SelectedFeatures = new List<int>();
             IsEditing = true;
         }

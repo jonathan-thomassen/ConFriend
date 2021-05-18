@@ -98,7 +98,12 @@ namespace ConFriend.Services
                     return $"DELETE FROM [{_name}] WHERE {condition}";
                 case SQLType.JoinOn:
                     string[] join = condition.Split('.');
-                    return $"SELECT * FROM [{_name}] join [{join[0]}] on {join[0]}.{join[1]} = {_name}.{join[2]}";
+                    if (values == "n")
+                        values = "";
+                    else
+                        values = $"WHERE {values}";
+                        
+                    return $"SELECT * FROM [{_name}] join [{join[1]}] on {join[1]}.{join[0]}id = {_name}.{join[0]}id {values}";
                 case SQLType.GetAll:
                 default:
                     return $"SELECT * FROM [{_name}]";
@@ -119,6 +124,7 @@ namespace ConFriend.Services
                     case SQLType.GetSingle:
                     case SQLType.GetAll:
                     case SQLType.Custom:
+                    case SQLType.JoinOn:
                         _reader = await _command.ExecuteReaderAsync();
                         onRead(currentType);
                         if (Items.Count > 0)
