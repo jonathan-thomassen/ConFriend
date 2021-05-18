@@ -36,16 +36,17 @@ namespace ConFriend.Models
 
         public string ToSQL()
         {
-            string str = "";
+            string str = "none";
             if (Preference != null) {
-                foreach (string item in Preference)
+                if (Preference.Count != 0)
                 {
-                    str += item + ",";
+                    str = "";
+                    foreach (string item in Preference)
+                    {
+                        str += item + "-";
+                    }
+                    str = str.Substring(0, str.Length - 1);
                 }
-                str = str.Substring(0, str.Length - 1);
-            }
-            else{
-                str = "none";
             }
 
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";

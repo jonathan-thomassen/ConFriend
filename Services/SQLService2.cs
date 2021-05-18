@@ -101,7 +101,7 @@ namespace ConFriend.Services
                     if (values == "n")
                         values = "";
                     else
-                        values = $"WHERE {values}";
+                        values = $"WHERE {_name}.{join[0]}id = {values}";
                         
                     return $"SELECT * FROM [{_name}] join [{join[1]}] on {join[1]}.{join[0]}id = {_name}.{join[0]}id {values}";
                 case SQLType.GetAll:

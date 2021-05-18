@@ -41,7 +41,8 @@ namespace ConFriend.Models
         
         public string ToSQL()
         {
-            string pased = Description.Replace(",", "[*%0]");
+            string pased = Description.FormatToSQL();
+
             CultureInfo culture = new CultureInfo("en-US");
             return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
                    $" StartTime = '{StartTime?.ToString(culture)}', Duration = {Duration?.TotalMinutes}," +

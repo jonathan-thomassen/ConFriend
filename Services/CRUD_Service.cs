@@ -84,7 +84,7 @@ namespace ConFriend.Services
         public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes myId = ModelTypes.none)
         {
             if(myId == ModelTypes.none)
-                await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}",$"{currentType}.{joinId}id = {filterId}");
+                await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}",$"{filterId}");
             else
                 await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}", $"{filterId}");
             return Items;
