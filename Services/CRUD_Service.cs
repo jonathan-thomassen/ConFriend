@@ -80,7 +80,7 @@ namespace ConFriend.Services
         //current.IdentitySQL
 
    
-        public async Task<List<T>> GetFiltered(ModelTypes joinId , ModelTypes myId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes myId = ModelTypes.none)
         {
             if(myId != ModelTypes.none)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}Id {joinId}.{joinId}Id");
