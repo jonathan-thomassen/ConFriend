@@ -30,6 +30,7 @@ namespace ConFriend.Pages.Events
         public UserConferenceBinding UCBinding;
 
         public bool AccessDenied = false;
+        public int? EventId;
 
         private readonly ICrudService<Event> _eventService;
         private readonly ICrudService<Room> _roomService;
@@ -79,6 +80,8 @@ namespace ConFriend.Pages.Events
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            EventId = id;
+
             if (_sessionService.GetUserId(HttpContext.Session) != null)
                 CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
             else
@@ -94,15 +97,13 @@ namespace ConFriend.Pages.Events
                 .FindAll(binding => binding.UserId.Equals(CurrentUser.UserId)).Find(binding =>
                     binding.ConferenceId.Equals(CurrentConference.ConferenceId));
 
-            if (UCBinding.UserType != UserType.Admin && UCBinding.UserType != UserType.SuperUser)
+            if (UCBinding?.UserType != UserType.Admin && UCBinding?.UserType != UserType.SuperUser)
                 return OnGetDeniedAsync();
 
             await PageSetup();
 
-            if (id == null)
-            {
+            if (EventId == null)
                 return Page();
-            }
 
             NewEvent = await _eventService.GetFromId((int)id);
 
@@ -121,9 +122,10 @@ namespace ConFriend.Pages.Events
             return Page();
         }
 
-
-        public async Task<IActionResult> OnPostAsync(string imageName)
+        public async Task<IActionResult> OnPostAsync(string imageName, int? id)
         {
+            EventId = id;
+
             NewEvent.ConferenceId = 1;
             if (Duration != null)
             {
@@ -135,12 +137,21 @@ namespace ConFriend.Pages.Events
             if (!ModelState.IsValid)
                 return Page();
 
-            await _eventService.Create(NewEvent);
+            if (EventId == null)
+                await _eventService.Create(NewEvent);
+            else
+            {
+                NewEvent.EventId = (int)EventId;
+                await _eventService.Update(NewEvent);
+            }
+
             return RedirectToPage("/Admin/EventTest/Index");
         }
 
-        public async Task<IActionResult> OnPostImageAsync()
+        public async Task<IActionResult> OnPostImageAsync(int? id)
         {
+            EventId = id;
+
             var file = Path.Combine("wwwroot\\", "events", Upload.FileName);
             await using (var fileStream = new FileStream(file, FileMode.Create))
             {

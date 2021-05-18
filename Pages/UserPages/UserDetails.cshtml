@@ -1,0 +1,16 @@
+﻿@page
+@using ConFriend.Models
+@model ConFriend.Pages.UserPages.UserDetailsModel
+@{
+}
+
+<div style="width: 25em; margin-left: auto; margin-right: auto">
+    <p>Navn: @Model.CurrentUser.FullName</p>
+    <p>Email: @Model.CurrentUser.Email</p>
+    <br />
+    <p>Tilmeldte konferencer:</p>
+    @foreach (UserConferenceBinding binding in Model.UserBindings)
+    {
+        <p>@Model.Conferences.Find(conference => conference.ConferenceId.Equals(binding.ConferenceId)).Name - Brugertype: @binding.UserType.ToString()</p>
+    }
+</div>

@@ -39,7 +39,7 @@ namespace ConFriend.Models
         {
             CultureInfo culture = new CultureInfo("en-US");
             return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
-                   $" StartTime = '{((DateTime)StartTime).ToString(culture)}', Duration = {(int)((TimeSpan)Duration).TotalMinutes}," +
+                   $" StartTime = '{StartTime?.ToString(culture)}', Duration = {Duration?.TotalMinutes}," +
                    $" Type = '{Type}', Description = '{Description}', Capacity = {Capacity}, ImageUrl = '{Image}'," +
                    $" Hidden = '{Hidden}', Cancelled = '{Cancelled}', RoomHidden = '{RoomHidden}'," +
                    $" RoomCancelled = '{RoomCancelled}'";

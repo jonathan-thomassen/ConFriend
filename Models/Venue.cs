@@ -13,7 +13,6 @@ namespace ConFriend.Models
         public List<string> SeatCategories { get; set; }
         public List<string> RoomFeatures { get; set; }
 
-    
         public string ToSQL()
         {
             return $"Name = '{Name}'";

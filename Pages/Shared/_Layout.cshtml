@@ -25,7 +25,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div @*class="container"*@ style="margin-left: auto; margin-right: auto">
+            <div style="margin-left: auto; margin-right: auto">
                 <div class="row">
                     <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right: 0" asp-area="" asp-page="/Index">ConFriend</a>
                     @if (currentConferenceId != null)
@@ -39,12 +39,6 @@
 
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
-                            @*<li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                </li>*@
                             <li class="dropdown">
                                 <button class="dropbtn">Events</button>
                                 <div class="dropdown-content">
@@ -86,7 +80,7 @@
                     </div>
                     @if (currentUserId != null)
                     {
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="">@UserService.GetFromId((int) currentUserId).Result.Email</a>
+                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/UserPages/UserDetails">@UserService.GetFromId((int)currentUserId).Result.Email</a>
                         <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Logout">Log ud</a>
                     }
                     else
@@ -97,7 +91,7 @@
             </div>
         </nav>
     </header>
-    <div @*class="container"*@ style="width: 80em; margin-left: auto; margin-right: auto">
+    <div style="width: 80em; margin-left: auto; margin-right: auto">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

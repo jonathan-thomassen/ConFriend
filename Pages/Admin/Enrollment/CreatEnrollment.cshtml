@@ -8,14 +8,14 @@
     <form method="post">
 
         <div class="form-group">
-            <label asp-for="@Model.enrollment.userId" class="control-label"></label>
-            <select asp-for="@Model.enrollment.userId" asp-items="@Model.SelectUserList"></select>
-            <span asp-validation-for="enrollment.userId" class="text-danger"></span>
+            <label asp-for="@Model.enrollment.UserId" class="control-label"></label>
+            <select asp-for="@Model.enrollment.UserId" asp-items="@Model.SelectUserList"></select>
+            <span asp-validation-for="enrollment.UserId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.enrollment.eventId" class="control-label"></label>
-            <select asp-for="@Model.enrollment.eventId" asp-items="@Model.SelectEventList"></select>
-            <span asp-validation-for="enrollment.eventId" class="text-danger"></span>
+            <label asp-for="@Model.enrollment.EventId" class="control-label"></label>
+            <select asp-for="@Model.enrollment.EventId" asp-items="@Model.SelectEventList"></select>
+            <span asp-validation-for="enrollment.EventId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <button type="submit" asp-page-handler="SaveNew" class="btn btn btn-primary">Save</button>
