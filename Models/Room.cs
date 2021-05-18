@@ -16,7 +16,7 @@ namespace ConFriend.Models
         public string Image { get; set; }
         public string Coordinates { get; set; }
         public Dictionary<string, int> SeatCategories { get; set; }
-        public Dictionary<string, bool> Features { get; set; }
+        public Dictionary<int, bool> Features { get; set; }
         public string ToSQL()
         {
             return $"FloorId = {FloorId}, VenueId = {VenueId}, Name = '{Name}', Size = {Size}, Capacity = {Capacity}, DoorAmount = {DoorAmount}, ImageUrl = '{Image}', Coordinates = '{Coordinates}'";

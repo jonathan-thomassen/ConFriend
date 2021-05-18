@@ -71,9 +71,9 @@
                         @item.EndTime.Value.ToString("dd-MMM HH:mm")
                     </td>
                     <td>
-                        @if (item.Capacity >= item.Users.Count)
+                        @if (item.Capacity > item.Enrollments.Count)
                         {
-                            <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                            <p style="color: green">@item.Enrollments.Count/@item.Capacity</p>
                         }
                         else
                         {

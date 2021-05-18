@@ -161,6 +161,7 @@ namespace ConFriend.Models
             //_event.Room = null;
             _event.Capacity = reader.GetInt32(9);
             _event.Users = new LinkedList<User>();
+            _event.Enrollments = new List<Enrollment>();
             _event.Image = reader.IsDBNull(10)? "" : reader.GetString(10);
             _event.Hidden = reader.GetBoolean(11);
             _event.Cancelled = reader.GetBoolean(12);
@@ -209,7 +210,7 @@ namespace ConFriend.Models
             room.DoorAmount = reader.GetInt32(6);
             room.Image = reader.IsDBNull(7) ? "" : reader.GetString(7);
             room.Coordinates = reader.IsDBNull(8) ? "" : reader.GetString(8);
-            room.Features = new Dictionary<string, bool>();
+            room.Features = new Dictionary<int, bool>();
             room.Events = new List<Event>();
             return room;
         }
