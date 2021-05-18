@@ -78,29 +78,27 @@ namespace ConFriend.Pages.Lokaler
             SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId),
                 nameof(Floor.Name));
         }
-        public async Task OnGetEditAsync(int id)
+        public async Task OnGetEditAsync(int rId)
         {
-            Room = await _roomService.GetFromId(id);
+            Room = await _roomService.GetFromId(rId);
             Events = await _eventService.GetAll();
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
             Rooms = await _roomService.GetAll();
             RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
-            //if (RoomFeatures.Count != 0)
-            //{
-            //    foreach (var roomFeature in RoomFeatures)
-            //    {
-            //        Room.Features.Add(_featureService.GetFromId(roomFeature.FeatureId).Result.Name,
-            //            roomFeature.IsAvailable);
-            //    }
-            //}
+
+            foreach (RoomFeature rf in RoomFeatures)
+            {
+                Room.Features.Add(rf.FeatureId, true);
+            }
+            
 
             EventsInRoom = Room.RoomId != 0
                 ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
                 : new List<Event>();
 
             SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
-            SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name));
+            SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
             SelectedFeatures = new List<int>();
             IsEditing = true;
         }
@@ -127,30 +125,38 @@ namespace ConFriend.Pages.Lokaler
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
             {
-                Room.Features ??= new Dictionary<string, bool>();
+                Room.Features ??= new Dictionary<int, bool>();
 
                 Feature f = _featureService.GetFromId(fId).Result;
-                Room.Features.Add(f.Name, true);
+                Room.Features.Add(f.FeatureId, true);
             }
             await _roomService.Create(Room);
+            return RedirectToPage("/Admin/RoomTest/Index");
+        }
+        public async Task<IActionResult> OnPostUpdateAsync()
+        {
+            Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
+            Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
+            Room.VenueId = tempVenueId;
             foreach (int fId in SelectedFeatures)
             {
-                RoomFeature rf = new RoomFeature();
-                rf.FeatureId = fId;
-                int maxId = 0;
-                foreach (Room room in _roomService.GetAll().Result)
-                {
-                    if (room.RoomId > maxId)
-                    {
-                        maxId = room.RoomId;
-                        Room testIfCorrect = _roomService.GetFromId(maxId).Result;
-                    }
-                }
-                rf.RoomId = maxId;
-                rf.IsAvailable = true;
-                await _roomFeatureService.Create(rf);
+                Room.Features ??= new Dictionary<int, bool>();
+
+                Feature f = _featureService.GetFromId(fId).Result;
+                Room.Features.Add(f.FeatureId, true);
             }
-            return RedirectToPage("/Events/EventIndex");
+
+            await _roomService.Update(Room);
+            foreach (int featureId in Room.Features.Keys)
+            {
+                RoomFeature rf = new RoomFeature();
+                rf.FeatureId = featureId;
+                rf.RoomId = Room.RoomId;
+                rf.IsAvailable = true;
+
+                _roomFeatureService.Create(rf).Wait();
+            }
+            return RedirectToPage("/Admin/RoomTest/Index");
         }
     }
 }
