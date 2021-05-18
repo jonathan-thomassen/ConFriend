@@ -37,7 +37,8 @@ namespace ConFriend.Models
         public string ToSQL()
         {
             string str = "";
-            if (Preference != null) {
+            if (Preference != null && Preference.Count > 0) {
+
                 foreach (string item in Preference)
                 {
                     str += item + ",";

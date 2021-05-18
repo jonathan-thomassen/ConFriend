@@ -39,9 +39,7 @@ namespace ConFriend.Pages.UserPages
             CurrentUserId = _sessionService.GetUserId(HttpContext.Session);
 
             if (CurrentUserId > 0)
-            {
                 CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
-            }
 
             return Page();
         }
@@ -54,20 +52,11 @@ namespace ConFriend.Pages.UserPages
             {
                 CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
 
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-
-
-
                 ModelState.ClearValidationState(nameof(NewPasswordRepeat));
-
                 if (NewPasswordRepeat == NewPassword)
-                {
                     ModelState.MarkFieldValid(nameof(NewPasswordRepeat));
-                }
                 else
-                {
                     ModelState.AddModelError(nameof(NewPasswordRepeat), "Kodeordene er ikke ens.");
-                }
 
                 if (ModelState.IsValid)
                 {
