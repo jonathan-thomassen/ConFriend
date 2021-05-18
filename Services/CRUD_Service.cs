@@ -44,7 +44,6 @@ namespace ConFriend.Services
             ItemIdentitySQLExtra = $"{DataTypeB}Id =";
             init(TrueDataType);
         }
-
         public async Task<bool> Create(T item)
         {
             return await SQLCommand(SQLType.Create, "n", item.ToSQL());
@@ -81,9 +80,12 @@ namespace ConFriend.Services
         //current.IdentitySQL
 
    
-        public async Task<List<T>> GetFiltered(ModelTypes mtype, int filterID)
+        public async Task<List<T>> GetFiltered(ModelTypes joinId , ModelTypes myId = ModelTypes.none)
         {
-            await SQLCommand(SQLType.JoinOn, $"{ItemIdentitySQL} {mtype}.{mtype}Id");
+            if(myId != ModelTypes.none)
+                await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}Id {joinId}.{joinId}Id");
+            else
+                await SQLCommand(SQLType.JoinOn, $"{ItemIdentitySQL} {joinId}.{joinId}Id");
             return Items;
         }
     }

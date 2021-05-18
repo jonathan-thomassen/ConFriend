@@ -23,6 +23,7 @@ namespace ConFriend
         Feature,
         RoomFeature,
         EventTheme,
+        none,
         UserConferenceBinding
     }
 }
