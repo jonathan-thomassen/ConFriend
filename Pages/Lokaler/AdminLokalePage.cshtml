@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Diagnostics.Eventing.Reader
 @using ConFriend.Models
 @model ConFriend.Pages.Lokaler.AdminLokalePageModel
 @{
@@ -6,34 +7,44 @@
 <div style="margin-left: 9em">
     <form method="post">
         <div class="form-group">
+            <input asp-for="@Model.Room.RoomId" style="width: 25em; font-size: x-large" placeholder="Lokale Navn" />
+            <span asp-validation-for="@Model.Room.RoomId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
             <input asp-for="@Model.Room.Name" style="width: 25em; font-size: x-large" placeholder="Lokale Navn" />
             <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height:1.5em"></select>
+            <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height: 1.5em"></select>
             <span asp-validation-for="Room.FloorId" class="text-danger"></span>
         </div>
         <div class="grid-container-lokale">
-            <div style="grid-column: 1 / 1; grid-row: 1 / 1;">Str i m2:</div>
-            <div style="grid-column: 2 / 2; grid-row: 1 / 1;">
+            <div style="grid-column: 1/1; grid-row: 1/1;">Str i m2:</div>
+            <div style="grid-column: 2/2; grid-row: 1/1;">
                 <input type="number" asp-for="Room.Size" style="width: 100%" />
                 <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
             </div>
-            <div style="grid-column: 1 / 1; grid-row: 2 / 2;">Kapacitet:</div>
-            <div style="grid-column: 2 / 2; grid-row: 2 / 2;">
+            <div style="grid-column: 1/1; grid-row: 2/2;">Kapacitet:</div>
+            <div style="grid-column: 2/2; grid-row: 2/2;">
                 <input type="number" asp-for="Room.Capacity" style="width: 100%" />
                 <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
             </div>
-            <div style="grid-column: 1 / 1; grid-row: 3 / 3;">Antal dører:</div>
-            <div style="grid-column: 2 / 2; grid-row: 3 / 3;">
+            <div style="grid-column: 1/1; grid-row: 3/3;">Antal dører:</div>
+            <div style="grid-column: 2/2; grid-row: 3/3;">
                 <input type="number" asp-for="Room.DoorAmount" style="width: 100%" />
                 <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
             </div>
             @if (@Model.IsEditing)
             {
-                <div class="form-group" style="grid-column: 1 / 2; grid-row: 4 / 4;">
-                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height:8em"></select>
+                <div class="form-group" style="grid-column: 1/2; grid-row: 4/4;">
+                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height: 8em"></select>
                     <span asp-validation-for="Room.Features.Keys" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style="grid-column: 1/2; grid-row: 4/4;">
+                    <textarea style="width: 200%; height: 8em;">For at tilføje lokalefunktioner skal et lokale først kreeres og derefter redigeres</textarea>
                 </div>
             }
             <div style="grid-column: 3/4; grid-row: 1/6; margin-left: 100px; justify-items: center">
@@ -42,9 +53,18 @@
                 </div>
             </div>
         </div>
-        <div class="form-group" style="justify-items: center">
-            <input type="submit" asp-page-handler="Create" value="Create" class="button btn btn-dark" />
-        </div>
+        @if (Model.IsEditing)
+        {
+            <div class="form-group" style="justify-items: center">
+                <input type="submit" asp-page-handler="Update" value="Gem ændringer" class="button btn btn-dark" />
+            </div>
+        }
+        else
+        {
+            <div class="form-group" style="justify-items: center">
+                <input type="submit" asp-page-handler="Create" value="Opret Lokale" class="button btn btn-dark" />
+            </div>
+        }
     </form>
     <p>
         <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
@@ -52,84 +72,84 @@
     <h4> List of Events</h4>
     <table class="table">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Navn</th>
-            <th>Type</th>
-            <th>Starttid</th>
-            <th>Sluttid</th>
-            <th>Status</th>
-            <th>Lokale</th>
-            <th>Hid</th>
-            <th>Can</th>
-            <th>RHid</th>
-            <th>RCan</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Navn</th>
+                <th>Type</th>
+                <th>Starttid</th>
+                <th>Sluttid</th>
+                <th>Status</th>
+                <th>Lokale</th>
+                <th>Hid</th>
+                <th>Can</th>
+                <th>RHid</th>
+                <th>RCan</th>
+            </tr>
         </thead>
         <tbody>
-        @if (Model.Events.Count() != 0)
-        {
-            @foreach (var item in Model.Events)
+            @if (Model.Events.Count() != 0)
             {
-                <tr>
-                    <td>@item.EventId</td>
-                    <td>@item.Name</td>
-                    <td>@item.Type</td>
-                    <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
-                    <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
-                    <td>
-                        @if (item.Capacity >= item.Users.Count)
-                        {
-                            <p style="color: green">@item.Users.Count/@item.Capacity</p>
-                        }
-                        else
-                        {
-                            <p style="color: darkorange">Venteliste</p>
-                        }
-                    </td>
-                    <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
-                    <td>
-                        @if (item.Hidden)
-                        {
-                            <p>&#10004;</p>
-                        }
-                        else
-                        {
-                            <p>&#10060;</p>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Cancelled)
-                        {
-                            <p>&#10004;</p>
-                        }
-                        else
-                        {
-                            <p>&#10060;</p>
-                        }
-                    </td>
-                    <td>
-                        @if (item.RoomHidden)
-                        {
-                            <p>&#10004;</p>
-                        }
-                        else
-                        {
-                            <p>&#10060;</p>
-                        }
-                    </td>
-                    <td>
-                        @if (item.RoomCancelled)
-                        {
-                            <p>&#10004;</p>
-                        }
-                        else
-                        {
-                            <p>&#10060;</p>
-                        }
-                    </td>
-                </tr>
+                @foreach (var item in Model.Events)
+                {
+                    <tr>
+                        <td>@item.EventId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Type</td>
+                        <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
+                        <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
+                        <td>
+                            @if (item.Capacity >= item.Users.Count)
+                            {
+                                <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                            }
+                            else
+                            {
+                                <p style="color: darkorange">Venteliste</p>
+                            }
+                        </td>
+                        <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
+                        <td>
+                            @if (item.Hidden)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Cancelled)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RoomHidden)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RoomCancelled)
+                            {
+                                <p>&#10004;</p>
+                            }
+                            else
+                            {
+                                <p>&#10060;</p>
+                            }
+                        </td>
+                    </tr>
+                }
             }
-        }
     </table>
 </div>
