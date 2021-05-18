@@ -56,8 +56,18 @@ namespace ConFriend.Pages.UserPages
 
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
 
+
+
                 ModelState.ClearValidationState(nameof(NewPasswordRepeat));
-                ModelState.MarkFieldValid(nameof(NewPasswordRepeat));
+
+                if (NewPasswordRepeat == NewPassword)
+                {
+                    ModelState.MarkFieldValid(nameof(NewPasswordRepeat));
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(NewPasswordRepeat), "Kodeordene er ikke ens.");
+                }
 
                 if (ModelState.IsValid)
                 {
