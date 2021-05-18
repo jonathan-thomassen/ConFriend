@@ -72,6 +72,10 @@ namespace ConFriend.Pages.UCBindingPages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            UserConferenceBinding existingBinding = _ucBindingService.GetAll().Result
+                .FindAll(binding => binding.UserId.Equals(UserId))
+                .Find(binding => binding.ConferenceId.Equals(ConferenceId));
+
             UserConferenceBinding newBinding = new UserConferenceBinding
             {
                 UserId = UserId,
@@ -79,7 +83,18 @@ namespace ConFriend.Pages.UCBindingPages
                 UserType = UserType
             };
 
-            BindingCreated = await _ucBindingService.Create(newBinding);
+            if (existingBinding != null)
+            {
+                if (existingBinding.UserType != UserType)
+                {
+                    newBinding.UserConferenceBindingId = existingBinding.UserConferenceBindingId;
+                    BindingCreated = await _ucBindingService.Update(newBinding);
+                }
+            }
+            else
+            {
+                BindingCreated = await _ucBindingService.Create(newBinding);
+            }
 
             Users = await _userService.GetAll();
             Conferences = await _conferenceService.GetAll();
