@@ -14,6 +14,7 @@ namespace ConFriend.Services
         string ItemIdentitySQL;
         string ItemIdentitySQLExtra;
         bool IsComposit;
+
         public CRUD_Service(IConfiguration configuration) : base(configuration)
         {
             IsComposit = false;
@@ -83,7 +84,7 @@ namespace ConFriend.Services
         public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes myId = ModelTypes.none)
         {
             if(myId != ModelTypes.none)
-                await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}Id {joinId}.{joinId}Id");
+                await SQLCommand(SQLType.JoinOn, $"{ModelTypes.}.{joinId}Id {joinId}.{joinId}Id");
             else
                 await SQLCommand(SQLType.JoinOn, $"{ItemIdentitySQL} {joinId}.{joinId}Id");
             return Items;
