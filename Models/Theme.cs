@@ -10,7 +10,6 @@ namespace ConFriend.Models
         public int ThemeId { get; set; }
         public string Name { get; set; }
 
-    
 
         public ModelTypes DataType = ModelTypes.Theme;
 
