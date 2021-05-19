@@ -23,90 +23,99 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div style="margin-left: auto; margin-right: auto">
-                <div class="row">
-                    <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right: 0" asp-area="" asp-page="/Index">ConFriend</a>
+    <div id="HeadField" class="fixed-top">
+        <div class="w-100 d-flex justify-content-center">
+            <div id="headcontent" class="w-50">
+                <div class="text-center border">
+
                     @if (currentConferenceId != null)
                     {
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 0; margin-right: 1em" asp-area="" asp-page="">&nbsp;-&nbsp;@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</a>
-                    }
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="dropdown">
-                                <button class="dropbtn">Events</button>
-                                <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Events/EventIndex">Event-liste</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent">Opret event</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventThemeTest/Index">Events-Themes</a>
-                                </div>
-                            </li>
-                            <li class="dropdown">
-                                <button class="dropbtn">Rooms</button>
-                                <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FeatureTest/Index">Features</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomTest/Index">Rooms</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomSeatCategory/RoomSeatCateList">Rooms-SeatCategories</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/SeatCategory/Index">SeatCategories</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/SetCatTakenTest/Index">SeatCategoriesTaken</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomFeatureTest/Index">Rooms-Features</a>
-                                </div>
-                            </li>
-                            <li class="dropdown">
-                                <button class="dropbtn">Venues</button>
-                                <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenuePages/VenueIndex">Venues</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FloorTest/Index">Floors</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">Conferences</a>
-                                </div>
-                            </li>
-                            <li class="dropdown">
-                                <button class="dropbtn">Users</button>
-                                <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/UserPages/UserIndex">Users</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">Speakers</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Enrollment/Enrollment">Enrollments</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/UCBindingPages/CreateBinding">Opret konference-bruger tilknytning</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    @if (currentUserId != null)
-                    {
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/UserPages/UserDetails">@UserService.GetFromId((int)currentUserId).Result.Email</a>
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Logout">Log ud</a>
-                    }
-                    else
-                    {
-                        <a class="navbar-brand" style="margin-top: auto; margin-bottom: auto; margin-left: 1em" asp-area="" asp-page="/Login/Login">Log ind</a>
+                        <h1 class="display-4">@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</h1>
                     }
                 </div>
+                <nav id="NaviBar">
+                    <ul>
+                        <li class="dropdown">
+                            <button class="dropbtn">Events</button>
+                            <div class="dropdown-content">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">Conferences</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Events/EventIndex">Event-liste</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent">Opret event</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventThemeTest/Index">Events-Themes</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">Lokaler</button>
+                            <div class="dropdown-content">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenuePages/VenueIndex">Venues</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FloorTest/Index">Floors</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/FeatureTest/Index">Features</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomTest/Index">Rooms</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomSeatCategory/RoomSeatCateList">Rooms-SeatCategories</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/SeatCategory/Index">SeatCategories</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/SetCatTakenTest/Index">SeatCategoriesTaken</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/RoomFeatureTest/Index">Rooms-Features</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">Udstillere</button>
+                            <div class="dropdown-content">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/UserPages/UserIndex">Users</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">Speakers</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Enrollment/Enrollment">Enrollments</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/UCBindingPages/CreateBinding">Opret konference-bruger tilknytning</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">Kontakt</button>
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">Om os</button>
+                        </li>
+                        @if (currentUserId == null)
+                        {
+                            <li class="login">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">
+                                    Login
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="login">
+                                <a class="nav-link text-dark " asp-area="" asp-page="/UserPages/UserDetails">
+                                    @UserService.GetFromId((int)currentUserId).Result.Email
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
             </div>
-        </nav>
-    </header>
-    <div style="width: 80em; margin-left: auto; margin-right: auto">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ConFriend - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
-    </footer>
+        <div id="HeadFiller" class="w-100"></div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", false)
+        <div id="wrapper" class="d-flex justify-content-center">
+            <div class="w-50">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - ConFriend - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", false)
 </body>
 </html>
