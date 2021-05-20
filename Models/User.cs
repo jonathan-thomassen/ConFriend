@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Policy;
 using Microsoft.AspNetCore.Mvc;
@@ -27,8 +28,28 @@ namespace ConFriend.Models
 
         public List<string> Preference { get; set; }
 
-        public string FullName => $"{FirstName} {LastName}";
+        public string FullName {
+            get {
+                if (LastName == FirstName) return FirstName;
+                return $"{FirstName} {LastName}";
+            }
+        
+        }
+        public string ShortName
+        {
+            get
+            {
+              
+                string returnname = FullName;
+                int Len = Math.Min(LastName.Length,10);
+                if (LastName != FirstName)
+                    returnname = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, Len)}";
 
+                return returnname;
+            }
+
+        }
+        
         public string ToSQL()
         {
             string str = "none";
@@ -46,10 +67,10 @@ namespace ConFriend.Models
 
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";
         }
-
-        public string Identity()
+       
+        public string Identity(string value)
         {
-            return $"UserId = {UserId}";
+            return $"[E-Mail] = '{value}'";
         }
 
     }

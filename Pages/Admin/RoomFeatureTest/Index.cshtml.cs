@@ -25,7 +25,18 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
         }
         public async Task OnGetAsync()
         {
-            RoomFeatures = await _roomFeatureService.GetAll();
+            RoomFeatures = _roomFeatureService.GetAll().Result.OrderBy(rf=>rf.RoomId).ThenBy(rf=>rf.FeatureId).ToList();
+        }
+
+        public async Task OnPostDeleteAsync(int rId)
+        {
+            RoomFeatures = _roomFeatureService.GetAll().Result;
+            foreach (var rf in RoomFeatures.FindAll(rf=>rf.RoomId.Equals(rId)))
+            {
+                await _roomFeatureService.Delete(rf.FeatureId, rId);
+            }
+
+            await OnGetAsync();
         }
     }
 }

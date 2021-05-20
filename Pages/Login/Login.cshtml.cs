@@ -57,5 +57,7 @@ namespace ConFriend.Pages.Login
             WrongInput = "Forkert brugernavn/kodeord.";
             return Page();
         }
+    
+        
     }
 }

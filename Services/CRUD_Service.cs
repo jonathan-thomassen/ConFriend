@@ -15,6 +15,11 @@ namespace ConFriend.Services
         string ItemIdentitySQLExtra;
         bool IsComposit;
 
+        public int GetLastId {
+            get { return LastId; }
+        }
+
+      
         public CRUD_Service(IConfiguration configuration) : base(configuration)
         {
             IsComposit = false;
@@ -66,9 +71,14 @@ namespace ConFriend.Services
 
             return Item;
         }
+        public async Task<T> GetFromField(string customField)
+        {
+            await SQLCommand(SQLType.GetSingle, $"{customField}");
+            return Item;
+        }
         public async Task<bool> Update(T item)
         {
-            return await SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
+            return await SQLCommand(SQLType.Update, ItemIdentitySQL, item.ToSQL());
         }
 
         public async Task<bool> Delete(int id,int id2 = 0)
@@ -97,6 +107,12 @@ namespace ConFriend.Services
                 await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}");
             return Items;
         }
+        public void ClearItemData()
+        {
+            if(Items != null)Items.Clear();
+            Item = default;
+        }
+       
     }
 }
 
