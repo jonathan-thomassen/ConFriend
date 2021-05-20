@@ -44,6 +44,11 @@
                             <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit RoomFeature</a>
                             <a class="button btn btn-primary" asp-page="/Admin/RoomFeatureTest/Image" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Edit Image</a>
                             <a class="button btn btn-danger" asp-page="/Admin/RoomFeatureTest/EditRoomFeature" asp-page-handler="Delete" asp-route-fId="@item.FeatureId" asp-route-rId="@item.RoomId">Delete</a>
+                            <form method="post">
+                                <button asp-page-handler="Delete" asp-route-rId="@item.RoomId" class="btn btn-danger">
+                                    DeleteAllFeaturesForRoom
+                                </button>
+                            </form>
                         </p>
                     </td>
                 </tr>

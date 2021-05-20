@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
@@ -15,7 +16,8 @@ namespace ConFriend.Pages.Lokaler
     public class AdminLokalePageModel : PageModel
     {
         private int tempVenueId = 1;
-        public bool IsEditing { get; set; } 
+        public bool IsEditing { get; set; }
+        private readonly object _createRoomLock = new object();
 
         [BindProperty] public Room Room { get; set; }
         [BindProperty] public IFormFile Upload { get; set; }
@@ -57,19 +59,11 @@ namespace ConFriend.Pages.Lokaler
         public async Task OnGetAsync()
         {
             Room = new Room();
-            Events = await _eventService.GetAll();
+            Events = new List<Event>();
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
             Rooms = await _roomService.GetAll();
             RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
-            //if (RoomFeatures.Count != 0)
-            //{
-            //    foreach (var roomFeature in RoomFeatures)
-            //    {
-            //        Room.Features.Add(_featureService.GetFromId(roomFeature.FeatureId).Result.Name,
-            //            roomFeature.IsAvailable);
-            //    }
-            //}
 
             EventsInRoom = Room.RoomId != 0
                 ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
@@ -82,7 +76,7 @@ namespace ConFriend.Pages.Lokaler
         public async Task OnGetEditAsync(int rId)
         {
             Room = await _roomService.GetFromId(rId);
-            Events = await _eventService.GetAll();
+            Events = _eventService.GetAll().Result.FindAll(e=>e.RoomId.Equals(rId));
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
             Rooms = await _roomService.GetAll();
@@ -92,7 +86,7 @@ namespace ConFriend.Pages.Lokaler
             {
                 Room.Features.Add(rf.FeatureId, true);
             }
-            
+
 
             EventsInRoom = Room.RoomId != 0
                 ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
@@ -100,13 +94,25 @@ namespace ConFriend.Pages.Lokaler
 
             SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
             SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
-            SelectedFeatures = new List<int>();
+            
+            foreach (var item in SelectListFeatures)
+            {
+                foreach (var rf in RoomFeatures)
+                {
+                    if (item.Value == rf.FeatureId.ToString())
+                    {
+                        item.Selected = true;
+                        break;
+                    }
+                }
+            }
             IsEditing = true;
         }
 
-        public async Task<IActionResult> OnPostImageAsync()
+        public async Task<IActionResult> OnPostImageAsync(int id)
         {
-            var file = Path.Combine("wwwroot\\", "events", Upload.FileName);
+            Room.RoomId = id;
+            var file = Path.Combine("wwwroot\\", "rooms", Upload.FileName);
             await using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await Upload.CopyToAsync(fileStream);
@@ -119,9 +125,10 @@ namespace ConFriend.Pages.Lokaler
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCreateAsync()
+        public async Task<IActionResult> OnPostCreateAsync(string imageName)
         {
             Room.VenueId = tempVenueId;
+            Room.Image = imageName;
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
@@ -131,25 +138,24 @@ namespace ConFriend.Pages.Lokaler
                 Feature f = _featureService.GetFromId(fId).Result;
                 Room.Features.Add(f.FeatureId, true);
             }
-            await _roomService.Create(Room);
-
             int maxId = 0;
-            foreach (Room r in _roomService.GetAll().Result)
+
+            lock (_createRoomLock)
             {
-                if (r.RoomId > maxId)
+                _roomService.Create(Room).Wait();
+
+                maxId = _roomService.GetAll().Result.OrderByDescending(r => r.RoomId).First().RoomId;
+
+                foreach (int featureId in Room.Features.Keys)
                 {
-                    maxId = r.RoomId;
+
+                    RoomFeature rf = new RoomFeature();
+                    rf.FeatureId = featureId;
+                    rf.RoomId = maxId;
+                    rf.IsAvailable = true;
+
+                    _roomFeatureService.Create(rf).Wait();
                 }
-            }
-            foreach (int featureId in Room.Features.Keys)
-            {
-
-                RoomFeature rf = new RoomFeature();
-                rf.FeatureId = featureId;
-                rf.RoomId = maxId;
-                rf.IsAvailable = true;
-
-                _roomFeatureService.Create(rf).Wait();
             }
 
             return RedirectToPage("/Admin/RoomTest/Index");
@@ -159,6 +165,7 @@ namespace ConFriend.Pages.Lokaler
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
             Room.VenueId = tempVenueId;
+            RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
             {
                 Room.Features ??= new Dictionary<int, bool>();
@@ -167,6 +174,10 @@ namespace ConFriend.Pages.Lokaler
                 Room.Features.Add(f.FeatureId, true);
             }
 
+            foreach (var rf in RoomFeatures)
+            {
+                await _roomFeatureService.Delete(rf.FeatureId, rf.RoomId);
+            }
             await _roomService.Update(Room);
             foreach (int featureId in Room.Features.Keys)
             {

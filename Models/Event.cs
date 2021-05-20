@@ -25,6 +25,7 @@ namespace ConFriend.Models
         //public Room Room { get; set; }
         //public Conference Conference { get; set; }
         public int? Capacity { get; set; }
+
         /// <summary>
         /// Nice to have ville være ideel til kø kontrol
         /// </summary>
