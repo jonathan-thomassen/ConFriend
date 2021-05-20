@@ -13,30 +13,14 @@
 <table class="table">
     <thead>
     <tr>
-        <th>
-            Image
-        </th>
-        <th>
-            Id
-        </th>
-        <th>
-            Venue
-        </th>
-        <th>
-            Floor
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Size
-        </th>
-        <th>
-            Capacity
-        </th>
-        <th>
-            DoorAmount
-        </th>
+        <th>Image</th>
+        <th>Id</th>
+        <th>Venue</th>
+        <th>Floor</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Capacity</th>
+        <th>DoorAmount</th>
     </tr>
     </thead>
     <tbody>
@@ -74,9 +58,9 @@
             </td>
             <td>
                 <p>
-                    <a style="width: 20%" class="button btn btn-primary" asp-page-handler="Edit" asp-page="/Lokaler/AdminLokalePage" asp-route-rId="@item.RoomId">Edit Room</a>
-                    <a style="width: 20%" class="button btn btn-primary" asp-page="/Admin/RoomTest/Image" asp-route-Id="@item.RoomId">Edit Image</a>
-                    <a style="width: 22%;" class="button btn btn-primary" asp-page="/Admin/RoomTest/Image" asp-route-Id="@item.RoomId">Edit Features</a>
+                    <a class="button btn btn-primary" asp-page-handler="Edit" asp-page="/Lokaler/AdminLokalePage" asp-route-rId="@item.RoomId">Edit Room</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/RoomTest/Image" asp-route-Id="@item.RoomId">Edit Image</a>
+                    <a class="button btn btn-primary" asp-page="/Admin/RoomTest/Image" asp-route-Id="@item.RoomId">Edit Features</a>
                     <a class="button btn btn-danger" asp-page="/Admin/RoomTest/DeleteRoom" asp-route-rId="@item.RoomId">Delete</a>
                 </p>
             </td>

@@ -3,35 +3,43 @@
 @model ConFriend.Pages.Events.EventIndexModel
 @{
 }
-<p>
-    <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
-</p>
+@if (Model.IsAdmin)
+{
+    <p>
+        <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
+    </p>
+}
 <h4> List of Events</h4>
 <table class="table">
     <thead>
-        <tr>
+    <tr>
+        @if (Model.IsAdmin)
+        {
             <th>
                 Id
             </th>
+        }
 
-            <th>
-                Navn
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Starttid
-            </th>
-            <th>
-                Sluttid
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Lokale
-            </th>
+        <th>
+            Navn
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Starttid
+        </th>
+        <th>
+            Sluttid
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Lokale
+        </th>
+        @if (Model.IsAdmin)
+        {
             <th>
                 Hid
             </th>
@@ -44,45 +52,49 @@
             <th>
                 RCan
             </th>
-            <th>
-            </th>
-        </tr>
+        }
+    </tr>
     </thead>
     <tbody>
-        @if (Model.Events.Count() != 0)
+    @if (Model.Events.Count() != 0)
+    {
+        @foreach (var item in Model.Events)
         {
-            @foreach (var item in Model.Events)
-            {
-                <tr>
+            <tr>
+                @if (Model.IsAdmin)
+                {
                     <td>
                         @item.EventId
                     </td>
+                }
 
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Type
-                    </td>
-                    <td>
-                        @item.StartTime.Value.ToString("dd-MMM HH:mm")
-                    </td>
-                    <td>
-                        @item.EndTime.Value.ToString("dd-MMM HH:mm")
-                    </td>
-                    <td>
-                        @if (item.Capacity > item.Enrollments.Count)
-                        {
-                            <p style="color: green">@item.Enrollments.Count/@item.Capacity</p>
-                        }
-                        else
-                        {
-                            <p style="color: darkorange">Venteliste</p>
-                        }
-                    </td>
-                    <td>
-                        @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
-                    </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @item.StartTime.Value.ToString("dd-MMM HH:mm")
+                </td>
+                <td>
+                    @item.EndTime.Value.ToString("dd-MMM HH:mm")
+                </td>
+                <td>
+                    @if (item.Capacity > item.Enrollments.Count)
+                    {
+                        <p style="color: green">@item.Enrollments.Count/@item.Capacity</p>
+                    }
+                    else
+                    {
+                        <p style="color: darkorange">Venteliste</p>
+                    }
+                </td>
+                <td>
+                    @Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name
+                </td>
+                @if (Model.IsAdmin)
+                {
                     <td>
                         @if (item.Hidden)
                         {
@@ -123,13 +135,17 @@
                             <p>&#10060;</p>
                         }
                     </td>
-                    <td>
-                        <p>
-                            <a class="button btn btn-primary" asp-page="/Events/Event" asp-route-id="@item.EventId">Se event</a>
+                }
+                <td>
+                    <p>
+                        <a class="button btn btn-primary" asp-page="/Events/Event" asp-route-id="@item.EventId">Se event</a>
+                        @if (Model.IsAdmin)
+                        {
                             <a class="button btn btn-primary" asp-page="/Events/CreateEvent" asp-route-id="@item.EventId">Rediger</a>
-                        </p>
-                    </td>
-                </tr>
-            }
+                        }
+                    </p>
+                </td>
+            </tr>
         }
+    }
 </table>
