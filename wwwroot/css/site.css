@@ -30,8 +30,8 @@ a {
     display: inline-block;
 }
 #headcontent {
-    max-width: 600px;
-    min-width: 580px;
+    max-width: 640px;
+    min-width: 620px;
 }
 
 /* Dropdown Content (Hidden by Default) */

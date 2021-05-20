@@ -31,6 +31,7 @@ namespace ConFriend.Services
         internal List<T> Items;
         internal T Item;
         internal ModelTypes currentType;
+        internal int LastId;
 
         public SqlDataReader Reader
         {
@@ -126,6 +127,7 @@ namespace ConFriend.Services
                     case SQLType.Custom:
                     case SQLType.JoinOn:
                         _reader = await _command.ExecuteReaderAsync();
+                        
                         onRead(currentType);
                         if (Items.Count > 0)
                             Item = Items[0];
@@ -134,18 +136,28 @@ namespace ConFriend.Services
                     case SQLType.Update:
                     case SQLType.Delete:
                         RowsAltered = await _command.ExecuteNonQueryAsync();
+
                         break;
                     default:
                         break;
                 }
+                /*_command.Connection.Close();
+                await _command.Connection.OpenAsync();
+                _command.CommandText = "SELECT SCOPE_IDENTITY()";
+                LastId = await _command.ExecuteNonQueryAsync();*/
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+         
             Task.WaitAll();
             CloseDB();
+
+          
+            
+
             return true;
         }
 

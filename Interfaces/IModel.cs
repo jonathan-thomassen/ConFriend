@@ -9,7 +9,7 @@ namespace ConFriend.Models
     {
         string ToSQL();
 
-        string Identity();
+  
 
 
         // static ModelTypes somting { get; set;}
