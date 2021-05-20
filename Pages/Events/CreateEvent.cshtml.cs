@@ -145,7 +145,7 @@ namespace ConFriend.Pages.Events
                 await _eventService.Update(NewEvent);
             }
 
-            return RedirectToPage("/Admin/EventTest/Index");
+            return RedirectToPage("/Events/EventIndex");
         }
 
         public async Task<IActionResult> OnPostImageAsync(int? id)

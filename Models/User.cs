@@ -27,12 +27,7 @@ namespace ConFriend.Models
 
         public List<string> Preference { get; set; }
 
-        public string FullName {
-            get { 
-                return $"{FirstName} {LastName}";
-            }
-        
-        }
+        public string FullName => $"{FirstName} {LastName}";
 
         public string ToSQL()
         {

@@ -52,6 +52,8 @@ namespace ConFriend.Pages.UserPages
             {
                 CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
 
+
+                //OBS: I RazorPages kan man ikke bruge Compare i OnPost (Det giver en Error i ModelState). Derfor skal ValidationState sættes manuelt for felter der bruger Compare.
                 ModelState.ClearValidationState(nameof(NewPasswordRepeat));
                 if (NewPasswordRepeat == NewPassword)
                     ModelState.MarkFieldValid(nameof(NewPasswordRepeat));
