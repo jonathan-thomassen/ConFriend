@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div id="HeadField" class="fixed-top">
+    <div id="HeadField">
         <div class="w-100 d-flex justify-content-center">
             <div id="headcontent" class="w-50">
                 <div class="text-center border">
@@ -88,15 +88,15 @@
                         {
 
 
-<li class="login">
-    <a class="nav-link text-dark " asp-area="" asp-page="/UserPages/UserDetails">
+                        <li class="login">
+                            <a class="nav-link text-dark " asp-area="" asp-page="/UserPages/UserDetails">
       
-        @UserService.GetFromId((int)currentUserId).Result.ShortName
+                                @UserService.GetFromId((int)currentUserId).Result.ShortName
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-        </svg>
-    </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                </svg>
+                            </a>
                             </li>
                         }
                     </ul>

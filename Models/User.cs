@@ -72,6 +72,10 @@ namespace ConFriend.Models
         {
             return $"[E-Mail] = '{value}'";
         }
+        public string Identity()
+        {
+            return $"UserId = {UserId}";
+        }
 
     }
 }

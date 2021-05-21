@@ -21,5 +21,6 @@ namespace ConFriend.Models
         {
             return $"UserConferenceBindingId = {UserConferenceBindingId}";
         }
+  
     }
 }
