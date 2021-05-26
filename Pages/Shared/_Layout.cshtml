@@ -39,7 +39,6 @@
                             <div class="dropdown-content">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">Conferences</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Events/EventIndex">Event-liste</a>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent">Opret event</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventThemeTest/Index">Events-Themes</a>
                             </div>
@@ -63,7 +62,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/UserPages/UserIndex">Users</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">Speakers</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Enrollment/Enrollment">Enrollments</a>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/UCBindingPages/CreateBinding">Opret konference-bruger tilknytning</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/ConManager/Index">Admin funktioner</a>
                             </div>
                         </li>
                         <li class="dropdown">
@@ -103,7 +102,7 @@
         <div id="HeadFiller" class="w-100"></div>
 
         <div id="wrapper" class="d-flex justify-content-center">
-            <div class="w-50">
+            <div class="w-75">
                 <div>
                     @RenderBody()
                 </div>
