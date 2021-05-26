@@ -67,7 +67,7 @@ namespace ConFriend.Models
 
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";
         }
-       
+
         public string Identity(string value)
         {
             return $"[E-Mail] = '{value}'";

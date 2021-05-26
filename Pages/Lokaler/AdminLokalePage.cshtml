@@ -10,7 +10,7 @@
         {
             <div class="form-group">
                 <label style="font-size: x-large;">RoomId: </label>
-                <input asp-for="@Model.Room.RoomId" readonly="readonly" style="width: 25em; border: hidden; font-size: x-large" placeholder="Lokale Navn"/>
+                <input asp-for="@Model.Room.RoomId" readonly="readonly" style="width: 25em; border: hidden; font-size: x-large"/>
                 <span asp-validation-for="@Model.Room.RoomId" class="text-danger"></span>
             </div>
         }
@@ -46,7 +46,7 @@
                 <div>
                     <label for="files" class="btn" style="margin-left: auto; margin-right: auto;">Upload billede</label>
                     <input type="file" id="files" asp-for="@Model.Upload" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute" onchange="submitImage.click()" />
-                    <button type="submit" id="submitImage" asp-page-handler="Image" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
+                    <button type="submit" id="submitImage" asp-page-handler="Image" asp-route-id="@Model.Room.RoomId" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
                 </div>
                 @if (Model.Room.Image != null)
                 {
@@ -63,7 +63,7 @@
         @if (Model.IsEditing)
         {
             <div class="form-group" style="justify-items: center">
-                <input type="submit" asp-page-handler="Update" value="Gem ændringer" class="button btn btn-dark" />
+                <input type="submit" asp-page-handler="Update" value="Gem ændringer" asp-route-id="@Model.RoomId" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
             </div>
         }
         else
