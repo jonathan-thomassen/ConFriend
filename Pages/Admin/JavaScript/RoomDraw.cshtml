@@ -1,0 +1,18 @@
+﻿@page
+@model ConFriend.Pages.Admin.JavaScript.RoomDrawModel
+@{
+}
+@section Scripts {
+    <script src="/js/BoxMapMaker.js"></script>
+}
+<div id="MainBox">
+    <div id="content">
+        <canvas id="mycanvas"></canvas>
+    </div>
+    <div>
+        <input id="drawpointsdisplayData"></input>
+        <button onclick="CanvasDisplay.LoadPoints();">Load</button>
+        <button onclick="CanvasDisplay.ClearView();">Clear</button>
+        <button onclick="CanvasDisplay.Debug();">Figure</button>
+    </div>
+</div>

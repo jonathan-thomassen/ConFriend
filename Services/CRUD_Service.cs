@@ -91,20 +91,20 @@ namespace ConFriend.Services
         //current.IdentitySQL
 
    
-        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes myId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes klassId = ModelTypes.none)
         {
-            if(myId == ModelTypes.none)
+            if(klassId == ModelTypes.none)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}",$"{filterId}");
             else
-                await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}", $"{filterId}");
+                await SQLCommand(SQLType.JoinOn, $"{klassId}.{joinId}", $"{filterId}");
             return Items;
         }
-        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes myId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes klassId = ModelTypes.none)
         {
-            if (myId == ModelTypes.none)
+            if (klassId == ModelTypes.none)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}");
             else
-                await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}");
+                await SQLCommand(SQLType.JoinOn, $"{klassId}.{joinId}");
             return Items;
         }
         public void ClearItemData()

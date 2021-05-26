@@ -59,5 +59,11 @@ namespace ConFriend.Pages
         {
 
         }
+        //
+        public async Task<string> GetRoomData()
+        {
+            User = await _userService.GetFromId(0);
+            return "r{0f0:0d0:10,10,10,10:Event Name:0}r{0f0:0d0:30,20,10,10:Event Name:0}";
+        }
     }
 }
