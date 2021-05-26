@@ -29,7 +29,7 @@ namespace ConFriend.Pages.Events
         public Conference CurrentConference;
         public UserConferenceBinding UCBinding;
 
-        public bool AccessDenied = false;
+        public bool AccessDenied;
         public int? EventId;
 
         private readonly ICrudService<Event> _eventService;
@@ -39,7 +39,6 @@ namespace ConFriend.Pages.Events
         private readonly ICrudService<UserConferenceBinding> _ucBindingService;
         private readonly ICrudService<Conference> _conferenceService;
         private readonly SessionService _sessionService;
-
 
         public CreateEventModel(ICrudService<Event> eventService, ICrudService<Room> roomService, ICrudService<Speaker> speakerService, ICrudService<User> userService, ICrudService<UserConferenceBinding> ucBindingService, ICrudService<Conference> conferenceService, SessionService sessionService)
         {
@@ -66,7 +65,7 @@ namespace ConFriend.Pages.Events
             Speakers = await _speakerService.GetAll();
 
             Rooms.Insert(0, new Room { Name = "Vælg et lokale" });
-            Speakers.Insert(0, new Models.Speaker { FirstName = "Vælg en taler" });
+            Speakers.Insert(0, new Speaker { FirstName = "Vælg en taler" });
 
             SelectListRooms = new SelectList(Rooms.FindAll(room => room.VenueId.Equals(1) || room.VenueId == 0), nameof(Room.RoomId), nameof(Room.Name));
             SelectListSpeakers = new SelectList(Speakers, nameof(Speaker.SpeakerId), nameof(Speaker.FullName));
@@ -88,8 +87,7 @@ namespace ConFriend.Pages.Events
                 return OnGetDeniedAsync();
 
             if (_sessionService.GetConferenceId(HttpContext.Session) != null)
-                CurrentConference =
-                    await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
+                CurrentConference = await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
             else
                 return RedirectToPage("/Index");
 

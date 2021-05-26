@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 
 namespace ConFriend.Interfaces
 {
@@ -8,10 +7,8 @@ namespace ConFriend.Interfaces
     {
         string QueryBuilder();
         Task<bool> SqlCommand();
-        void OpenDB(String queryString);
+        void OpenDB(string queryString);
         void CloseDB();
         T OnRead();
-
-       // private abstract void onRead();
     }
 }

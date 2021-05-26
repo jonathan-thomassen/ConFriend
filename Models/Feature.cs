@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
-    public class Feature: IModel
+    public class Feature : IModel
     {
         public int FeatureId { get; set; }
         public string Name { get; set; }
-
-        public ModelTypes DataType = ModelTypes.Feature;
 
         public string ToSQL()
         {

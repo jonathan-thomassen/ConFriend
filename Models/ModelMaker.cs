@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ConFriend.Services;
+using ConFriend.Interfaces;
 
 namespace ConFriend
 {
-    public enum ModelTypes {
+    public enum ModelTypes
+    {
         Conference,
         Enrollment,
         Event,
@@ -23,35 +23,32 @@ namespace ConFriend
         Feature,
         RoomFeature,
         EventTheme,
-        none,
+        None,
         UserConferenceBinding
     }
 }
+
 namespace ConFriend.Models
+{
+    public class ModelMaker
     {
-        public class ModelMaker
-    {
-        private SqlDataReader reader;
-        public ModelMaker()
+        private SqlDataReader _reader;
+        
+        public List<T> OnRead<T>(ModelTypes model, SqlDataReader sqlReader)
         {
-           
-        }
-        public List<T> OnRead<T>(ModelTypes model, SqlDataReader SQLReader)
-        {
-            reader = SQLReader;
+            _reader = sqlReader;
             List<T> models = new List<T>();
-            while (reader.Read())
+            while (_reader.Read())
             {
-                T obj = (T)MyRead<T>(model);
+                T obj = (T)MyRead(model);
                 if (obj == null) return new List<T>();
                 models.Add(obj);
             }
             return models;
         }
-        private object MyRead<T>(ModelTypes readmodel)
+        private object MyRead(ModelTypes readModel)
         {
-
-            switch (readmodel)
+            switch (readModel)
             {
                 case ModelTypes.Conference:
                     return Maker_Conference();
@@ -79,199 +76,211 @@ namespace ConFriend.Models
                     return Maker_RoomFeature();
                 case ModelTypes.EventTheme:
                     return Maker_EventTheme();
-               case ModelTypes.SeatCategoryTaken:
+                case ModelTypes.SeatCategoryTaken:
                     return Maker_SeatCategoryTaken();
                 case ModelTypes.UserConferenceBinding:
                     return Maker_UserConferenceBinding();
-                default:
-                    break;
             }
             return null;
         }
 
         private UserConferenceBinding Maker_UserConferenceBinding()
         {
-            UserConferenceBinding userConferenceBinding = new UserConferenceBinding();
-
-            userConferenceBinding.UserConferenceBindingId = reader.GetInt32(0);
-            userConferenceBinding.UserId = reader.GetInt32(1);
-            userConferenceBinding.ConferenceId = reader.GetInt32(2);
-            userConferenceBinding.UserType = (UserType)reader.GetInt32(3);
+            UserConferenceBinding userConferenceBinding = new UserConferenceBinding
+            {
+                UserConferenceBindingId = _reader.GetInt32(0),
+                UserId = _reader.GetInt32(1),
+                ConferenceId = _reader.GetInt32(2),
+                UserType = (UserType) _reader.GetInt32(3)
+            };
 
             return userConferenceBinding;
         }
 
         private SeatCategory Maker_SeatCategory()
         {
-            SeatCategory SeatType = new SeatCategory();
+            SeatCategory seatType = new SeatCategory
+            {
+                SeatCategoryId = _reader.GetInt32(0), NameKey = _reader.GetString(1)
+            };
 
-            SeatType.SeatCategoryId = reader.GetInt32(0);
-            SeatType.NameKey = reader.GetString(1);
-
-            return SeatType;
+            return seatType;
         }
+
         private SeatCategoryTaken Maker_SeatCategoryTaken()
         {
-            SeatCategoryTaken SeatType = new SeatCategoryTaken();
-            SeatType.EventId = reader.GetInt32(0);
-            SeatType.SeatCategoryId = reader.GetInt32(1);
-            SeatType.SeatsTaken = reader.GetInt32(2);
+            SeatCategoryTaken seatType = new SeatCategoryTaken
+            {
+                EventId = _reader.GetInt32(0),
+                SeatCategoryId = _reader.GetInt32(1),
+                SeatsTaken = _reader.GetInt32(2)
+            };
 
-            return SeatType;
+            return seatType;
         }
+
         public Conference Maker_Conference()
         {
-            Conference conference = new Conference();
-
-            conference.ConferenceId = reader.GetInt32(0);
-            conference.VenueId = reader.GetInt32(1);
-            conference.Name = reader.GetString(2);
-            conference.EventThemes = new List<string>();
-            conference.Speakers = null;
-            conference.Events = null;
+            Conference conference = new Conference
+            {
+                ConferenceId = _reader.GetInt32(0),
+                VenueId = _reader.GetInt32(1),
+                Name = _reader.GetString(2),
+                EventThemes = new List<string>(),
+                Speakers = null,
+                Events = null
+            };
 
             return conference;
         }
+
         public IModel Maker_Enrollment()
         {
-            Enrollment enrollment = new Enrollment();
-
-            enrollment.EnrollmentId = reader.GetInt32(0);
-            enrollment.EventId = reader.GetInt32(1);
-            enrollment.UserId = reader.GetInt32(2);
-            enrollment.SignUpTime = reader.GetDateTime(3);
+            Enrollment enrollment = new Enrollment
+            {
+                EnrollmentId = _reader.GetInt32(0),
+                EventId = _reader.GetInt32(1),
+                UserId = _reader.GetInt32(2),
+                SignUpTime = _reader.GetDateTime(3)
+            };
 
             return enrollment;
         }
+
         public Event Maker_Event()
         {
-            Event _event = new Event();
+            Event thisEvent = new Event
+            {
+                EventId = _reader.GetInt32(0),
+                SpeakerId = _reader.GetInt32(1),
+                RoomId = _reader.GetInt32(2),
+                ConferenceId = _reader.GetInt32(3),
+                Name = _reader.GetString(4),
+                StartTime = _reader.GetDateTime(5),
+                Duration = TimeSpan.FromMinutes(_reader.GetInt32(6)),
+                Type = _reader.GetString(7),
+                Description = _reader.GetString(8),
+                Capacity = _reader.GetInt32(9),
+                Users = new LinkedList<User>(),
+                Enrollments = new List<Enrollment>(),
+                Image = _reader.IsDBNull(10) ? "" : _reader.GetString(10),
+                Hidden = _reader.GetBoolean(11),
+                Cancelled = _reader.GetBoolean(12),
+                RoomHidden = _reader.GetBoolean(13),
+                RoomCancelled = _reader.GetBoolean(14),
+                SeatCategoriesTaken = new Dictionary<string, int>(),
+                Themes = new List<string>()
+            };
 
-            _event.EventId = reader.GetInt32(0);
-            _event.SpeakerId = reader.GetInt32(1);
-            _event.RoomId = reader.GetInt32(2);
-            _event.ConferenceId = reader.GetInt32(3);
-            _event.Name = reader.GetString(4);
-            //_event.Host = null;
-            //_event.Host = Reader.GetInt32(2);
-            _event.StartTime = reader.GetDateTime(5);
-            _event.Duration = TimeSpan.FromMinutes(reader.GetInt32(6));
-            _event.Type = reader.GetString(7);
-            _event.Description = reader.GetString(8);
-            //_event.Room = null;
-            _event.Capacity = reader.GetInt32(9);
-            _event.Users = new LinkedList<User>();
-            _event.Enrollments = new List<Enrollment>();
-            _event.Image = reader.IsDBNull(10)? "" : reader.GetString(10);
-            _event.Hidden = reader.GetBoolean(11);
-            _event.Cancelled = reader.GetBoolean(12);
-            _event.RoomHidden = reader.GetBoolean(13);
-            _event.RoomCancelled = reader.GetBoolean(14);
-            _event.SeatCategoriesTaken = new Dictionary<string, int>();
-            _event.Themes = new List<string>();
-
-            return _event;
+            return thisEvent;
         }
+
         public Floor Maker_Floor()
         {
-            Floor floor = new Floor();
-
-            floor.FloorId = reader.GetInt32(0);
-            floor.VenueId = reader.GetInt32(1);
-            floor.Name = reader.GetString(2);
-            floor.Image = reader.IsDBNull(3) ? "" : reader.GetString(3);
+            Floor floor = new Floor
+            {
+                FloorId = _reader.GetInt32(0),
+                VenueId = _reader.GetInt32(1),
+                Name = _reader.GetString(2),
+                Image = _reader.IsDBNull(3) ? "" : _reader.GetString(3)
+            };
 
             return floor;
         }
+
         public Speaker Maker_Speaker()
         {
-            Speaker speaker = new Speaker();
-
-            speaker.SpeakerId = reader.GetInt32(0);
-            speaker.FirstName = reader.GetString(1);
-            speaker.LastName = reader.GetString(2);
-            speaker.Email = reader.GetString(3);
-            speaker.Image = reader.IsDBNull(4) ? "" : reader.GetString(4);
-            speaker.Description = reader.IsDBNull(5) ? "" : reader.GetString(5);
-            speaker.Title = reader.GetString(6);
+            Speaker speaker = new Speaker
+            {
+                SpeakerId = _reader.GetInt32(0),
+                FirstName = _reader.GetString(1),
+                LastName = _reader.GetString(2),
+                Email = _reader.GetString(3),
+                Image = _reader.IsDBNull(4) ? "" : _reader.GetString(4),
+                Description = _reader.IsDBNull(5) ? "" : _reader.GetString(5),
+                Title = _reader.GetString(6)
+            };
 
             return speaker;
         }
+
         public Room Maker_Room()
         {
-            Room room = new Room();
+            Room room = new Room
+            {
+                RoomId = _reader.GetInt32(0),
+                FloorId = _reader.GetInt32(1),
+                VenueId = _reader.GetInt32(2),
+                Name = _reader.GetString(3),
+                Size = _reader.GetInt32(4),
+                Capacity = _reader.GetInt32(5),
+                DoorAmount = _reader.GetInt32(6),
+                Image = _reader.IsDBNull(7) ? "" : _reader.GetString(7),
+                Coordinates = _reader.IsDBNull(8) ? "" : _reader.GetString(8),
+                Features = new Dictionary<int, bool>(),
+                Events = new List<Event>()
+            };
 
-            room.RoomId = reader.GetInt32(0);
-            room.FloorId = reader.GetInt32(1);
-            room.VenueId = reader.GetInt32(2);
-            room.Name = reader.GetString(3);
-            room.Size = reader.GetInt32(4);
-            room.Capacity = reader.GetInt32(5);
-            room.DoorAmount = reader.GetInt32(6);
-            room.Image = reader.IsDBNull(7) ? "" : reader.GetString(7);
-            room.Coordinates = reader.IsDBNull(8) ? "" : reader.GetString(8);
-            room.Features = new Dictionary<int, bool>();
-            room.Events = new List<Event>();
             return room;
         }
+
         public User Maker_User()
         {
-            User user = new User();
-            user.UserId = reader.GetInt32(0);
-            user.FirstName = reader.GetString(1);
-            user.LastName = reader.GetString(2);
-            user.Email = reader.GetString(3);
-            user.Password = reader.GetString(4);
-            user.Preference = reader.IsDBNull(5) ? new List<string>() : reader.GetString(5).Split(';').ToList();
+            User user = new User
+            {
+                UserId = _reader.GetInt32(0),
+                FirstName = _reader.GetString(1),
+                LastName = _reader.GetString(2),
+                Email = _reader.GetString(3),
+                Password = _reader.GetString(4),
+                Preference = _reader.IsDBNull(5) ? new List<string>() : _reader.GetString(5).Split(';').ToList()
+            };
 
             return user;
         }
+
         public Venue Maker_Venue()
         {
-            Venue venue = new Venue();
-            venue.VenueId = reader.GetInt32(0);
-            venue.Name = reader.GetString(1);
-            venue.Floors = null;
-            venue.Rooms = null;
-            venue.SeatCategories = null;
-            venue.RoomFeatures = null;
+            Venue venue = new Venue
+            {
+                VenueId = _reader.GetInt32(0),
+                Name = _reader.GetString(1),
+                Floors = null,
+                Rooms = null,
+                SeatCategories = null,
+                RoomFeatures = null
+            };
 
             return venue;
         }
+
         public Theme Maker_Theme()
         {
-            Theme theme = new Theme();
-
-            theme.ThemeId = reader.GetInt32(0);
-            theme.Name = reader.GetString(1);
+            Theme theme = new Theme {ThemeId = _reader.GetInt32(0), Name = _reader.GetString(1)};
 
             return theme;
         }
+
         public Feature Maker_Feature()
         {
-            Feature feature = new Feature();
-
-            feature.FeatureId= reader.GetInt32(0);
-            feature.Name = reader.GetString(1);
+            Feature feature = new Feature {FeatureId = _reader.GetInt32(0), Name = _reader.GetString(1)};
 
             return feature;
         }
+
         public RoomFeature Maker_RoomFeature()
         {
-            RoomFeature roomFeature = new RoomFeature();
-
-            roomFeature.FeatureId = reader.GetInt32(0);
-            roomFeature.RoomId = reader.GetInt32(1);
-            roomFeature.IsAvailable = reader.GetBoolean(2);
+            RoomFeature roomFeature = new RoomFeature
+            {
+                FeatureId = _reader.GetInt32(0), RoomId = _reader.GetInt32(1), IsAvailable = _reader.GetBoolean(2)
+            };
 
             return roomFeature;
         }
+
         public EventTheme Maker_EventTheme()
         {
-            EventTheme eventTheme = new EventTheme();
-
-            eventTheme.ThemeId = reader.GetInt32(0);
-            eventTheme.EventId = reader.GetInt32(1);
+            EventTheme eventTheme = new EventTheme {ThemeId = _reader.GetInt32(0), EventId = _reader.GetInt32(1)};
 
             return eventTheme;
         }

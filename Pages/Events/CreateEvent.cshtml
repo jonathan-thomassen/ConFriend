@@ -16,7 +16,7 @@
                 <select asp-for="NewEvent.SpeakerId" asp-items="@Model.SelectListSpeakers" style="width: 24.5em; height: 1.85em"></select>
                 <span asp-validation-for="NewEvent.SpeakerId" class="text-danger"></span>
 
-                <label asp-for="@Model.NewEvent.StartTime" class="control-label" style="margin-left: 6.5em">Start-tidspunkt:</label>
+                <label asp-for="@Model.NewEvent.StartTime" class="control-label" style="margin-left: 6em">Start-tidspunkt:</label>
                 <input asp-for="@Model.NewEvent.StartTime" style="width: 12em" />
                 <span asp-validation-for="@Model.NewEvent.StartTime" class="text-danger"></span>
             </div>
@@ -41,7 +41,9 @@
                     }
                     else
                     {
-                        <img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />
+                        <div style="border-style:solid; border-color: black; border-width: 0.001px; width: 400px; height: 400px">
+                        </div>
+                        @*<img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />*@
                     }
                     <div class="row" style="margin-top: 1em">
                         <div class="column" style="margin-left: 1em">

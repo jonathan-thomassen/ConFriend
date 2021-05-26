@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -20,7 +21,5 @@ namespace ConFriend.Models
         {
             return $"EnrollmentId = {EnrollmentId}";
         }
-    
-     
     }
 }

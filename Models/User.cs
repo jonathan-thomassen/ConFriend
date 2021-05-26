@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Policy;
-using Microsoft.AspNetCore.Mvc;
+using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -28,24 +27,18 @@ namespace ConFriend.Models
 
         public List<string> Preference { get; set; }
 
-        public string FullName {
-            get {
-                if (LastName == FirstName) return FirstName;
-                return $"{FirstName} {LastName}";
-            }
-        
-        }
+        public string FullName => LastName == FirstName ? FirstName : $"{FirstName} {LastName}";
+
         public string ShortName
         {
             get
             {
-              
-                string returnname = FullName;
-                int Len = Math.Min(LastName.Length,10);
+                string returnName = FullName;
+                int len = Math.Min(LastName.Length,10);
                 if (LastName != FirstName)
-                    returnname = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, Len)}";
+                    returnName = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, len)}";
 
-                return returnname;
+                return returnName;
             }
 
         }
@@ -64,7 +57,6 @@ namespace ConFriend.Models
                     str = str.Substring(0, str.Length - 1);
                 }
             }
-
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";
         }
 
@@ -72,10 +64,10 @@ namespace ConFriend.Models
         {
             return $"[E-Mail] = '{value}'";
         }
+
         public string Identity()
         {
             return $"UserId = {UserId}";
         }
-
     }
 }

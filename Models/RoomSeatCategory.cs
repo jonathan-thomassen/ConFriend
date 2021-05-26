@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
-    public class RoomSeatCategory: IModel
+    public class RoomSeatCategory : IModel
     {
         public int RoomId { get; set; }
         public int SeatCategoryId { get; set; }
