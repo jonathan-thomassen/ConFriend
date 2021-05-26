@@ -4,7 +4,6 @@ using ConFriend.Models;
 using ConFriend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace ConFriend.Pages
 {
@@ -53,11 +52,6 @@ namespace ConFriend.Pages
             }
 
             return Page();
-        }
-
-        public async Task OnPostAsync()
-        {
-
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConFriend.Interfaces
@@ -16,8 +15,8 @@ namespace ConFriend.Interfaces
             Room,
             Theme
         }
-        void Init(ModelTypes DataType);
-        void Init_Composite(ModelTypes DataTypeA, ModelTypes DataTypeB, ModelTypes TrueDataType);
+        void Init(ModelTypes dataType);
+        void Init_Composite(ModelTypes dataTypeA, ModelTypes dataTypeB, ModelTypes trueDataType);
         Task<bool> Create(T item);
         Task<T> GetFromField(string customField);
         void ClearItemData();
@@ -25,7 +24,6 @@ namespace ConFriend.Interfaces
         Task<T> GetFromId(int id, int id2 = 0);
         Task<bool> Delete(int id, int id2 = 0);
         Task<bool> Update(T item);
-        Task<List<T>> GetFiltered(int filterId, ModelTypes joinId, ModelTypes myId = ModelTypes.none);
-        int GetLastId { get; }
+        Task<List<T>> GetFiltered(int filterId, ModelTypes joinId, ModelTypes myId = ModelTypes.None);
      }
 }

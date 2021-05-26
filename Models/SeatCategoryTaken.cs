@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
-    public class SeatCategoryTaken: IModel 
+    public class SeatCategoryTaken : IModel 
     {
         public int SeatCategoryId { get; set; }
         public int EventId { get; set; }
         public int SeatsTaken { get; set; }
-
- 
 
         public string ToSQL()
         {
@@ -22,6 +17,5 @@ namespace ConFriend.Models
         {
             return $"SeatCategoryId = {SeatCategoryId} AND EventId = {EventId}";
         }
-      
     }
 }

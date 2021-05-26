@@ -1,4 +1,6 @@
-﻿namespace ConFriend.Models
+﻿using ConFriend.Interfaces;
+
+namespace ConFriend.Models
 {
     public class Speaker : IModel
     {
@@ -11,27 +13,15 @@
         public string Title { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
-
-        ModelTypes DataType
-        {
-            get
-            {
-                return ModelTypes.Speaker;
-            }
-
-        }
-
-
-   
+        
         public string ToSQL()
         {
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', ImageUrl = '{Image}', Description = '{Description}', Title = '{Title}'";
         }
+
         public string Identity()
         {
             return $"SpeakerId = {SpeakerId}";
         }
-   
-
     }
 }

@@ -19,11 +19,16 @@ namespace ConFriend.Services
             get { return LastId; }
         }
 
-      
         public CRUD_Service(IConfiguration configuration) : base(configuration)
         {
             IsComposit = false;
         }
+
+        public CRUD_Service(string configurationString) : base(configurationString)
+        {
+            IsComposit = false;
+        }
+
         public void Init(ModelTypes DataType)
         {
             ItemIdentitySQL = $"{DataType}Id =";
@@ -91,17 +96,17 @@ namespace ConFriend.Services
         //current.IdentitySQL
 
    
-        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes myId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes myId = ModelTypes.None)
         {
-            if(myId == ModelTypes.none)
+            if(myId == ModelTypes.None)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}",$"{filterId}");
             else
                 await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}", $"{filterId}");
             return Items;
         }
-        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes myId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes myId = ModelTypes.None)
         {
-            if (myId == ModelTypes.none)
+            if (myId == ModelTypes.None)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}");
             else
                 await SQLCommand(SQLType.JoinOn, $"{myId}.{joinId}");

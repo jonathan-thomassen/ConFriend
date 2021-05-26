@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -16,6 +16,7 @@ namespace ConFriend.Models
         {
             return $"VenueId = {VenueId}, Name = '{Name}'";
         }
+
         public string Identity()
         {
             return $"ConferenceId = {ConferenceId}";

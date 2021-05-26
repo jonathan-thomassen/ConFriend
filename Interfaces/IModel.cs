@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ConFriend.Models
+﻿namespace ConFriend.Interfaces
 {
     public interface IModel
     {
         string ToSQL();
 
         string Identity();
-
 
         // static ModelTypes somting { get; set;}
         // ModelTypes DataType { get; }

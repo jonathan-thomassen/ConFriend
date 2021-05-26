@@ -1,7 +1,6 @@
 ﻿@using ConFriend.Interfaces
 @using ConFriend.Models
 @using ConFriend.Services
-@using Microsoft.AspNetCore.Http
 @inject SessionService SessionService
 @inject ICrudService<User> UserService
 @inject ICrudService<Conference> ConferenceService;
@@ -121,5 +120,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @RenderSection("Scripts", false)
+    </div>
 </body>
 </html>

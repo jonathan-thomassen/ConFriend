@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,11 +19,7 @@ namespace ConFriend.Pages.UserPages
         [FromRoute]
         public long? Id { get; set; }
 
-        public bool IsNewUser
-        {
-            get { return Id == null; }
-        }
-     
+        public bool IsNewUser => Id == null;
 
         public bool EmailExist;
         public User CurrentUser;
@@ -35,7 +29,7 @@ namespace ConFriend.Pages.UserPages
 
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes.")] public string UserName { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes.")] public string UserEmail { get; set; }
-        [BindProperty] public string? UserPrefs { get; set; }
+        [BindProperty] public string UserPrefs { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password)] public string? CurrentPassword { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password), MinLength(6, ErrorMessage = "Kodeordet skal være på minimum ni tegn.")] public string NewPassword { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password), Compare(nameof(NewPassword), ErrorMessage = "Kodeordene er ikke ens.")] public string NewPasswordRepeat { get; set; }
@@ -75,13 +69,13 @@ namespace ConFriend.Pages.UserPages
             else
                 ModelState.AddModelError(nameof(NewPasswordRepeat), "Kodeordene er ikke ens.");
 
-            bool EmailValid = true;
-            if (UserEmail.Length < 5) EmailValid = false;
-            if (UserEmail.Split('.').Length != 2) EmailValid = false;
-            if (UserEmail.Split('@').Length != 2) EmailValid = false;
-            if (UserEmail.IndexOf('.') < UserEmail.IndexOf('@')) EmailValid = false;
+            bool emailValid = true;
+            if (UserEmail.Length < 5) emailValid = false;
+            if (UserEmail.Split('.').Length != 2) emailValid = false;
+            if (UserEmail.Split('@').Length != 2) emailValid = false;
+            if (UserEmail.IndexOf('.') < UserEmail.IndexOf('@')) emailValid = false;
 
-            if (EmailValid)
+            if (emailValid)
                 ModelState.MarkFieldValid(nameof(UserEmail));
             else
                 ModelState.AddModelError(nameof(UserEmail), "Ugyldig Email");
@@ -98,8 +92,8 @@ namespace ConFriend.Pages.UserPages
             if (IsNewUser) {
 
                 CurrentUser = new User();
-
                 CurrentUser.Password = NewPassword;
+
                 int firstnameInd = UserName.IndexOf(' ') + 1;
                 if (firstnameInd != 0)
                 {
@@ -115,12 +109,9 @@ namespace ConFriend.Pages.UserPages
                 CurrentUser.Email = UserEmail;
                 CurrentUser.Preference = UserPrefs.Split(',').ToList();
 
-                int? ConferenceIdtest = _sessionService.GetConferenceId(HttpContext.Session);
-                if (ConferenceIdtest == null) return BadRequest();
+                int? conferenceIdtest = _sessionService.GetConferenceId(HttpContext.Session);
+                if (conferenceIdtest == null) return BadRequest();
                 
-
-
-
 
                 _userService.ClearItemData();
                 User test = await _userService.GetFromField(CurrentUser.Identity(UserEmail));
@@ -130,14 +121,14 @@ namespace ConFriend.Pages.UserPages
                 }
                 await _userService.Create(CurrentUser);
                
-                UserConferenceBinding _UserCon = new UserConferenceBinding();
+                UserConferenceBinding userCon = new UserConferenceBinding();
 
-                _UserCon.ConferenceId = (int)ConferenceIdtest;
+                userCon.ConferenceId = (int)conferenceIdtest;
                
                 test = await _userService.GetFromField(CurrentUser.Identity(UserEmail));
 
-                _UserCon.UserId = test.UserId;
-                await _userConService.Create(_UserCon);
+                userCon.UserId = test.UserId;
+                await _userConService.Create(userCon);
 
                 //_UserCon.ConferenceId = currentConferenceId;
                 // _userConService

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -9,8 +6,6 @@ namespace ConFriend.Models
     {
         public int SeatCategoryId { get; set; }
         public string NameKey { get; set; }
-
-        public ModelTypes DataType => ModelTypes.SeatCategory;
 
         public string ToSQL()
         {
@@ -21,7 +16,5 @@ namespace ConFriend.Models
         {
             return $"SeatCategoryId = {SeatCategoryId}";
         }
-   
-
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using Microsoft.AspNetCore.Mvc;
+using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -13,17 +12,11 @@ namespace ConFriend.Models
         public int? RoomId { get; set; }
         public int? ConferenceId { get; set; }
         public string Name { get; set; }
-
-        //public Speaker Host { get; set; }
         public DateTime? StartTime { get; set; }
         public TimeSpan? Duration { get; set; }
         public DateTime? EndTime => StartTime + Duration;
-
-        //public int DurationInMinutes { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
-        //public Room Room { get; set; }
-        //public Conference Conference { get; set; }
         public int? Capacity { get; set; }
 
         /// <summary>
@@ -39,11 +32,8 @@ namespace ConFriend.Models
         public Dictionary<string, int> SeatCategoriesTaken { get; set; }
         public List<string> Themes { get; set; }
 
-        
         public string ToSQL()
         {
-            string pased = Description.FormatToSQL();
-
             CultureInfo culture = new CultureInfo("en-US");
             return $"SpeakerId = {SpeakerId}, RoomId = {RoomId}, ConferenceId = {ConferenceId}, Name = '{Name}'," +
                    $" StartTime = '{StartTime?.ToString(culture)}', Duration = {Duration?.TotalMinutes}," +
@@ -56,15 +46,5 @@ namespace ConFriend.Models
         {
             return $"EventId = {EventId}";
         }
-
-        ModelTypes DataType
-        {
-            get
-            {
-                return ModelTypes.Event;
-            }
-
-        }
-
     }
 }

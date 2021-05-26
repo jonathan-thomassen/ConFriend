@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
 using ConFriend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace ConFriend.Pages.Events
 {
@@ -80,7 +77,7 @@ namespace ConFriend.Pages.Events
 
             int? currentUserId = _sessionService.GetUserId(HttpContext.Session);
 
-            if (currentUserId != null && eventId != null)
+            if (currentUserId != null)
             {
                 Enrollment enrollment = new Enrollment
                 {
