@@ -1,0 +1,225 @@
+﻿@page
+@using ConFriend.Models
+@model ConFriend.Pages.ConManager.IndexModel
+@{
+    ViewData["Title"] = "Konference Admin";
+}
+
+<h2>Konference-manager - @Model.CurrentConference?.Name</h2>
+
+<div style="border-style: solid; border-width: 0.001px; padding: 1em">
+    <h4>Skift navn på konference / venue:</h4>
+    <form method="post" asp-page-handler="ConferenceName">
+        <div class="row" style="margin-top: 1em">
+            <input type="text" asp-for="ConferenceName" style="margin-left: 1em; margin-right: 0; position: relative"></input>
+            <button type="submit" class="btn btn-warning" style="margin-left:1em; margin-right: auto">Skift konferencenavn</button>
+            @if (Model.ConNameChanged == true)
+            {
+                <p class="text-success" style="margin-left: 1em; margin-right: auto">Navnet blev ændret.</p>
+            }
+            else if (Model.ConNameChanged == false)
+            {
+                <p class="text-danger" style="margin-left: 1em; margin-right: auto">Fejl! Navnet blev ikke ændret.</p>
+            }
+        </div>
+    </form>
+    <form method="post" asp-page-handler="VenueName">
+        <div class="row" style="margin-top: 1em">
+            <input type="text" asp-for="VenueName" style="margin-left: 1em; margin-right: 0; position: relative"></input>
+            <button type="submit" class="btn btn-warning" style="margin-left: 1em; margin-right: auto">Skift venuenavn</button>
+        </div>
+        @if (Model.VenueNameChanged == true)
+        {
+            <p class="text-success" style="margin-left: 1em; margin-right: auto">Navnet blev ændret.</p>
+        }
+        else if (Model.VenueNameChanged == false)
+        {
+            <p class="text-danger" style="margin-left: 1em; margin-right: auto">Fejl! Navnet blev ikke ændret.</p>
+        }
+    </form>
+</div>
+
+<div style="border-style: solid; border-width: 0.001px; padding: 1em; margin-top: 1em">
+    <h4>Tilknyt en bruger til @Model.CurrentConference?.Name:</h4>
+    <form method="post" asp-page-handler="Binding">
+        <div class="row" style="margin-top: 1em">
+            <select asp-for="UserId" asp-items="@Model.SelectListUsers" style="margin-left: 1em; margin-right: 0; position: relative"></select>
+            <select asp-for="UserType" asp-items="Html.GetEnumSelectList<UserType>()" style="margin-left: 1em; margin-right: 0; position: relative"></select>
+            <button type="submit" class="btn btn-primary" style="margin-left: 1em; margin-right: auto">Opret forbindelse</button>
+        </div>
+        @if (Model.BindingCreated == true)
+        {
+            <p class="text-success" style="margin-left: 1em; margin-right: auto">Forbindelsen blev oprettet</p>
+        }
+        else if (Model.BindingCreated == false)
+        {
+            <p class="text-danger" style="margin-left: 1em; margin-right: auto">Fejl! Forbindelsen blev ikke oprettet</p>
+        }
+    </form>
+</div>
+
+@*<div style="border-style: solid; border-width: 0.001px; padding: 1em; margin-top: 1em">
+    <h4>Talere til @Model.CurrentConference?.Name:</h4>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Offentlig email
+                </th>
+                <th>
+                    Titel
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model?.Speakers)
+            {
+                <tr>
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="EditSpeaker" asp-route-id="@item.SpeakerId" class="btn btn-warning">Redigér taler</button>
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="DeleteSpeaker" asp-route-id="@item.SpeakerId" class="btn btn-danger">Slet taler</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="submit" class="btn btn-primary" asp-page-handler="AddSpeaker" style="margin-left: auto; margin-right: auto">Tilføj ny taler</button>
+    </div>
+</div>
+
+<div style="border-style: solid; border-width: 0.001px; padding: 1em; margin-top: 1em">
+    <h4>Etager til @Model.Venues.Find(venue => venue.VenueId.Equals(Model.CurrentConference.VenueId))?.Name:</h4>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Billede
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model?.Floors.FindAll(floor => floor.VenueId.Equals(Model.CurrentConference.VenueId)))
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Image
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="EditFloor" asp-route-id="@item.FloorId" class="btn btn-warning">Redigér etage</button>
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="DeleteFloor" asp-route-id="@item.FloorId" class="btn btn-danger">Slet etage</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="submit" class="btn btn-primary" asp-page-handler="AddFloor" style="margin-left: auto; margin-right: auto">Tilføj ny etage</button>
+    </div>
+</div>
+
+<div style="border-style: solid; border-width: 0.001px; padding: 1em; margin-top: 1em">
+    <h4>Temaer til @Model.CurrentConference?.Name:</h4>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Themes)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="EditTheme" asp-route-id="@item.ThemeId" class="btn btn-warning">Redigér tema</button>
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="DeleteTheme" asp-route-id="@item.ThemeId" class="btn btn-danger">Slet tema</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="submit" class="btn btn-primary" asp-page-handler="AddTheme" style="margin-left: auto; margin-right: auto">Tilføj nyt tema</button>
+    </div>
+</div>
+
+<div style="border-style: solid; border-width: 0.001px; padding: 1em; margin-top: 1em">
+    <h4>Faciliteter til @Model.Venues?.Find(venue => venue.VenueId.Equals(Model.CurrentConference.VenueId))?.Name:</h4>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Features)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="EditFeature" asp-route-id="@item.FeatureId" class="btn btn-warning">Redigér facilitet</button>
+                    </td>
+                    <td>
+                        <button type="submit" asp-page-handler="DeleteFeature" asp-route-id="@item.FeatureId" class="btn btn-danger">Slet facilitet</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="submit" class="btn btn-primary" asp-page-handler="AddFeature" style="margin-left: auto; margin-right: auto">Tilføj ny facilitet</button>
+    </div>
+</div>*@

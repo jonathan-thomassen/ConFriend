@@ -21,7 +21,7 @@ namespace ConFriend.Models
         {
             return $"SeatCategoryId = {SeatCategoryId}";
         }
+   
 
-  
     }
 }

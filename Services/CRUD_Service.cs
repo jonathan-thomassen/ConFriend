@@ -78,7 +78,7 @@ namespace ConFriend.Services
         }
         public async Task<bool> Update(T item)
         {
-            return await SQLCommand(SQLType.Update, ItemIdentitySQL, item.ToSQL());
+            return await SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
         }
 
         public async Task<bool> Delete(int id,int id2 = 0)

@@ -10,7 +10,6 @@ namespace ConFriend.Models
         public int ThemeId { get; set; }
         public string Name { get; set; }
 
-
         public ModelTypes DataType = ModelTypes.Theme;
 
         public string ToSQL()
@@ -21,5 +20,6 @@ namespace ConFriend.Models
         {
             return $"ThemeId = {ThemeId}";
         }
+       
     }
 }

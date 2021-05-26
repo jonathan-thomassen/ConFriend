@@ -8,8 +8,8 @@ namespace ConFriend.Models
     public interface IModel
     {
         string ToSQL();
-        //string Identity();
 
+        string Identity();
 
 
         // static ModelTypes somting { get; set;}
