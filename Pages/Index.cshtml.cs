@@ -4,6 +4,7 @@ using ConFriend.Models;
 using ConFriend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace ConFriend.Pages
 {
@@ -52,6 +53,17 @@ namespace ConFriend.Pages
             }
 
             return Page();
+        }
+
+        public async Task OnPostAsync()
+        {
+
+        }
+        //
+        public async Task<string> GetRoomData()
+        {
+            User = await _userService.GetFromId(0);
+            return "r{0f0:0d0:10,10,10,10:Event Name:0}r{0f0:0d0:30,20,10,10:Event Name:0}";
         }
     }
 }

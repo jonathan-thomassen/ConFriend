@@ -3,18 +3,28 @@
 @{
     ViewData["Title"] = "Hjem";
 }
-
+@section Scripts {
+    <script src="/js/BoxMap.js"></script>
+}
 <div class="text-center">
-    
+
 
     @if (Model.User != null)
     {
-        <h2 class="display-2">Velkommen @Model.User.FullName</h2>
-        <h3 class="display-2" >Brugertype: @Model.UserType.ToString()</h3>
+        <h4 class="display-4">Velkommen @Model.User.FullName</h4>
+        <h4 class="display-4">Brugertype: @Model.UserType.ToString()</h4>
     }
     else
     {
-        <h2 class="display-2">Velkommen gæst</h2>
-        <h3 class="display-2">Brugertype: Gæst</h3>
+        <h4 class="display-4">Velkommen gæst</h4>
+        <h4 class="display-4">Brugertype: Gæst</h4>
     }
+    <div id="MainBox">
+        <div id="content">
+            <!-- <canvas id="mycanvas"></canvas>
+     <input hidden="true" id="drawpointsdisplayData" value="@Model.GetRoomData()"></input>-->
+        </div>
+        <img src="floors/ConfrindMain.PNG" alt="ConfrindMain">
+    </div>
+
 </div>
