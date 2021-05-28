@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Markup;
 using ConFriend.Interfaces;
 using ConFriend.Models;
 using Microsoft.Data.SqlClient;
@@ -50,6 +49,7 @@ namespace ConFriend.Services
   
             MyModelMaker = new ModelMaker();
         }
+
         public void init(ModelTypes type)
         {
            _name = type.ToString();
@@ -78,7 +78,6 @@ namespace ConFriend.Services
 
         public string QueryBuilder(SQLType command, string condition, string values)
         {
-            
             switch (command)
             {
                 case SQLType.Custom:
@@ -136,7 +135,6 @@ namespace ConFriend.Services
                     case SQLType.Update:
                     case SQLType.Delete:
                         RowsAltered = await _command.ExecuteNonQueryAsync();
-
                         break;
                     default:
                         break;
@@ -154,10 +152,6 @@ namespace ConFriend.Services
          
             Task.WaitAll();
             CloseDB();
-
-          
-            
-
             return true;
         }
 
@@ -177,6 +171,5 @@ namespace ConFriend.Services
         {
             Items = MyModelMaker.OnRead<T>(type, Reader);
         }
-      
     }
 }
