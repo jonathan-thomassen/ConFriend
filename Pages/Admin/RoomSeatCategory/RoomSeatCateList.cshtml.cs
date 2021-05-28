@@ -34,7 +34,7 @@ namespace ConFriend.Pages
             _userService = uService;
             _roomSeatCategoryService.Init(ModelTypes.Event);
             _roomSeatCategoryService.Init(ModelTypes.User);
-            _roomSeatCategoryService.Init_Composite(ModelTypes.Room, ModelTypes.SeatCategory, ModelTypes.RoomSeatCategory);
+            _roomSeatCategoryService.Init_Composite(ModelTypes.SeatCategory, ModelTypes.Room, ModelTypes.RoomSeatCategory);
             RoomSeatCategorys = _roomSeatCategoryService.GetAll().Result;
 
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace ConFriend.Pages.UserPages
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes.")] public string UserName { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes.")] public string UserEmail { get; set; }
         [BindProperty] public string UserPrefs { get; set; }
-        [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password)] public string? CurrentPassword { get; set; }
+        [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password)] public string CurrentPassword { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password), MinLength(6, ErrorMessage = "Kodeordet skal være på minimum ni tegn.")] public string NewPassword { get; set; }
         [BindProperty, Required(ErrorMessage = "Feltet skal udfyldes."), DataType(DataType.Password), Compare(nameof(NewPassword), ErrorMessage = "Kodeordene er ikke ens.")] public string NewPasswordRepeat { get; set; }
 
@@ -107,7 +108,14 @@ namespace ConFriend.Pages.UserPages
                     CurrentUser.LastName = UserName;
                 }
                 CurrentUser.Email = UserEmail;
-                CurrentUser.Preference = UserPrefs.Split(',').ToList();
+                if (UserPrefs != null)
+                {
+                    CurrentUser.Preference = UserPrefs.Split(',').ToList();
+                }
+                else
+                {
+                    CurrentUser.Preference = new List<string>();
+                }
 
                 int? conferenceIdtest = _sessionService.GetConferenceId(HttpContext.Session);
                 if (conferenceIdtest == null) return BadRequest();

@@ -34,9 +34,12 @@ namespace ConFriend.Models
             get
             {
                 string returnName = FullName;
-                int len = Math.Min(LastName.Length,10);
-                if (LastName != FirstName)
-                    returnName = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, len)}";
+                if (LastName?.Length > 0)
+                {
+                    int len = Math.Min(LastName.Length, 10);
+                    if (LastName != FirstName)
+                        returnName = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, len)}";
+                }
 
                 return returnName;
             }
