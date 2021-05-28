@@ -4,161 +4,174 @@
 @model ConFriend.Pages.Lokaler.AdminLokalePageModel
 @{
 }
-<div style="margin-left: 9em">
-    <form method="post" enctype="multipart/form-data">
-        @if (Model.IsEditing)
-        {
+@if (Model.AccessDenied)
+{
+    <div style="text-align: center">
+        <h1 class="text-danger">Access Denied!</h1>
+        <a asp-page="/Index">Tilbage til index</a>
+    </div>
+}
+else
+{
+    <div style="margin-left: 9em">
+        <form method="post" enctype="multipart/form-data">
+            @if (Model.IsEditing)
+            {
+                <div class="form-group">
+                    <label style="font-size: x-large;">RoomId: </label>
+                    <input asp-for="@Model.Room.RoomId" readonly="readonly" style="width: 25em; border: hidden; font-size: x-large" />
+                    <span asp-validation-for="@Model.Room.RoomId" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
-                <label style="font-size: x-large;">RoomId: </label>
-                <input asp-for="@Model.Room.RoomId" readonly="readonly" style="width: 25em; border: hidden; font-size: x-large"/>
-                <span asp-validation-for="@Model.Room.RoomId" class="text-danger"></span>
-            </div>
-        }
-        <div class="form-group">
-            <input asp-for="@Model.Room.Name" style="width: 25em; font-size: x-large" placeholder="Lokale Navn" />
-            <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height: 1.5em"></select>
-            <span asp-validation-for="Room.FloorId" class="text-danger"></span>
-        </div>
-        <div class="grid-container-lokale">
-            <div style="grid-column: 1/1; grid-row: 1/1;">Str i m2:</div>
-            <div style="grid-column: 2/2; grid-row: 1/1;">
-                <input type="number" asp-for="Room.Size" style="width: 100%" />
+                <input asp-for="@Model.Room.Name" style="width: 25em; font-size: x-large" placeholder="Lokale Navn" />
                 <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
             </div>
-            <div style="grid-column: 1/1; grid-row: 2/2;">Kapacitet:</div>
-            <div style="grid-column: 2/2; grid-row: 2/2;">
-                <input type="number" asp-for="Room.Capacity" style="width: 100%" />
-                <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
+            <div class="form-group">
+                <select asp-for="Room.FloorId" asp-items="@Model.SelectListFloors" style="width: 10em; height: 1.5em"></select>
+                <span asp-validation-for="Room.FloorId" class="text-danger"></span>
             </div>
-            <div style="grid-column: 1/1; grid-row: 3/3;">Antal dører:</div>
-            <div style="grid-column: 2/2; grid-row: 3/3;">
-                <input type="number" asp-for="Room.DoorAmount" style="width: 100%" />
-                <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group" style="grid-column: 1/2; grid-row: 4/4;">
-                <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height: 8em"></select>
-                <span asp-validation-for="Room.Features.Keys" class="text-danger"></span>
-            </div>
-            <div style="grid-column: 3/4; grid-row: 1/6; margin-left: 100px; justify-items: center">
-                <div>
-                    <label for="files" class="btn" style="margin-left: auto; margin-right: auto;">Upload billede</label>
-                    <input type="file" id="files" asp-for="@Model.Upload" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute" onchange="submitImage.click()" />
-                    <button type="submit" id="submitImage" asp-page-handler="Image" asp-route-id="@Model.Room.RoomId" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
+            <div class="grid-container-lokale">
+                <div style="grid-column: 1/1; grid-row: 1/1;">Str i m2:</div>
+                <div style="grid-column: 2/2; grid-row: 1/1;">
+                    <input type="number" asp-for="Room.Size" style="width: 100%" />
+                    <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
                 </div>
-                @if (Model.Room.Image != null)
-                {
+                <div style="grid-column: 1/1; grid-row: 2/2;">Kapacitet:</div>
+                <div style="grid-column: 2/2; grid-row: 2/2;">
+                    <input type="number" asp-for="Room.Capacity" style="width: 100%" />
+                    <span asp-validation-for="@Model.Room.Capacity" class="text-danger"></span>
+                </div>
+                <div style="grid-column: 1/1; grid-row: 3/3;">Antal dører:</div>
+                <div style="grid-column: 2/2; grid-row: 3/3;">
+                    <input type="number" asp-for="Room.DoorAmount" style="width: 100%" />
+                    <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="grid-column: 1/2; grid-row: 4/4;">
+                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height: 8em"></select>
+                    <span asp-validation-for="Room.Features.Keys" class="text-danger"></span>
+                </div>
+                <div style="grid-column: 3/4; grid-row: 1/6; margin-left: 100px; justify-items: center">
                     <div>
-                        <img src="~/rooms/@Model.Room.Image" alt="@Model.Room.Image" height="400" width="530" style="border-style: solid; border-width: 0.01em; border-color: gray" />
+                        <label for="files" class="btn" style="margin-left: auto; margin-right: auto;">Upload billede</label>
+                        <input type="file" id="files" asp-for="@Model.Upload" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute" onchange="submitImage.click()" />
+                        <button type="submit" id="submitImage" asp-page-handler="Image" asp-route-edit="@Model.IsEditing" asp-route-id="@Model.Room.RoomId" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
                     </div>
-                }
-                else
-                {
-                    <div style="border-style:solid; border-color: black; border-width: 0.001px; width: 400px; height: 400px">
-                    </div>
-                    @*<img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />*@
-                }
+                    @if (Model.Room.Image != null || Model.Room.Image != "")
+                    {
+                        <div>
+                            <img src="~/rooms/@Model.Room.Image" alt="@Model.Room.Image" height="400" width="530" style="border-style: solid; border-width: 0.01em; border-color: gray" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="border-style: solid; border-color: black; border-width: 0.001px; width: 400px; height: 530px">
+                        </div>
+                        @*<img src="~/events/SweetPotatoBeauregard.png" alt="SweetPotatoBeauregard.png" height="400" width="400" style="border-style: solid; border-width: 0.01em; border-color: gray" />*@
+                    }
+                </div>
             </div>
-        </div>
+            @if (Model.IsEditing)
+            {
+                <div class="form-group" style="justify-items: center">
+                    <input type="submit" asp-page-handler="Update" value="Gem ændringer" asp-route-id="@Model.RoomId" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style="justify-items: center">
+                    <input type="submit" asp-page-handler="Create" value="Opret Lokale" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
+                </div>
+            }
+        </form>
+        @*<p>
+                <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
+            </p>*@
         @if (Model.IsEditing)
         {
-            <div class="form-group" style="justify-items: center">
-                <input type="submit" asp-page-handler="Update" value="Gem ændringer" asp-route-id="@Model.RoomId" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
-            </div>
-        }
-        else
-        {
-            <div class="form-group" style="justify-items: center">
-                <input type="submit" asp-page-handler="Create" value="Opret Lokale" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
-            </div>
-        }
-    </form>
-    <p>
-        <a class="button btn btn-primary" asp-page="/Events/CreateEvent">Opret Event</a>
-    </p>
-    <h4> List of Events</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Navn</th>
-                <th>Type</th>
-                <th>Starttid</th>
-                <th>Sluttid</th>
-                <th>Status</th>
-                <th>Lokale</th>
-                <th>Hid</th>
-                <th>Can</th>
-                <th>RHid</th>
-                <th>RCan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Events.Count() != 0)
-            {
-                @foreach (var item in Model.Events)
-                {
+            <h4> List of Events in @Model.Room.Name</h4>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@item.EventId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Type</td>
-                        <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
-                        <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
-                        <td>
-                            @if (item.Capacity >= item.Users.Count)
-                            {
-                                <p style="color: green">@item.Users.Count/@item.Capacity</p>
-                            }
-                            else
-                            {
-                                <p style="color: darkorange">Venteliste</p>
-                            }
-                        </td>
-                        <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
-                        <td>
-                            @if (item.Hidden)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.Cancelled)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.RoomHidden)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
-                        <td>
-                            @if (item.RoomCancelled)
-                            {
-                                <p>&#10004;</p>
-                            }
-                            else
-                            {
-                                <p>&#10060;</p>
-                            }
-                        </td>
+                        <th>Id</th>
+                        <th>Navn</th>
+                        <th>Type</th>
+                        <th>Starttid</th>
+                        <th>Sluttid</th>
+                        <th>Status</th>
+                        <th>Lokale</th>
+                        <th>Hid</th>
+                        <th>Can</th>
+                        <th>RHid</th>
+                        <th>RCan</th>
                     </tr>
-                }
-            }
-    </table>
-</div>
+                </thead>
+                <tbody>
+                    @if (Model.Events.Count() != 0)
+                    {
+                        @foreach (var item in Model.Events)
+                        {
+                            <tr>
+                                <td>@item.EventId</td>
+                                <td>@item.Name</td>
+                                <td>@item.Type</td>
+                                <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
+                                <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
+                                <td>
+                                    @if (item.Capacity >= item.Users.Count)
+                                    {
+                                        <p style="color: green">@item.Users.Count/@item.Capacity</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="color: darkorange">Venteliste</p>
+                                    }
+                                </td>
+                                <td>@Model.Rooms.Find(room => room.RoomId.Equals(item.RoomId))?.Name</td>
+                                <td>
+                                    @if (item.Hidden)
+                                    {
+                                        <p>&#10004;</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&#10060;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Cancelled)
+                                    {
+                                        <p>&#10004;</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&#10060;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.RoomHidden)
+                                    {
+                                        <p>&#10004;</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&#10060;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.RoomCancelled)
+                                    {
+                                        <p>&#10004;</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&#10060;</p>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+            </table>
+        }
+    </div>
+}

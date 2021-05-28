@@ -29,7 +29,9 @@
 
                     @if (currentConferenceId != null)
                     {
-                        <h1 class="display-4">@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</h1>
+                        <a asp-page="/Index">
+                            <h1 class="display-4">@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</h1>
+                        </a>
                     }
                 </div>
                 <nav id="NaviBar">
