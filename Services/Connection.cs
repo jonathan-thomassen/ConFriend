@@ -5,7 +5,7 @@ namespace ConFriend.Services
 {
     public abstract class Connection
     {
-        protected String connectionString;
+        protected String connectionString; 
         public IConfiguration Configuration { get; }
 
         public Connection(IConfiguration configuration)
