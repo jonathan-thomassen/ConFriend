@@ -23,7 +23,7 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
             _roomFeatureService = rfService;
             _roomFeatureService.Init_Composite(ModelTypes.Feature, ModelTypes.Room, ModelTypes.RoomFeature);
         }
-        public async Task OnGetAsync()
+        public void OnGet()
         {
             RoomFeatures = _roomFeatureService.GetAll().Result.OrderBy(rf=>rf.RoomId).ThenBy(rf=>rf.FeatureId).ToList();
         }
@@ -36,7 +36,7 @@ namespace ConFriend.Pages.Admin.RoomFeatureTest
                 await _roomFeatureService.Delete(rf.FeatureId, rId);
             }
 
-            await OnGetAsync();
+            OnGet();
         }
     }
 }

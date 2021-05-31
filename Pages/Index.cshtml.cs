@@ -55,7 +55,7 @@ namespace ConFriend.Pages
             return Page();
         }
 
-        public async Task OnPostAsync()
+        public void OnPost()
         {
 
         }

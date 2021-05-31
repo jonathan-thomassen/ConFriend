@@ -123,7 +123,7 @@ namespace ConFriend.Pages.Lokaler
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCreateAsync(string imageName)
+        public IActionResult OnPostCreate(string imageName)
         {
             Room.VenueId = tempVenueId;
             Room.Image = imageName;

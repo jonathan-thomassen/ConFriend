@@ -27,7 +27,7 @@ namespace ConFriend.Pages.Login
             _sessionService = sessionService;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             //Bør ikke være mulig for bruger der allerede er logget ind at benytte denne side:
             if (_sessionService.GetUserId(HttpContext.Session) > 0)
