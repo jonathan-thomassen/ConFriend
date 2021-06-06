@@ -14,15 +14,12 @@ namespace ConFriend.Pages.Lokaler
 {
     public class AdminLokalePageModel : PageModel
     {
-        [BindProperty] public int RoomId { get; set; }
-
         private readonly object _createRoomLock = new object();
 
         [BindProperty] public Room Room { get; set; }
         [BindProperty] public IFormFile Upload { get; set; }
         [BindProperty] public List<int> SelectedFeatures { get; set; }
 
-        public List<Event> Events;
         public List<Event> EventsInRoom;
         public List<Floor> Floors;
         public List<RoomFeature> RoomFeatures;
@@ -32,7 +29,6 @@ namespace ConFriend.Pages.Lokaler
         public SelectList SelectListFloors { get; set; }
         public SelectList SelectListFeatures { get; set; }
 
-        private int tempVenueId = 1;
         public User CurrentUser;
         public Conference CurrentConference;
         public UserConferenceBinding UCBinding;
@@ -52,19 +48,20 @@ namespace ConFriend.Pages.Lokaler
 
         public AdminLokalePageModel(ICrudService<Room> roomService, ICrudService<Floor> floorService,
             ICrudService<Event> eventService, ICrudService<RoomFeature> roomFeatureService,
-            ICrudService<Feature> featureService, ICrudService<User> userService, ICrudService<Conference> conferenceService, 
+            ICrudService<Feature> featureService, ICrudService<User> userService, ICrudService<Conference> conferenceService,
             ICrudService<UserConferenceBinding> ucBindingService, SessionService sessionService)
         {
             _sessionService = sessionService;
+            _userService = userService;
+            _conferenceService = conferenceService;
+            _ucBindingService = ucBindingService;
 
             _roomService = roomService;
             _floorService = floorService;
             _eventService = eventService;
             _roomFeatureService = roomFeatureService;
             _featureService = featureService;
-            _userService = userService;
-            _conferenceService = conferenceService;
-            _ucBindingService = ucBindingService;
+            
 
             _roomService.Init(ModelTypes.Room);
             _floorService.Init(ModelTypes.Floor);
@@ -95,17 +92,11 @@ namespace ConFriend.Pages.Lokaler
                 return OnGetDeniedAsync();
 
             Room = new Room();
-            Events = new List<Event>();
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
-            Rooms = await _roomService.GetAll();
-            RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
+            //RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(rf => rf.RoomId.Equals(Room.RoomId));
 
-            //EventsInRoom = Room.RoomId != 0
-            //    ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
-            //    : new List<Event>();
-
-            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId),
+            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(CurrentConference.VenueId)), nameof(Floor.FloorId),
                 nameof(Floor.Name));
             SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
 
@@ -129,9 +120,7 @@ namespace ConFriend.Pages.Lokaler
             if (UCBinding?.UserType != UserType.Admin && UCBinding?.UserType != UserType.SuperUser)
                 return OnGetDeniedAsync();
 
-            RoomId = rId;
             Room = await _roomService.GetFromId(rId);
-            Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(rId));
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
             Rooms = await _roomService.GetAll();
@@ -144,10 +133,10 @@ namespace ConFriend.Pages.Lokaler
 
 
             EventsInRoom = Room.RoomId != 0
-                ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
+                ? new List<Event>(_eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId)))
                 : new List<Event>();
 
-            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
+            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(CurrentConference.VenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
             SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
 
             foreach (var item in SelectListFeatures)
@@ -171,7 +160,7 @@ namespace ConFriend.Pages.Lokaler
             return Page();
         }
 
-        public async Task<IActionResult> OnPostImageAsync(int id, bool edit)
+        public async Task<IActionResult> OnPostImageAsync(bool edit)
         {
             var file = Path.Combine("wwwroot\\", "rooms", Upload.FileName);
             await using (var fileStream = new FileStream(file, FileMode.Create))
@@ -184,13 +173,12 @@ namespace ConFriend.Pages.Lokaler
             Room.Image = Upload.FileName;
 
             IsEditing = edit;
-            RoomId = id;
             return Page();
         }
 
-        public IActionResult OnPostCreate(string imageName)
+        public IActionResult OnPostCreate(string imageName, int venueId)
         {
-            Room.VenueId = tempVenueId;
+            Room.VenueId = venueId;
             Room.Image = imageName;
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
@@ -228,12 +216,12 @@ namespace ConFriend.Pages.Lokaler
 
             return RedirectToPage("/Admin/RoomTest/Index");
         }
-        public async Task<IActionResult> OnPostUpdateAsync(string imageName, int id)
+        public async Task<IActionResult> OnPostUpdateAsync(string imageName, int venueId)
         {
-            Room.RoomId = id;
+            
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
-            Room.VenueId = tempVenueId;
+            Room.VenueId = venueId;
             Room.Image = imageName;
             RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)

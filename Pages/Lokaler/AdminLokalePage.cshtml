@@ -32,7 +32,7 @@ else
                 <span asp-validation-for="Room.FloorId" class="text-danger"></span>
             </div>
             <div class="grid-container-lokale">
-                <div style="grid-column: 1/1; grid-row: 1/1;">Str i m2:</div>
+                <div style="grid-column: 1/1; grid-row: 1/1;">Str i m² :</div>
                 <div style="grid-column: 2/2; grid-row: 1/1;">
                     <input type="number" asp-for="Room.Size" style="width: 100%" />
                     <span asp-validation-for="@Model.Room.Name" class="text-danger"></span>
@@ -48,14 +48,14 @@ else
                     <span asp-validation-for="@Model.Room.DoorAmount" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="grid-column: 1/2; grid-row: 4/4;">
-                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height: 8em"></select>
+                    <select asp-for="SelectedFeatures" asp-items="@Model.SelectListFeatures" style="width: 200%; height: 10em"></select>
                     <span asp-validation-for="Room.Features.Keys" class="text-danger"></span>
                 </div>
                 <div style="grid-column: 3/4; grid-row: 1/6; margin-left: 100px; justify-items: center">
                     <div>
                         <label for="files" class="btn" style="margin-left: auto; margin-right: auto;">Upload billede</label>
                         <input type="file" id="files" asp-for="@Model.Upload" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute" onchange="submitImage.click()" />
-                        <button type="submit" id="submitImage" asp-page-handler="Image" asp-route-edit="@Model.IsEditing" asp-route-id="@Model.Room.RoomId" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
+                        <button type="submit" id="submitImage" asp-page-handler="Image" asp-route-edit="@Model.IsEditing" style="visibility: hidden; grid-column: 1; grid-row: 1; position: absolute">Upload</button>
                     </div>
                     @if (Model.Room.Image != null || Model.Room.Image != "")
                     {
@@ -74,13 +74,13 @@ else
             @if (Model.IsEditing)
             {
                 <div class="form-group" style="justify-items: center">
-                    <input type="submit" asp-page-handler="Update" value="Gem ændringer" asp-route-id="@Model.RoomId" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
+                    <input type="submit" asp-page-handler="Update" value="Gem ændringer" asp-route-imageName="@Model.Room.Image" asp-route-venueId="@Model.CurrentConference.VenueId" class="button btn btn-dark" />
                 </div>
             }
             else
             {
                 <div class="form-group" style="justify-items: center">
-                    <input type="submit" asp-page-handler="Create" value="Opret Lokale" asp-route-imageName="@Model.Room.Image" class="button btn btn-dark" />
+                    <input type="submit" asp-page-handler="Create" value="Opret Lokale" asp-route-imageName="@Model.Room.Image" asp-route-venueId="@Model.CurrentConference.VenueId" class="button btn btn-dark" />
                 </div>
             }
         </form>
@@ -89,7 +89,7 @@ else
             </p>*@
         @if (Model.IsEditing)
         {
-            <h4> List of Events in @Model.Room.Name</h4>
+            <h4> Liste af begivenheder i @Model.Room.Name</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -107,13 +107,13 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Events.Count() != 0)
+                    @if (Model.EventsInRoom.Count() != 0)
                     {
-                        @foreach (var item in Model.Events)
+                        @foreach (var item in Model.EventsInRoom)
                         {
                             <tr>
                                 <td>@item.EventId</td>
-                                <td>@item.Name</td>
+                                <td><a asp-page="/Events/CreateEvent" asp-route-id="@item.EventId">@item.Name</a></td>
                                 <td>@item.Type</td>
                                 <td>@item.StartTime.Value.ToString("dd-MMM HH:mm")</td>
                                 <td>@item.EndTime.Value.ToString("dd-MMM HH:mm")</td>
