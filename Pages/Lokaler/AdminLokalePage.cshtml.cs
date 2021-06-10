@@ -181,7 +181,7 @@ namespace ConFriend.Pages.Lokaler
             Room.VenueId = venueId;
             Room.Image = imageName;
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
-            Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
+            //Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
             {
                 Room.Features ??= new Dictionary<int, bool>();
