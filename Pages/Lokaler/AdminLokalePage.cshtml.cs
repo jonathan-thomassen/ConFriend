@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
+using ConFriend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,15 +14,12 @@ namespace ConFriend.Pages.Lokaler
 {
     public class AdminLokalePageModel : PageModel
     {
-        private int tempVenueId = 1;
-        public bool IsEditing { get; set; }
         private readonly object _createRoomLock = new object();
 
         [BindProperty] public Room Room { get; set; }
         [BindProperty] public IFormFile Upload { get; set; }
         [BindProperty] public List<int> SelectedFeatures { get; set; }
 
-        public List<Event> Events;
         public List<Event> EventsInRoom;
         public List<Floor> Floors;
         public List<RoomFeature> RoomFeatures;
@@ -33,50 +29,98 @@ namespace ConFriend.Pages.Lokaler
         public SelectList SelectListFloors { get; set; }
         public SelectList SelectListFeatures { get; set; }
 
+        public User CurrentUser;
+        public Conference CurrentConference;
+        public UserConferenceBinding UCBinding;
+
+        public bool IsEditing;
+        public bool AccessDenied;
+
         private readonly ICrudService<Room> _roomService;
         private readonly ICrudService<Floor> _floorService;
         private readonly ICrudService<Event> _eventService;
         private readonly ICrudService<RoomFeature> _roomFeatureService;
         private readonly ICrudService<Feature> _featureService;
+        private readonly ICrudService<User> _userService;
+        private readonly ICrudService<Conference> _conferenceService;
+        private readonly ICrudService<UserConferenceBinding> _ucBindingService;
+        private readonly SessionService _sessionService;
 
         public AdminLokalePageModel(ICrudService<Room> roomService, ICrudService<Floor> floorService,
             ICrudService<Event> eventService, ICrudService<RoomFeature> roomFeatureService,
-            ICrudService<Feature> featureService)
+            ICrudService<Feature> featureService, ICrudService<User> userService, ICrudService<Conference> conferenceService,
+            ICrudService<UserConferenceBinding> ucBindingService, SessionService sessionService)
         {
+            _sessionService = sessionService;
+            _userService = userService;
+            _conferenceService = conferenceService;
+            _ucBindingService = ucBindingService;
+
             _roomService = roomService;
             _floorService = floorService;
             _eventService = eventService;
             _roomFeatureService = roomFeatureService;
             _featureService = featureService;
+            
 
             _roomService.Init(ModelTypes.Room);
             _floorService.Init(ModelTypes.Floor);
             _eventService.Init(ModelTypes.Event);
             _featureService.Init(ModelTypes.Feature);
+            _userService.Init(ModelTypes.User);
+            _conferenceService.Init(ModelTypes.Conference);
+            _ucBindingService.Init(ModelTypes.UserConferenceBinding);
             _roomFeatureService.Init_Composite(ModelTypes.Feature, ModelTypes.Room, ModelTypes.RoomFeature);
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (_sessionService.GetUserId(HttpContext.Session) != null)
+                CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
+            else
+                return OnGetDeniedAsync();
+
+            if (_sessionService.GetConferenceId(HttpContext.Session) != null)
+                CurrentConference = await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
+            else
+                return RedirectToPage("/Index");
+
+            UCBinding = _ucBindingService.GetAll().Result.FindAll(bind => bind.UserId.Equals(CurrentUser.UserId))
+                .Find(bind => bind.ConferenceId.Equals(CurrentConference.ConferenceId));
+
+            if (UCBinding?.UserType != UserType.Admin && UCBinding?.UserType != UserType.SuperUser)
+                return OnGetDeniedAsync();
+
             Room = new Room();
-            Events = new List<Event>();
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
-            Rooms = await _roomService.GetAll();
-            RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
+            //RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(rf => rf.RoomId.Equals(Room.RoomId));
 
-            EventsInRoom = Room.RoomId != 0
-                ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
-                : new List<Event>();
-
-            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId),
+            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(CurrentConference.VenueId)), nameof(Floor.FloorId),
                 nameof(Floor.Name));
             SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
+
+            return Page();
         }
-        public async Task OnGetEditAsync(int rId)
+        public async Task<IActionResult> OnGetEditAsync(int rId)
         {
+            if (_sessionService.GetUserId(HttpContext.Session) != null)
+                CurrentUser = await _userService.GetFromId((int)_sessionService.GetUserId(HttpContext.Session));
+            else
+                return OnGetDeniedAsync();
+
+            if (_sessionService.GetConferenceId(HttpContext.Session) != null)
+                CurrentConference = await _conferenceService.GetFromId((int)_sessionService.GetConferenceId(HttpContext.Session));
+            else
+                return RedirectToPage("/Index");
+
+            UCBinding = _ucBindingService.GetAll().Result.FindAll(bind => bind.UserId.Equals(CurrentUser.UserId))
+                .Find(bind => bind.ConferenceId.Equals(CurrentConference.ConferenceId));
+
+            if (UCBinding?.UserType != UserType.Admin && UCBinding?.UserType != UserType.SuperUser)
+                return OnGetDeniedAsync();
+
             Room = await _roomService.GetFromId(rId);
-            Events = _eventService.GetAll().Result.FindAll(e=>e.RoomId.Equals(rId));
             Floors = await _floorService.GetAll();
             Features = await _featureService.GetAll();
             Rooms = await _roomService.GetAll();
@@ -89,12 +133,12 @@ namespace ConFriend.Pages.Lokaler
 
 
             EventsInRoom = Room.RoomId != 0
-                ? new List<Event>(Events.FindAll(e => e.RoomId.Equals(Room.RoomId)))
+                ? new List<Event>(_eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId)))
                 : new List<Event>();
 
-            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(tempVenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
+            SelectListFloors = new SelectList(Floors.FindAll(f => f.VenueId.Equals(CurrentConference.VenueId)), nameof(Floor.FloorId), nameof(Floor.Name));
             SelectListFeatures = new SelectList(Features, nameof(Feature.FeatureId), nameof(Feature.Name), RoomFeatures);
-            
+
             foreach (var item in SelectListFeatures)
             {
                 foreach (var rf in RoomFeatures)
@@ -107,11 +151,17 @@ namespace ConFriend.Pages.Lokaler
                 }
             }
             IsEditing = true;
+            return Page();
         }
 
-        public async Task<IActionResult> OnPostImageAsync(int id)
+        public IActionResult OnGetDeniedAsync()
         {
-            Room.RoomId = id;
+            AccessDenied = true;
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostImageAsync(bool edit)
+        {
             var file = Path.Combine("wwwroot\\", "rooms", Upload.FileName);
             await using (var fileStream = new FileStream(file, FileMode.Create))
             {
@@ -122,15 +172,16 @@ namespace ConFriend.Pages.Lokaler
 
             Room.Image = Upload.FileName;
 
+            IsEditing = edit;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCreateAsync(string imageName)
+        public IActionResult OnPostCreate(string imageName, int venueId)
         {
-            Room.VenueId = tempVenueId;
+            Room.VenueId = venueId;
             Room.Image = imageName;
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
-            Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
+            //Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
             {
                 Room.Features ??= new Dictionary<int, bool>();
@@ -138,33 +189,40 @@ namespace ConFriend.Pages.Lokaler
                 Feature f = _featureService.GetFromId(fId).Result;
                 Room.Features.Add(f.FeatureId, true);
             }
-            int maxId = 0;
+
 
             lock (_createRoomLock)
             {
                 _roomService.Create(Room).Wait();
 
-                maxId = _roomService.GetAll().Result.OrderByDescending(r => r.RoomId).First().RoomId;
-
-                foreach (int featureId in Room.Features.Keys)
+                if (Room.Features != null)
                 {
+                    if (Room.Features.Count != 0)
+                    {
+                        int maxId = 0;
+                        maxId = _roomService.GetAll().Result.OrderByDescending(r => r.RoomId).First().RoomId;
 
-                    RoomFeature rf = new RoomFeature();
-                    rf.FeatureId = featureId;
-                    rf.RoomId = maxId;
-                    rf.IsAvailable = true;
+                        foreach (int featureId in Room.Features.Keys)
+                        {
 
-                    _roomFeatureService.Create(rf).Wait();
+                            RoomFeature rf = new RoomFeature
+                            { FeatureId = featureId, RoomId = maxId, IsAvailable = true };
+
+                            _roomFeatureService.Create(rf).Wait();
+                        }
+                    }
                 }
             }
 
             return RedirectToPage("/Admin/RoomTest/Index");
         }
-        public async Task<IActionResult> OnPostUpdateAsync()
+        public async Task<IActionResult> OnPostUpdateAsync(string imageName, int venueId)
         {
+            
             Room.Floor = _floorService.GetFromId(Room.FloorId).Result.Name;
             Room.Events = _eventService.GetAll().Result.FindAll(e => e.RoomId.Equals(Room.RoomId));
-            Room.VenueId = tempVenueId;
+            Room.VenueId = venueId;
+            Room.Image = imageName;
             RoomFeatures = _roomFeatureService.GetAll().Result.FindAll(room => room.RoomId.Equals(Room.RoomId));
             foreach (int fId in SelectedFeatures)
             {
@@ -179,15 +237,20 @@ namespace ConFriend.Pages.Lokaler
                 await _roomFeatureService.Delete(rf.FeatureId, rf.RoomId);
             }
             await _roomService.Update(Room);
-            foreach (int featureId in Room.Features.Keys)
-            {
-                RoomFeature rf = new RoomFeature();
-                rf.FeatureId = featureId;
-                rf.RoomId = Room.RoomId;
-                rf.IsAvailable = true;
 
-                _roomFeatureService.Create(rf).Wait();
+            if (Room.Features?.Count > 0)
+            {
+                foreach (int featureId in Room.Features.Keys)
+                {
+                    RoomFeature rf = new RoomFeature();
+                    rf.FeatureId = featureId;
+                    rf.RoomId = Room.RoomId;
+                    rf.IsAvailable = true;
+
+                    _roomFeatureService.Create(rf).Wait();
+                }
             }
+
             return RedirectToPage("/Admin/RoomTest/Index");
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace ConFriend.Models
+﻿using ConFriend.Interfaces;
+
+namespace ConFriend.Models
 {
     public class Floor : IModel
     {
@@ -7,23 +9,14 @@
         public string Name { get; set; }
         public string Image { get; set; }
 
-   
-
         public string ToSQL()
         {
             return $"VenueId = {VenueId}, Name = '{Name}', ImageUrl = '{Image}'";
         }
+
         public string Identity()
         {
             return $"FloorId = {FloorId}";
-        }
-        ModelTypes DataType
-        {
-            get
-            {
-                return ModelTypes.Floor;
-            }
-
         }
     }
 }

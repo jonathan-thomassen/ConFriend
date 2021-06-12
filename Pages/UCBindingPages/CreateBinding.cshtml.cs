@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
@@ -13,10 +11,10 @@ namespace ConFriend.Pages.UCBindingPages
 {
     public class CreateBindingModel : PageModel
     {
-        private ICrudService<UserConferenceBinding> _ucBindingService;
-        private ICrudService<User> _userService;
-        private ICrudService<Conference> _conferenceService;
-        private SessionService _sessionService;
+        private readonly ICrudService<UserConferenceBinding> _ucBindingService;
+        private readonly ICrudService<User> _userService;
+        private readonly ICrudService<Conference> _conferenceService;
+        private readonly SessionService _sessionService;
 
         public User CurrentUser;
         public Conference CurrentConference;

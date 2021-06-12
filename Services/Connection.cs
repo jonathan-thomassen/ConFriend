@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
 namespace ConFriend.Services
 {
     public abstract class Connection
     {
-        protected String connectionString;
+        protected String connectionString; 
         public IConfiguration Configuration { get; }
 
         public Connection(IConfiguration configuration)

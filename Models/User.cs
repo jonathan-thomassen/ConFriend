@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Policy;
-using Microsoft.AspNetCore.Mvc;
+using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -83,18 +82,17 @@ namespace ConFriend.Models
                     str = str.Substring(0, str.Length - 1);
                 }
             }
-
             return $"FirstName = '{FirstName}', LastName = '{LastName}', [E-Mail] = '{Email}', Password = '{Password}', Preference = '{str}'";
         }
-       
+
         public string Identity(string value)
         {
             return $"[E-Mail] = '{value}'";
         }
+
         public string Identity()
         {
             return $"UserId = {UserId}";
         }
-
     }
 }

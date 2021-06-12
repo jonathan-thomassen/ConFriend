@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConFriend.Interfaces;
 
 namespace ConFriend.Models
 {
@@ -21,6 +18,5 @@ namespace ConFriend.Models
         {
             return $"UserConferenceBindingId = {UserConferenceBindingId}";
         }
-  
     }
 }

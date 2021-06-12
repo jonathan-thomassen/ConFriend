@@ -1,7 +1,6 @@
 ﻿@using ConFriend.Interfaces
 @using ConFriend.Models
 @using ConFriend.Services
-@using Microsoft.AspNetCore.Http
 @inject SessionService SessionService
 @inject ICrudService<User> UserService
 @inject ICrudService<Conference> ConferenceService;
@@ -30,7 +29,10 @@
 
                     @if (currentConferenceId != null)
                     {
-            <h1 class="display-4">@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</h1>}
+                        <a asp-page="/Index">
+                            <h1 class="display-4">@ConferenceService.GetFromId((int)currentConferenceId).Result.Name</h1>
+                        </a>
+                    }
                 </div>
                 <nav id="NaviBar">
                     <ul>
@@ -39,7 +41,6 @@
                             <div class="dropdown-content">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ConferencePages/ConferenceIndex">Conferences</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Events/EventIndex">Event-liste</a>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Events/CreateEvent">Opret event</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Theme/ThemeList">Themes</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EventThemeTest/Index">Events-Themes</a>
                             </div>
@@ -63,7 +64,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/UserPages/UserIndex">Users</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Speaker/Speakerlist">Speakers</a>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Enrollment/Enrollment">Enrollments</a>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/UCBindingPages/CreateBinding">Opret konference-bruger tilknytning</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/ConManager/Index">Admin funktioner</a>
                             </div>
                         </li>
                         <li class="dropdown">
@@ -110,7 +111,7 @@
         <div id="HeadFiller" class="w-100"></div>
 
         <div id="wrapper" class="d-flex justify-content-center">
-            <div class="w-50">
+            <div class="w-75">
                 <div>
                     @RenderBody()
                 </div>
@@ -125,5 +126,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @RenderSection("Scripts", false)
+    </div>
 </body>
 </html>

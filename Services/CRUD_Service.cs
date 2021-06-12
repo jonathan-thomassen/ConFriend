@@ -1,9 +1,6 @@
 ﻿using ConFriend.Interfaces;
-using ConFriend.Models;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConFriend.Services
@@ -19,21 +16,28 @@ namespace ConFriend.Services
             get { return LastId; }
         }
 
-      
         public CRUD_Service(IConfiguration configuration) : base(configuration)
         {
             IsComposit = false;
         }
+
+        public CRUD_Service(string configurationString) : base(configurationString)
+        {
+            IsComposit = false;
+        }
+
         public void Init(ModelTypes DataType)
         {
             ItemIdentitySQL = $"{DataType}Id =";
             init(DataType);
         }
+
         public void Init(ModelTypes DataType,string name)
         {
             ItemIdentitySQL = $"{name}Id =";
             init(DataType);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -50,6 +54,7 @@ namespace ConFriend.Services
             ItemIdentitySQLExtra = $"{DataTypeB}Id =";
             init(TrueDataType);
         }
+
         public async Task<bool> Create(T item)
         {
             return await SQLCommand(SQLType.Create, "n", item.ToSQL());
@@ -71,11 +76,13 @@ namespace ConFriend.Services
 
             return Item;
         }
+
         public async Task<T> GetFromField(string customField)
         {
             await SQLCommand(SQLType.GetSingle, $"{customField}");
             return Item;
         }
+
         public async Task<bool> Update(T item)
         {
             return await SQLCommand(SQLType.Update, item.Identity(), item.ToSQL());
@@ -90,29 +97,28 @@ namespace ConFriend.Services
         }
         //current.IdentitySQL
 
-   
-        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes klassId = ModelTypes.none)
+        public async Task<List<T>> GetFiltered(int filterId, ModelTypes joinId , ModelTypes klassId = ModelTypes.None)
         {
-            if(klassId == ModelTypes.none)
+            if(klassId == ModelTypes.None)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}",$"{filterId}");
             else
                 await SQLCommand(SQLType.JoinOn, $"{klassId}.{joinId}", $"{filterId}");
             return Items;
         }
-        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes klassId = ModelTypes.none)
+
+        public async Task<List<T>> GetFiltered(ModelTypes joinId, ModelTypes klassId = ModelTypes.None)
         {
-            if (klassId == ModelTypes.none)
+            if (klassId == ModelTypes.None)
                 await SQLCommand(SQLType.JoinOn, $"{joinId}.{joinId}");
             else
                 await SQLCommand(SQLType.JoinOn, $"{klassId}.{joinId}");
             return Items;
         }
+
         public void ClearItemData()
         {
             if(Items != null)Items.Clear();
             Item = default;
         }
-       
     }
 }
-

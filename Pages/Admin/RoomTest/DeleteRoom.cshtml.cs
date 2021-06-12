@@ -11,22 +11,33 @@ namespace ConFriend.Pages.Admin.RoomTest
 {
     public class DeleteRoomModel : PageModel
     {
-        private ICrudService<Room> roomService;
+        private ICrudService<Room> _roomService;
+        private ICrudService<RoomFeature> _roomFeatureService;
         [BindProperty] public Room Room{ get; set; }
 
-        public DeleteRoomModel(ICrudService<Room> rService)
+        public DeleteRoomModel(ICrudService<Room> rService, ICrudService<RoomFeature> rfService)
         {
-            roomService = rService;
-            roomService.Init(ModelTypes.Room);
+            _roomService = rService;
+            _roomFeatureService = rfService;
+            _roomService.Init(ModelTypes.Room);
         }
         public async Task OnGetAsync(int rId)
         {
-            Room = await roomService.GetFromId(rId);
+            Room = await _roomService.GetFromId(rId);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await roomService.Delete(Room.RoomId);
+            if (Room.Features?.Count > 0)
+            {
+                foreach (var rf in _roomFeatureService.GetAll().Result.FindAll(rf => rf.RoomId.Equals(Room.RoomId)))
+                {
+                    await _roomFeatureService.Delete(rf.FeatureId, Room.RoomId);
+                }
+            }
+            
+            await _roomService.Delete(Room.RoomId);
+
             return RedirectToPage("Index");
         }
     }

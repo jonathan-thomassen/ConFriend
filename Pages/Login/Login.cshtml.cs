@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ConFriend.Interfaces;
 using ConFriend.Models;
@@ -29,7 +27,7 @@ namespace ConFriend.Pages.Login
             _sessionService = sessionService;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             //Bør ikke være mulig for bruger der allerede er logget ind at benytte denne side:
             if (_sessionService.GetUserId(HttpContext.Session) > 0)
@@ -41,7 +39,7 @@ namespace ConFriend.Pages.Login
         public async Task<IActionResult> OnPostAsync()
         {
             _users = await _userService.GetAll();
-            User user = _users.Find(user => user.Email.Equals(Email));
+            User user = _users.Find(u => u.Email.Equals(Email));
 
             if (user != null)
             {
