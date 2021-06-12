@@ -2,6 +2,7 @@
 using ConFriend.Interfaces;
 using ConFriend.Models;
 using ConFriend.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -30,15 +31,18 @@ namespace ConFriend.Pages
             _conferenceService.Init(ModelTypes.Conference);
 
             _sessionService = sessionService;
+       
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string? data)
         {
             if (_sessionService.GetConferenceId(HttpContext.Session) == null)
                 _sessionService.SetConferenceId(HttpContext.Session, 1);
 
             var userId = _sessionService.GetUserId(HttpContext.Session);
             var conId = _sessionService.GetConferenceId(HttpContext.Session);
+
+            var jsdata = _sessionService.GetScriptData(HttpContext.Session);
 
             if (conId != null)
                 Conference = await _conferenceService.GetFromId((int)conId);
@@ -55,9 +59,9 @@ namespace ConFriend.Pages
             return Page();
         }
 
-        public void OnPost()
+        public void OnPost(string param1)
         {
-
+            var fisk = 1;
         }
         //
         public async Task<string> GetRoomData()

@@ -1,14 +1,20 @@
 ﻿@using ConFriend.Interfaces
 @using ConFriend.Models
 @using ConFriend.Services
+
 @inject SessionService SessionService
 @inject ICrudService<User> UserService
 @inject ICrudService<Conference> ConferenceService;
+
 @{
     UserService.Init(ModelTypes.User);
     ConferenceService.Init(ModelTypes.Conference);
     int? currentUserId = SessionService.GetUserId(Context.Session);
     int? currentConferenceId = SessionService.GetConferenceId(Context.Session);
+
+    //string data = Context.Session.GetString("jsData");
+    //string datadata = data;
+    //@using Microsoft.AspNetCore.Http
 }
 
 
@@ -78,32 +84,34 @@
                 <ul>
                     @if (currentUserId == null)
                     {
-                    <li class="loginA">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">
-                            Login
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                            </svg>
-                        </a>
-                    </li> }
-                else
-                {
-                <li class="login">
-                    <a class="text-dark " asp-area="" asp-page="/UserPages/UserDetails">
+                        <li class="loginA">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">
+                                Login
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                </svg>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="login">
+                            <a class="text-dark " asp-area="" asp-page="/UserPages/UserDetails">
 
-                        @UserService.GetFromId((int)currentUserId).Result.FistShortName
-                        @UserService.GetFromId((int)currentUserId).Result.LastShortName
-                    </a>
-                    <div class="text-center">
-                        <a href="~/Login/Logout">logout</a>
+                                @UserService.GetFromId((int)currentUserId).Result.FistShortName
+                                @UserService.GetFromId((int)currentUserId).Result.LastShortName
+                            </a>
+                            <div class="text-center">
+                                <a href="~/Login/Logout">logout</a>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                    </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#AAA" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                </svg>
+                            </div>
 
 
-                </li>}
+                        </li>
+                    }
                 </ul>
 
             </div>

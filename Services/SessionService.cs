@@ -23,5 +23,10 @@ namespace ConFriend.Services
         {
             return session.GetInt32("ConferenceId");
         }
+
+        public string GetScriptData(ISession session)
+        {
+            return session.GetString("jsData");
+        }
     }
 }

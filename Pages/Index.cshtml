@@ -1,10 +1,16 @@
-﻿@page
+﻿
+
+@page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Hjem";
+ 
 }
+
 @section Scripts {
-    <script src="/js/BoxMap.js"></script>
+    <script src="/js/MapDisplay.js"></script>
+
 }
 <div class="text-center">
 
@@ -19,12 +25,15 @@
         <h4 class="display-4">Velkommen gæst</h4>
         <h4 class="display-4">Brugertype: Gæst</h4>
     }
+
     <div id="MainBox">
+        <p class="canvasText">Stueetage</p>
         <div id="content">
-            <!-- <canvas id="mycanvas"></canvas>
-     <input hidden="true" id="drawpointsdisplayData" value="@Model.GetRoomData()"></input>-->
+            <img id="imgsource" src="floors/ConfrindMain.PNG" alt="ConfrindMain">
+            <canvas id="mycanvas"></canvas>
+            <input hidden="true" id="drawpointsdisplayData" value="@Model.GetRoomData()"></input>
         </div>
-        <img src="floors/ConfrindMain.PNG" alt="ConfrindMain">
+
     </div>
 
 </div>

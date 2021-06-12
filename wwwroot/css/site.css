@@ -102,3 +102,36 @@ a {
     grid-gap: 10px;
     /*padding: 10px;*/
 }
+#MainBox {
+    display: inline-block;
+    margin: 0 auto;
+    max-height: 800px;
+   
+}
+
+#mycanvas {
+    position: relative;
+    z-index: 20;
+    padding: 0px;
+    /*border: 5px solid black;*/
+    border: 1px solid #909090;
+}
+
+#undercanvas {
+    position: absolute;
+    z-index: 20;
+    padding: 0px;
+    /*border: 5px solid black;*/
+}
+
+.canvasText {
+    color: #606060;
+    float: left;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+#imgsource {
+    position: absolute;
+    z-index: 1;
+}

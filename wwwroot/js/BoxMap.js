@@ -3,12 +3,13 @@ const CanvasDisplay = {};
 
 CanvasDisplay.VERSION = "0.0.1";
 
-CanvasDisplay.Load = function (canvas, ctx, BoxFrame) {
+CanvasDisplay.Load = function (canvas, canvas2,  ctx, BoxFrame) {
 
     console.log("loaded");
     console.log(canvas);
     //this = CanvasDisplay
     this.canvas = canvas;
+    this.canvas2 = canvas2;
     this.ctx = ctx;
     this.BoxFrame = BoxFrame;
 
@@ -39,6 +40,8 @@ CanvasDisplay.SETTINGS = function () {
     this.CURREMT_HEIGHT = 720;
     this.canvas.width = this.OGINAL_WIDTH;
     this.canvas.height = this.OGINAL_HEIGHT;
+    this.canvas2.width = this.OGINAL_WIDTH;
+    this.canvas2.height = this.OGINAL_HEIGHT;
     this.DotHit = false;
 }
 CanvasDisplay.Resize = function () {
@@ -64,6 +67,8 @@ CanvasDisplay.Resize = function () {
     this.canvas.style.width = '' + this.WIDTH + 'px';
     this.canvas.style.height = '' + this.HEIGHT + 'px';
 
+    this.canvas2.style.width = this.canvas.style.width;
+    this.canvas2.style.height = this.canvas.style.height;
 }
 CanvasDisplay.NewPolygone = function (PointList, x, y) {
     this.PolygoneList.push({ ID: this.PolygonID++, list: PointList, x: x, y: y });
