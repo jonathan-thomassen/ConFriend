@@ -12,6 +12,7 @@ a {
 #NaviBar {
     height: 40px;
     padding-top: 10px;
+    float: left;
 }
 #HeadFiller {
     height: 20%;
@@ -24,11 +25,22 @@ a {
     color: #0366d6;
  
 }
-
+.loginA {
+    color: #606060;
+    display: inline-block;
+    float: none;
+    padding-top: 20px;
+    padding-left: 10px;
+}
 .login {
     color: #606060;
     display: inline-block;
+    float: none;
+    padding-top: 10px;
+    padding-left: 30px;
 }
+
+
 #headcontent {
     max-width: 640px;
     min-width: 620px;

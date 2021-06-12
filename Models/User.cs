@@ -35,20 +35,39 @@ namespace ConFriend.Models
             }
         
         }
-        public string ShortName
+        public string FistShortName
         {
             get
             {
-              
-                string returnname = FullName;
-                int Len = Math.Min(LastName.Length,10);
-                if (LastName != FirstName)
-                    returnname = $"{FirstName}{Environment.NewLine}{LastName.Substring(0, Len)}";
+                if (FirstName.Length > 9)
+                    return FirstName.Substring(0, 10);
 
+                return FirstName;
+            }
+
+        }
+        public string LastShortName
+        {
+            get
+            {
+
+                string returnname = LastName;
+                if (LastName.Length > 10) {
+                    string Upper = LastName.ToUpper();
+                    string[] names = Upper.Split(" ");
+                    string str = $"{names[0][0]}.";
+                    for (int i = 1; i < names.Length; i++)
+                    {
+                        str = $"{str} {names[i][0]}.";
+                        if (str.Length >= 10) break;
+                    }
+                    returnname = str;
+                }
                 return returnname;
             }
 
         }
+
         
         public string ToSQL()
         {

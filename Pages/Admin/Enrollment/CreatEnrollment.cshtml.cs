@@ -16,7 +16,6 @@ namespace ConFriend.Pages
         private readonly ICrudService<User> UserSevice;
         private readonly ICrudService<Event> EventSevice;
 
-
         // private int UId = { get; set; }
 
         //private int EId = { get; set; }
